@@ -48,7 +48,7 @@ fork 本仓库并使用 Pull Request 提交你的资料。除了以下通用规�
 
 ### External Link
 
-- 在对应子目录下 Readme 的 Table of Resources - External Link 部分添加你提供的外链
+- 在对应子目录下的 index.md 中添加你提供的外链
 - 根据对应板块的 Contribution Guide, 在外链说明部分写明要求的信息
 - 如果你的外链是一个 Github Repository, 建议添加 star badge, 便于读者筛选高质量资料
 - 强烈建议不要使用百度网盘作为存储介质
@@ -64,5 +64,5 @@ fork 本仓库并使用 Pull Request 提交你的资料。除了以下通用规�
 - 如果上述类型文件是你要上传资料的不可或缺的一部分，请使用外链的形式提供
 - 如果你要上传的是一个代码项目，我们强烈建议你开启一个单独的 Repository 并提供外链，否则读者可能难以 clone 或 fork 它
 - 在对应子目录下新建一个资料目录，保证所有文件名和目录名中不含 CJK 字符或空格，并遵守子目录 Readme 中的命名规范。将你的文件放入其中
-- 在对应子目录下 Readme 的 Table of Resources - Files 部分添加一个链接，指向你的文件/资料目录
+- 在对应子目录下的 index.md 中添加一个链接，指向你的文件/资料目录
 - 根据对应板块的 Contribution Guide, 在外链说明部分写明要求的信息
