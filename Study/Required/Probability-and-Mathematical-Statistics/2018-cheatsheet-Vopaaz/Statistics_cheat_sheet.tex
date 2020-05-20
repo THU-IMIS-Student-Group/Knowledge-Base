@@ -1,0 +1,2049 @@
+% Cheat sheet for probability theory and mathematical statistics
+% By Vopaaz
+\documentclass{article}
+\usepackage{geometry}
+\geometry{a4paper, top = 0.25 cm, bottom = 0.25 cm, left = 0.2 cm, right = 0.2 cm}
+\usepackage{setspace}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\setenumerate[1]{itemsep=0pt,partopsep=0pt,parsep=\parskip ,topsep=0pt}
+\setitemize[1]{itemsep=0pt,partopsep=0pt,parsep=\parskip ,topsep=0pt}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{framed}
+\usepackage{color}
+\usepackage{minted}
+\usepackage{verbatim}
+\usepackage{multirow}
+\usepackage{fontspec}
+\usepackage[lining]{ebgaramond}
+
+\newfontfamily\minitabOut{Courier New}
+
+%\setmainfont{Calibri Light}
+
+%\setmainfont{Constantia}
+
+\newcommand{\sectionline}{\color{black}\rule[2pt]{0.45\textwidth}{0.05em}\color{black}}
+
+\newcommand{\bigtitle}[1]{
+	\noindent
+	\textbf{#1}
+}
+
+\newcommand{\smalltitle}[1]{
+	\noindent
+	\textbf{\textit{#1}}
+}
+
+\newcommand{\rcode}[1]{
+	\mintinline{R}{#1}
+}
+
+\newcommand{\properframed}[1]{
+	{
+		\centering
+		\vspace{-2 ex}
+		\begin{framed}
+			\vspace{-1.5 ex}
+			#1
+			\vspace{-1.5 ex}
+		\end{framed}
+		\vspace{-2 ex}
+	}
+}
+
+%\usemintedstyle{friendly}
+
+\usemintedstyle{pastie}
+
+\newenvironment{rcodeblock}{% Caution:
+	\vspace{-2ex}
+	\VerbatimEnvironment
+	\begin{minted}[xleftmargin=2em]{R}% Do NOT delete these comment syntax
+	}% Otherwise there will be error when compiling
+	{% NOT FOR JOKE!
+	\end{minted}%
+	\vspace{-2ex}
+}
+
+
+%\renewcommand{\baselinestretch}{1}
+
+\begin{document}
+	\twocolumn
+	
+	
+	
+	\bigtitle{Descriptive Statistics}
+	
+	Uni-modal: one peak; Bi-modal: two peaks; Multi-modal: more than 2 peaks
+	
+	$\star$ Left-skewed: A long \textit{left} tail; 
+	Symmetric
+	
+	Range = max - min
+	
+	
+	
+	Sample variance: $s^2 = \frac{\sum \limits_{i=1}^{n}(x_i-\overline{x})^2}{n-1}=\frac{\sum x_i^2 - \frac{(\sum x_i)^2}{n}}{n-1}$
+	
+	Standard deviation: $s = \sqrt{s^2}$
+	
+	
+	
+	Coefficient of variation: $CV = 100\times\frac{s}{\overline{x}}$
+	
+	\textit{Only have meaning when all the numbers are positive.}
+	
+	Mean absolute deviation: $MAD = \frac{\sum \limits_{i=1}^{n}\left|x_i-\overline{x}\right|}{n}$
+	
+	Standardized variable: $z_i = \frac{x_i-\overline{x}}{s}$
+	
+	\textit{A positive z means the observation is to the right of the mean, at the position of the $z^{th}$ standard deviation.}
+	
+	In the boxplot, $Q3-Q1 = IQR$, if $N - Q_3 > 1.5 \times IQR$ or $Q_1 - N >1.5 \times IQR$ then N is an outlier.
+	
+	Correlation coefficient: $r = \frac{\sum_{i=1}^{n}(x_i-\overline{x})(y_i-\overline{y})}{\sqrt{\sum_{i=1}^{n}(x_i-\overline{x})^2}\sqrt{\sum_{i=1}^{n}(y_i-\overline{y})^2}}$
+	
+	Covariance: $s_{XY} = \frac{\sum_{i=1}^{n}(x_i-\overline{x})(y_i-\overline{y})}{n-1}$
+	
+	Skewness = $\frac{n}{(n-1)(n-2)}\sum \limits_{i=1}^{n}(\frac{x_i-\overline{x}}{s})^3$
+	
+	\textit{Skewness $<$ 0 : Skewed Left; Skewness $>$ 0 : Skewed Right}
+	
+	
+	
+	
+	\bigtitle{Probability}
+	
+	denotation:$P(AB)$ means $P(A\cap B)$
+	
+	$P(A\cup B) = P(A)+P(B)-P(AB)$
+	
+	$P(A\cup B\cup C) = P(A)+P(B)+P(C) - P(AB) - P(AC) - P(BC) + P(ABC)$
+	
+	Mutually Exclusive Events:$A\cup B = \emptyset$, $P(AB) = 0$
+	
+	Collectively exhaustive Events: $A \cup B = U$
+	
+	Conditional Probability: $P(A|B) = \frac{P(AB)}{P(B)}$
+	
+	Law of Total Probability:$P(B) = \sum \limits_{i=1}^{n}P(A_i)P(B|A_i)$
+	
+	\textit{Specially}, $P(B) = P(B|A)P(A)+P(B|\overline{A})P(\overline{A})$
+	
+	Odds in favor of A: $\frac{P(A)}{P(\overline{A})}$
+	, 
+	Odds against A: $\frac{P(\overline{A})}{P(A)}$
+	
+	Bayes Theorem:
+	
+	$P(B|A) = \frac{P(A|B)P(B)}{P(A)} = \frac{P(A|B)P(B)}{P(A|B)P(B)+P(A|\overline{B})p(\overline{B})}$
+	
+	\textit{The second expression is generally more useful}
+	
+	General Form of Bayes' Theorem:
+	
+	$P(B_i|A = \frac{P(A|B_i)P(B_i)}{P(A|B_1)P(B_1)+P(A|B_2)P(B_2)+\cdots+P(A|B_n)P(B_n)})$
+	
+	\sectionline
+	
+	
+	
+	
+	\bigtitle{Discrete probability distribution}
+	
+	\textit{The following $p(x)$ functions are the pmf}
+	
+	CDF: $F(x) = P(X\leq x)=\sum \limits_{y:y\leq x}p(y)$
+	
+	Expected value(mean value): $E(X) = \sum \limits_{x\in D}x \cdot p(x)$
+	
+	\textit{$E(X)$ can also be denoted as $\mu_X$}
+	
+	Expected value of function: $E[h(X)] = \sum_Dh(x)\cdot p(x)$
+	
+	Variance: $V(X) =\sigma_X^2 =  \sum_{D}(x-\mu)^2\cdot p(x) = E(X-\mu)^2$
+	
+	\textit{$\mu$ is the Expected value of X}
+	
+	SD(Standard deviation): $\sigma_X = \sqrt{\sigma_X^2}$
+	
+	Skewness: $\frac{E[(X-\mu)^3]}{\sigma^3} = E[\frac{X-\mu}{\sigma}^3]$
+	
+	mgf (Moment Generating Function): $M_X(t) = E(e^{tX}) = \sum \limits_{x\in D}e^{tx}p(x)$
+	
+	
+	
+	%-----------------------------%
+	
+	
+	\bigtitle{Continuous probability distribution}
+	
+	\textit{The following f(x) are the pdf.}
+	
+	$P(a\leq X\leq b) = \int_{a}^{b} f(x)dx $
+	
+	CDF: $F(x) = P(X\leq x) = \int_{-\infty}^{x}f(y)dy$
+	
+	Expected value: $\mu_X = E(X) = \int_{-\infty}^{\infty} x\cdot f(x)dx$
+	
+	$E(X^2) = \int_{-\infty}^{\infty} x^2 \cdot f(x) dx$
+	
+	$E[h(X)] = \mu_{h(X)} = \int_{-\infty}^{\infty}h(x)\cdot f(x)dx$
+	
+	Variance: $V(X) = \sigma_X^2 = \int_{-\infty}^{\infty} (x-\mu)^2\cdot f(x)dx = E[(x-\mu)^2]$
+	
+	SD(Standard deviation): $\sigma_X = \sqrt{V(x)}$
+	
+	mgf(Moment Generating Function): 
+	
+	$M_X(t) = E(e^{tX}) = \int_{-\infty}^{\infty} e^{tx}f(x)dx$
+	
+	Percentile: $p = F[\eta(p)] = \int_{-\infty}^{\eta(p)}f(y)dy$
+	
+	\textit{$p \in [0,1]$, $\eta(p)$ means the $p^{th}$ percentile, get the number by solving the equation above.}
+	
+	$\tilde{\mu}$ denotes the median, where $F(\tilde{\mu}) = 0.5$ 
+	
+	For n sample observations, the $i^{th}$ smallest observation is the $[100(i-0.5)/n]^{th}$ sample percentile.
+	
+	
+	
+	\smalltitle{Useful mutual shortcut formula:}
+	
+	$E(aX+b) = a\cdot E(X) + b$
+	
+	$V(X) = \sigma_X^2 = E(X^2) - [E(X)]^2$
+	
+	$V(aX+b) = \sigma_{aX+b}^2 = a^2 \cdot \sigma_X^2 = a^2 \cdot V(X)$
+	
+	$\sigma_{aX+b} = \left|a\right| \cdot \sigma_X$
+	
+	$E(X^r) = M_X^{(r)}(0)$, the (r) means r-order derivation.
+	
+	\noindent
+	Let $X$ have mgf $M_X(t)$, let $Y = aX+b$, then $M_Y(t) = e^{bt}M_X(at)$.
+	
+	%----------------------%
+	
+	\bigtitle{Joint probability distribution}
+	
+	
+	\smalltitle{Two discrete variables}
+	
+	pmf: $p(x,y) = P(X=x\; and\; Y=y)$
+	
+	$P[(X,Y)\in A] = \mathop{\sum\sum} \limits_{(x,y)\in A} p(x,y)$
+	
+	marginal pmf:
+	$p_X(x) = \sum \limits_{y}p(x,y) $ ; $ p_Y(y) = \sum \limits_{x}p(x,y)$
+	
+	independence:
+	$p(x,y) = p_X(x)\cdot p_Y(y)$
+	
+	$E[h(X,Y)] = \sum \limits_x\sum \limits_y h(x,y)\cdot p(x,y)$
+	
+	Covariance: $Cov(X,Y) = \sum \limits_{x}\sum \limits_{y}(x-\mu_X)(y-\mu_Y)p(x,y)$
+	
+	Correlation coefficient:
+	
+	$Corr(X,Y) = \rho_{X,Y} = \frac{Cov(X,Y)}{\sigma_X \cdot \sigma_Y} $
+	
+	
+	
+	\smalltitle{Two continuous variables}
+	
+	\textit{The following f(x,y) are pdf.}
+	
+	cdf: $P[(X,Y)\in A] = \iint \limits_{A} f(x,y)dxdy$
+	
+	
+	particularly, if A is a rectangle:
+	
+	\noindent
+	$P[(X,Y)\in A] =P(a\leq X\leq b, c\leq Y\leq d)= \int_{a}^{b}\int_{c}^{d} f(x,y)dxdy$
+	
+	
+	
+	marginal pdf:
+	
+	$f_X(x) = \int_{-\infty}^{\infty} f(x,y)dy$, for $-\infty < x < \infty$
+	
+	
+	
+	$f_Y(y) = \int_{-\infty}^{\infty} f(x,y)dy$, for $-\infty < y < \infty$
+	
+	
+	independence:
+	$f(x,y) = f_X(x)\cdot f_Y(y)$
+	
+	$E[h(X,Y)] = \int_{-\infty}^{\infty}\int_{-\infty}^{\infty}h(x,y)\cdot p(x,y)dxdy$
+	
+	Covariance:
+	
+	$Cov(X,Y) = \int_{-\infty}^{\infty}\int_{-\infty}^{\infty}(x-\mu_X)(y-\mu_Y)f(x,y)dxdy$
+	
+	Correlation coefficient:
+	
+	$Corr(X,Y) = \rho_{X,Y} = \frac{Cov(X,Y)}{\sigma_X \cdot \sigma_Y} $
+	
+	
+	
+	\smalltitle{Mutual properties}
+	
+	$E[h_1(X_1)\cdot h_2(X_2) \cdots h_n(X_n)]$
+	
+	$ = E[h_1(X_1)] \cdot E[h_2(X_2)] \cdots E[h_n(X_n)] $
+	
+	$Cov(X,Y) = E[(X-\mu_X)(Y-\mu_Y)] = E(X\cdot Y)-\mu_X \cdot \mu_Y$
+	
+	$Cov(aX+bY,Z) = a\cdot Cov(X,Z)+b\cdot Cov(Y,Z)$
+	
+	
+	
+	\textit{To compute $\sigma_X$, integrate continuous y from $-\infty$ to $\infty$ or sum all the discrete y up, so that x is the only variable.}
+	
+	\textit{If X and Y are \textbf{independent}, $Cov = \rho = 0$, but $\rho = 0$ does not imply independence. $\rho = \pm 1$ means strictly $Y = aX+b$.}%, where there is actually only one random variable and the other one is redundant.}
+	
+	
+	$Corr(aX+b,cY+d) = Corr(X,Y)$
+	
+	For any X,Y: $-1\leq Corr(X,Y) \leq 1$
+	
+	
+	
+	
+	
+	\smalltitle{Linear combination of random variables}
+	
+	Let $X_1, \cdots, X_n$ and $Y_1,\cdots, Y_m$ be random variables with 
+	
+	\noindent
+	$E(X_i) = \mu_i$ and $E(Y_j) = \xi_j$. Define $U_1 = \sum \limits_{i=1}^{n}a_iX_i$ and $U_2 = \sum \limits_{j=1}^n b_jY_j$ for constants $a_i$ and $b_i$:
+	
+	$E(U_1) = \sum \limits_{i=1}^{n}a_i\mu_i$;
+	
+	If all $X_i$ are independent:
+	$V(U_1) = a_1^2V(X_1) + \cdots + a_n^2V(X_n)$
+	
+	
+	For any $X_i$:
+	$V(U_1) = \sum \limits_{i=1}^n \sum \limits_{j=1}^n a_ia_jcov(X_i,X_j)$
+	
+	$Cov(U_1,U_2)=\sum \limits_{i=1}^{n}\sum \limits_{j=1}^{m}a_ib_jCov(X_i,Y_j)$;
+	
+	
+	%------------------%
+	
+	
+	
+	\bigtitle{Conditional distribution}
+	
+	
+	\textit{The formula for two discrete and two continuous variables are given next to each other in the following text.}
+	
+	
+	Conditional pmf/pdf of Y given X = x:
+	
+	$p_{Y|X}(y|x) = \frac{p(x,y)}{p_X(x)}$; 
+	$f_{Y|X}(y|x) = \frac{f(x,y)}{f_X(x)}$
+	
+	
+	Conditional mean of Y given that X = x:
+	
+	$\mu_{Y|X=x} = E(Y|X=x)=\sum \limits_{y\in D_Y}yp_{Y|X}(y|x)$
+	
+	
+	$\mu_{Y|X=x} = E(Y|X=x)=\int_{-\infty}^{\infty}yf_{Y|X}(y|x)dy$
+	
+	Conditional mean of any function $g(Y)$:
+	
+	
+	$E(g(Y)|X=x)=\sum \limits_{y\in D_Y}g(y)p_{Y|X}(y|x)$
+	
+	
+	$E(g(Y)|X=x)=\int_{-\infty}^{\infty}g(y)f_{Y|X}(y|x)dy$
+	
+	
+	Conditional variance of Y given X = x:
+	
+	$\sigma^2_{Y|X=x} = V(Y|X=x) = E\left\lbrace[Y-E(Y|X=x)]^2|X=x\right\rbrace$
+	
+	$=E(Y^2|X=x)-\mu^2_{Y|X=x}$
+	
+	\noindent
+	$\star$ Key theorems when solving problems:
+	
+	$E(Y) = E[E(Y|X)]$
+	
+	$V(Y) = V[E(Y|X)]+E[V(Y|X)]$
+	
+	%------------------------%
+	
+	
+	
+	
+	\bigtitle{Transformations of a Random Variable}
+	
+	Let X have pdf $f_X(x)$ and let $Y = g(X)$, where g has an inverse function $X = h(Y)$.
+	Then $f_Y(y) = f_X(h(y)) \left|h'(y)\right|$. $h'(y)$ is the derived function.
+	
+	\bigtitle{Transformations of Random Variables}
+	
+	Given two random variables $X_1$ and $X_2$, consider forming two new random variables $Y_1 = u_1(X_1, X_2)$ and $Y_2 = u_2(X_1, X_2)$.
+	Let $f(x_1,x_2)$ and $g(y_1,y_2)$ be their joint pdf.
+	
+	$g(y_1,y_2) = f(x_1,x_2)\cdot \left|\frac{\partial(x_1,x_2)}{\partial(y_1,y_2)}\right|$
+	
+	This can be extended to n variables.
+	
+	\sectionline
+	
+	
+	
+	\bigtitle{Sampling distributions}
+	
+	\textit{$\overline{X}$: the sample mean regarded as a statistic, $\overline{x}$: the calculated value, $S$: the sample standard deviation regarded as a statistic, $s$: the computed value}
+	
+	Let $X_1,\cdots X_n$ be a random sample from a distribution with mean $\mu$ and standard deviation $\sigma$.
+	
+	\textit{This will be called "in general cases" in the following texts.}
+	
+	$E(\overline{X}) = \mu_{\overline{X}} = \mu$; 
+	$V(\overline{X}) = \sigma^2_{\overline{X}} = \sigma^2/n$; 
+	$\sigma_{\overline{X}} = \sigma/\sqrt{n}$
+	
+	$T_0 = X_1 + \cdots + X_n$,
+	$E(T_0) = n\mu$; 
+	$V(T_0) = n\sigma^2$, $\sigma_{T_0} = \sqrt{n}\sigma $
+	
+	\smalltitle{The case of a normal distribution}
+	
+	If $X_1,\cdots X_n$ is a random sample from a normal distribution, then $\overline{X}$ and $T_0$ are normally distributed for any n. Their mean and variance can be seen above.
+	
+	The $ \overline{X}$ and $S^2 $ are independent.
+	
+	\smalltitle{The central limit theorem (CLT)}
+	
+	In general cases, as $n \to \infty$, the standardized versions of $\overline{X}$ and $T_0$ have the standard normal distribution.
+	
+	$\lim \limits_{n \to \infty}P(\frac{\overline{X}-\mu}{\sigma/\sqrt{n}}\leq z) = P(Z\leq z) = \Phi(z)$
+	
+	$\lim \limits_{n \to \infty}P(\frac{T_0-n\mu}{\sqrt{n}\sigma}\leq z) = P(Z\leq z) = \Phi(z)$
+	
+	This can be used only when $n > 30$.
+	
+	\smalltitle{Law of large numbers}
+	
+	In general cases:
+	$E[(\overline{X}-\mu)]^2\to 0$ as $n\to \infty$
+	
+	$P(\left|\overline{X}-\mu\right| \geq \epsilon) \to 0$ as $n \to \infty$ for any $\epsilon > 0$
+	
+	
+	
+	\sectionline
+	
+	\bigtitle{Binomial Distribution}
+	
+	\textit{n: number of trials; $\pi$: probability of success of each trial. X: total number of success}
+	
+	pmf: $P(X=x) = \frac{n!}{x!(n-x)!}\pi^x(1-\pi)^{n-x}$
+	
+	Mean: $n\pi$; 
+	Standard deviation: $\sqrt{n\pi (1-\pi)}$
+	
+	Skewed right: $\pi < 0.5$
+	
+	\bigtitle{Geometric Distribution}
+	
+	
+	\textit{$\pi$: probability of success of each trial. X: this is the first successful trial}
+	
+	\noindent
+	pmf: $P(X=x) = \pi(1-\pi)^{x-1}$; 
+	cdf: $P(X\leq x) = 1-(1-\pi)^{x}$
+	
+	Mean: $\frac{1}{\pi}$; 
+	Standard deviation: $\sqrt{\frac{1-\pi}{\pi^2}}$
+	
+	\bigtitle{Poisson Distribution}
+	
+	\textit{$\lambda$: mean arrivals per unit of time. X: the arrivals per unit of time}
+	
+	pmf:$P(X=x) = \frac{\lambda^xe^{-\lambda}}{x!}$;
+	Mean: $\lambda$; 
+	Standard deviation: $\sqrt{\lambda}$
+	
+	Always skewed right.
+	
+	mgf: $M_X(t) = e^{\lambda(e^t-1)}$
+	
+	
+	
+	\bigtitle{Hypergeometric distribution}
+	
+	\textit{N: population, M: number of success in the population; n: the number in the sample. X: the number of success in the sample}
+	
+	pmf: $P(X=x) = h(x;n,M,N) = \frac{\binom{M}{x}\binom{N-M}{n-x}}{\binom{N}{n}}$
+	
+	Mean: $E(X) = n\cdot \frac{M}{N}$
+	
+	Variance: $V(X) = \left(\frac{N-n}{N-1}\right)\cdot n\cdot \frac{M}{N}\left(1-\frac{M}{N}\right)$
+	
+	\bigtitle{Negative binomial distribution}
+	
+	\textit{p: probability of success of each trial; r: number of successes observed. X: the number of failures before the $r^th$ success}
+	
+	pmf: $nb(x;r,p) = \binom{x+r-1}{r-1}p^r(1-p)^x$
+	
+	mgf: $M_X(t) = \frac{p^r}{[1-e^t(1-p)]^r}$
+	
+	Mean: $E(X) = \frac{r(1-p)}{p}$, 
+	Variance: $\frac{r(1-p)}{p^2}$
+	
+	\sectionline
+	
+	
+	
+	\bigtitle{Uniform Distribution}
+	
+	\textit{a: lower limit b: upper limit}
+	
+	\noindent
+	pdf: $\frac{1}{b-a}$; 
+	cdf: $P(X\leq x) = \frac{x-a}{b-a}$;
+	Mean: $\frac{a+b}{2}$; 
+	Sd: $\sqrt{\frac{(b-a)^2}{12}}$
+	
+	\bigtitle{Normal Distribution}
+	
+	\textit{$\mu$: population mean, $\sigma$: population standard deviation}
+	
+	\noindent
+	pdf: $f(x) = \frac{1}{\sigma \sqrt{2\pi}}e^{-\frac{(x-\mu)^2}{2\sigma^2}}$;
+	%cdf: No analytic solution.
+	Mean: $\mu$; 
+	Standard deviation: $\sigma$
+	
+	\bigtitle{Standard Normal Distribution}
+	
+	\textit{Normalizing process: $Z = \frac{X-\mu}{\sigma}$}
+	
+	pdf: $f(z) = \frac{1}{\sqrt{2\pi}}e^{-\frac{z^2}{2}} $;
+	Mean: 0; 
+	Standard deviation: 1
+	
+	Using $\Phi (z)$ to represent $cdf(Z\leq z)$
+	
+	
+	
+	
+	\smalltitle{Normal Approximations to the Binominal}
+	
+	
+	\textit{X: a binomial distribution, n: number of trials, p: probability of success}
+	
+	$\mu = np$, $\sigma = \sqrt{np(1-p)}$
+	
+	$P(X\leq x) = B(x;n,p) \approx \Phi (\frac{x+0.5-np}{\sqrt{np(1-p)}})$
+	
+	The \textbf{"+0.5"} is called Continuity Correction which \textbf{must} be applied. The approximation can be applied when $np\geq 10$ and $n(1-p)\geq 10$.
+	
+	\smalltitle{Normal Approximations to the Poisson}
+	
+	$\mu = \lambda$, $\sigma = \sqrt{\lambda}$; 
+	$P(X\leq x) \approx \Phi(\frac{x+0.5-\lambda}{\sqrt{\lambda}})$
+	
+	
+	
+	\noindent
+	$\star$ The pdf of the following distribution are all in such form:
+	
+	$
+	f(x;*args) = \left\{ 
+	\begin{aligned}
+	f_0(x; & *args) & , & \: x \in  Domain \\
+	& 0      & , & \: otherwise
+	\end{aligned}
+	\right.
+	$
+	
+	Only $f_0(x;*args)$ will be listed.
+	
+	
+	
+	
+	\bigtitle{Gamma Distribution}
+	
+	\properframed{
+		\textbf{gamma function}:
+		$\Gamma(\alpha) = \int_{0}^{\infty}x^{\alpha-1}e^{-x}dx$
+		
+		\noindent
+		$\Gamma(x+1) = x\Gamma(x)$ ;	 \quad
+		$\Gamma(n) = (n-1)! $ ; \quad
+		$\Gamma(\frac{1}{2}) = \sqrt{\pi}$ ;
+	}
+	
+	pdf: $
+	f(x;\alpha,\beta) = 
+	\frac{1}{\beta ^\alpha \Gamma(\alpha)}  x^{\alpha-1}e^{-x/\beta}  , x > 0 
+	$
+	
+	Mean: $E(X) = \mu = \alpha\beta$; 
+	Variance: $V(X) = \sigma^2 = \alpha\beta^2$
+	
+	
+	Standard gamma distribution: let $\beta = 1$ in the above pdf.
+	
+	cdf - standard gamma distribution: $F(x;\alpha) = \int_{0}^{x} \frac{y^{\alpha - 1}e^{-y}}{\Gamma(\alpha)}dy$
+	
+	cdf - any gamma distribution with parameter $\alpha$ and $\beta$:
+	
+	$P(X\leq x) = F(x;\alpha,\beta) = F(\frac{x}{\beta};\alpha)$
+	
+	
+	
+	\bigtitle{Exponential Distribution}
+	
+	pdf:
+	$
+	f(x;\lambda) = 
+	\lambda e^{-\lambda x} , x\geq 0    
+	$
+	
+	It is a specific gamma distribution where $\alpha = 1$, $\beta = 1/\lambda$.
+	
+	
+	cdf: $P(X\leq x) = 1-e^{-\lambda x}$;
+	
+	Mean: $1/\lambda$; 
+	Standard deviation: $1/\lambda$
+	
+	Exponential Distribution has property of "memoryless".
+	
+	The exponential distribution with mean 2 is $\chi_2^2$.
+	
+	
+	
+	\bigtitle{Chi-Squared Distribution}
+	
+	pdf:$
+	f(x;v) =
+	\frac{1}{2^{v/2}\Gamma(v/2)}x^{(v/2)-1}e^{-x/2}, x\geq 0
+	$
+	
+	It is a specific gamma distribution where $\alpha = v/2$, $\beta = 2$.
+	
+	$v$ is called degrees of freedom (df) of X.
+	
+	\noindent
+	The symbol "$\chi_v^2$" represents chi-squared distribution with $v$ df.
+	
+	
+	
+	
+	Constructing the chi-squared distribution:
+
+	If Z has a standard normal distribution and $ X = Z^2 $, then the pdf of X is chi-squared with 1 df, $X \sim \chi_1^2 $.
+	
+	If $ X_1 \sim \chi_{v_1}^2$, $X_2 \sim \chi_{v_2}^2$ and they are independent, then $X_1 +X_2 \sim \chi_{v_1+v_2}^2$.
+	
+	If $Z_1, \cdots , Z_n$ are independent and each has the standard normal distribution, then $Z_1^2 +\dots + Z_n^2 \sim \chi_n^2$.
+	
+	If $X_1, \cdots , X_n$ are a random sample from a normal distribution， $(n-1)S^2/\sigma^2 \sim \chi_{n-1}^2$.
+	
+	The $\chi_2^2$ is an exponential distribution with mean 2.
+	
+	
+	
+	
+	\bigtitle{Weibull Distribution}
+	
+	pdf:
+	$
+	f(x;\alpha,\beta) = 
+	\frac{\alpha}{\beta}x^{\alpha-1}e^{-(x/\beta)^\alpha}
+	, x\geq 0 
+	$
+	
+	Mean: $\mu = \beta\Gamma(1+\frac{1}{\alpha})$
+	
+	Variance: $\sigma^2 = \beta^2\left\lbrace \Gamma\left( 1+\frac{2}{\alpha}\right)-\left[ \Gamma\left(1+\frac{1}{\alpha}\right)\right] ^2\right\rbrace$
+	
+	cdf:
+	$
+	F(x;\alpha,\beta) = 1-e^{-(x/\beta)^\alpha}
+	, x\geq 0
+	$
+	
+	
+	Weibull distribution can have a third parameter $\gamma$, this equals to $X-\gamma$ having the above-mentioned pdf. So $x-\gamma$ replaces $s$ in the new cdf.
+	
+	\bigtitle{Lognormal Distribution}
+	
+	$X$ is lognormal distributed when $ln(X)$ has a normal distribution, whose mean is $\mu$ and standard deviation is $\sigma$.
+	
+	pdf: $
+	f(x;\mu,\sigma) = \frac{1}{\sqrt{2\pi}\sigma x}e^{-\left[ln(x)-\mu\right]^2/(2\sigma^2)}
+	, x\geq 0
+	$
+	
+	Mean: $ E(X) = e^{\mu + \sigma^2/2}$
+	
+	Variance: $V(X) = e^{2\mu + \sigma^2}\cdot (e^{\sigma^2}-1)$
+	
+	cdf: $F(x;\mu,\sigma) = P(X\leq x) = \Phi\left[\frac{ln(x)-\mu}{\sigma}\right]$
+	
+	
+	\bigtitle{Beta Distribution}
+	
+	
+	pdf:
+	$
+	f(x;\alpha,\beta,A,B) = 
+	\frac{1}{B-A}
+	\cdot \frac{\Gamma(\alpha + \beta)}{\Gamma(\alpha) \cdot \Gamma(\beta)}
+	\left( \frac{x-A}{B-A}\right)^{\alpha-1}
+	\left( \frac{B-x}{B-A}\right)^{\beta -1}
+	$
+	
+	, where $x \in [A,B]$
+	
+	Mean: $\mu = A+(B-A)\cdot \frac{\alpha}{\alpha + \beta}$
+	
+	Variance: $ \sigma^2 = \frac
+	{(B-A)^2\alpha\beta}
+	{(\alpha+\beta)^2(\alpha+\beta+1)}$
+	
+	Standard Beta Distribution: $A = 0$, $B = 1$
+	
+	cdf: Use the general integration method. 
+	
+	$\star$ Remember that the lower bound is $A$.
+	
+	\sectionline
+	
+	\bigtitle{Multinormal distribution}
+	
+	\textit{n: number of trials, r: number of possible outcomes, $p_i$: possibility of outcome being i in a trial. $X_i$: the number of trials resulting the $i^{th}$ outcome ($i\in [0,r]$)}
+	
+	\textit{$\star$ The binomial distribution is  a specific case when n = n, r = 2, $X_1$ = failure(0), $X_2$ = success(1).}
+	
+	$p(x_1,\cdots,x_r) = \frac{n!}{(x_1!)(x_2!)\cdots(x_r!)}p_1^{x_1}\cdots p_r^{x_r},\:x_i = 0,1,2\cdots$,
+	with $x_1+\cdots+x_r = n$
+	
+	
+	\bigtitle{Bivariate normal distribution}
+	
+	pdf: 
+	$f(x,y) = \frac{1}{2\pi\sigma_1\sigma_2\sqrt{1-\rho^2}}e^{\Delta}$, where $\Delta = $
+	
+	$-\left\lbrace[(x-\mu_1)/\sigma_1]^2-\frac{2\rho(x-\mu_1)(y-\mu_2)}{\sigma_1\sigma_2}+[\frac{(y-\mu_2)}{\sigma_2}]^2\right\rbrace/[2(1-\rho^2)]$
+	
+	\textit{$\mu_1,\sigma_1$ and $\mu_2,\sigma_2$: mean and standard deviation of X and Y; $\rho$: the correlation between X and Y.}
+	
+	Conditional mean:
+	$\mu_{Y|X=x} = E(Y|X=x) = \mu_2 + \rho\sigma_2\frac{x-\mu_1}{\sigma_1}$
+	
+	Conditional variance:
+	$\sigma^2_{Y|X=x} = V(Y|X=x) = \sigma_2^2(1-\rho^2)$
+	
+	\sectionline
+	
+	\textit{Chi-squared Distribution is also a part of this section.}
+	
+	\bigtitle{t Distribution}
+	
+	Let Z be a standard normal rv and let X be a $\chi^2_v$ rv independent of Z. The t distribution with df v is:
+	$T=\frac{Z}{\sqrt{X/v}}$
+	
+	
+	If $X_1,\cdots , X_n$ is a random sample from a normal distribution $N(\mu,\sigma^2)$, then 
+	$T = \frac{\overline{X}-\mu}{S/\sqrt{n}}$ has the t distribution with $(n-1)$ df.
+	
+	pdf:
+	$f(t) = \frac{1}{\sqrt{\pi}v} \frac{\Gamma[(v+1)/2]}{\Gamma(v/2)}\frac{1}{(1+t^2/v)^{(v+1)/2}}, t\in R$
+	
+	\bigtitle{Cauchy Distribution}
+	
+	t distribution with 1 df, 
+	pdf: $\frac{1}{\pi (1+t^2)}$
+	
+	
+	\bigtitle{F distribution}
+	
+	Let $ X_1 $ and $ X_2 $ be independent chi-squared random variables with $ v_1 $ and $ v_2 $ df. The F distribution with $v_1$ numerator df and $v_2$ denominator df is:
+	$F = \frac{X_1/v_1}{X_2/v_2}$
+	
+	
+	
+	
+	
+	\sectionline
+	
+	\bigtitle{R Language}
+	
+
+	
+	\smalltitle{Basic calculation}
+	
+	\rcode{(7 * 3) + 12 / 2 - 7 ^ 2 + sqrt(4)}
+	
+	\rcode{log(3) + sqrt(2) * sin(pi) - exp(3)}
+	
+	\smalltitle{Creating vector}
+	
+	
+	\rcode{c(1,2,3,4,5)}, out: \rcode{1 2 3 4 5}
+	
+	\rcode{24:20}, out: \rcode{24 23 22 21 20}
+	
+	\rcode{seq(from = 5, to = 25, by = 5)}
+	
+	\rcode{seq(from = 5, by = 3, length.out = 6)}
+	
+	out: \rcode{5 8 11 14 17 20}
+	
+	\rcode{rep(x=5, times = 10)}
+	
+	\rcode{rep(x=1:5, length.out = 15)}
+	
+	out: \rcode{1 2 3 4 5 1 2 3 4 5 1 2 3 4 5}
+	
+	\rcode{rep(x=1:3, times = 3:1)}
+	
+	out: \rcode{1 1 1 2 2 3}
+	
+	\rcode{vec <- c(1,2,3,14,15)}
+	
+	\rcode{vec[ c(1,4) ]}, out: \rcode{1 14}
+	
+	\smalltitle{More about vectors}
+	
+	Boolean calculation of vectors:
+	
+	\rcode{x <- 5; y <- c(3,5,7)}
+	
+	\rcode{y <= x}, out:\rcode{TRUE TRUE FALSE}
+	
+	Assuming X and Y are two vectors with the same length:
+	
+	\rcode{X & Y, X | Y, X == Y, X != Y} each produces a vector by comparing each of the elements in X and Y.
+	
+	\rcode{X && Y, X || Y} produce a single answer by looking at the first element of X and Y.
+	
+	\smalltitle{Loop and If}
+	
+	\begin{rcodeblock}
+#Ignoring indent so as to save space!
+for(i in c(10,20,30)){if(i == 20){a <- i + a}}
+while(i < 10){i <- i + 1}
+	\end{rcodeblock}
+	
+	\smalltitle{R code in Homework}
+	
+	\noindent
+	Stem-leaf graph:
+	\begin{rcodeblock}
+library(aplpack)
+stem.leaf.backback(vec1,vec2, m=1,depths = FALSE)
+	\end{rcodeblock}
+	
+	\noindent
+	Frequency distribution table:
+	\begin{rcodeblock}
+transform(table(cut(vec, breaks)))
+	\end{rcodeblock}
+	
+	\noindent
+	Histogram:
+	\rcode{
+hist(vec, breaks = breaks)
+	}
+	
+	\noindent
+	The proportion of elements in the sample are less than 100:
+	\begin{rcodeblock}
+length(vec[vec < 100]) / length(vec)
+\end{rcodeblock}
+	
+	\noindent
+	The sample median, 10\% trimmed mean, and sample mean:
+	\begin{rcodeblock}
+median(vec); mean(vec, trim = 0.1); mean(vec)
+	\end{rcodeblock}
+	
+	\noindent
+	Sum of the elements, sum of the square of the elements, sample variance and the standard deviation:
+	\begin{rcodeblock}
+sum(vec); sum(vec^2); var(vec); sd(vec)
+	\end{rcodeblock}
+	
+	\noindent
+	Upper and lower fourth:
+	
+	\rcode{quantile(vec, 0.75); quantile(vec, 0.25)}
+	
+	\noindent
+	Sorting: \rcode{sort(vec, decreasing = TRUE)}
+	
+	\noindent
+	Boxplot:\rcode{boxplot(vec1,vec2,names=c("Name1","Name2"))}
+	
+	\noindent
+	Normal probability plot + line: \rcode{qqnorm(vec); qqline(vec)}
+	
+	\smalltitle{R normal distribution}
+	
+	\rcode{dnorm(vec,mean_,sd)} returns the vector pdf value of the input vector.
+	
+	\rcode{pnorm(vec,mean_,sd)} returns the cdf.
+	
+	\rcode{qnorm(vec,mean_,sd)} returns the inverse function of cdf.
+	
+	\rcode{rnorm(n,mean_,sd)} gives n random samples from normal distribution.
+	
+	\smalltitle{R binomial distribution}
+	
+	\begin{rcodeblock}
+dbinorm(vec,size,prob); pbinorm(vec,size,prob)
+qbinorm(vec,size,prob); rbinorm(n,size,prob)
+	\end{rcodeblock}
+	
+	
+	
+	
+	\sectionline
+	
+	\bigtitle{Point Estimation}
+	
+	point estimator of $\theta$ : $\hat{\theta}$
+	
+	Consistency: A consistent estimator converge toward the parameter being estimated as the sample size increases.
+	
+	Bias of $\hat{\theta}$: $E(\hat{\theta})-\theta$; 
+	Unbiased: $E(\overline{X})=\mu$
+	
+	Mean square error (MSE) of an estimator $\hat{\theta}$:
+	$E[(\hat{\theta}-\theta)^2]$
+	
+	$MSE = V(\hat{\theta})+[E(\hat{\theta})-\theta]^2$ = variance of estimator + bias$^2$
+	
+	Unbiased estimator of $\theta$: $E(\hat{\theta}) = \theta$
+	
+	Efficiency: a more efficient estimator has smaller variance
+	
+	Minimum variance unbiased estimator (MVUE): the one unbiased estimator of $\theta$ that has minimum variance
+	
+	Let $X_1,\cdots,X_n$ be a random sample from a $\mathcal{N} (\mu, \sigma)$, the estimator $\hat{\mu} = \overline{X}$ is the MVUE for $\mu$
+	
+	Standard error of the estimator $\hat{\theta}$: $\sigma_{\hat{\theta}} = \sqrt{V(\hat{\theta})}$
+	
+	Estimated standard error: $\hat{\sigma}_{\hat{\theta}}$ or $s_{\hat{\theta}}$
+	
+	
+
+	\bigtitle{The Bootstrap}
+	
+	The population pdf is $f(x;\theta)$, and data $x_1,\cdots,x_n$ gives $\hat{\theta} = \hat{\theta}_0$. 
+	Obtain "bootstrap samples" from $f (x;\hat{\theta}_0)$, and for each sample, calculate a "bootstrap estimate" $\hat{\theta}_1^*,\cdots,\hat{\theta}_B^*$.
+	Let $\overline{\theta}^* = \sum \hat{\theta}_i^*/B$.
+	
+	The Bootstrap estimate of $\hat{\theta}$'s standard error is:
+	
+	$S_{\hat{\theta}} = \sqrt{\frac{1}{B-1}\sum(\hat{\theta}_i^*-\overline{\theta}^*)^2}$
+	
+	
+	
+	\bigtitle{The Method of Moments}
+	
+	Let $X_1,\cdots, X_n$ be a random sample from $f(x)$.
+	The $k^{th}$ population moment, or $k^{th}$ moment of the distribution $f(x)$, is $E(X^k)$.
+	The $k^{th}$ sample moment is $\frac{1}{n}\sum _{i=1}^n X_i^k$.
+	
+	
+	Let $X_1,\cdots, X_n$ be random sample from distribution with 
+	
+	\noindent
+	$ f(x; \theta_1,\cdots, \theta_m) $, where $ \theta_i $ are unknown.
+	Then the moment estimators $ \theta_1,\cdots, \theta_m $ are obtained by equating the first \textit{m} sample moments to the corresponding first \textit{m} population moments and solving for $ \theta_1,\cdots, \theta_m $.
+	
+	\bigtitle{Maximum Likelihood Estimation}
+	
+	Let $X_1,\cdots, X_n$ have joint pmf/pdf 
+	$f(x_1, \cdots, x_n; \theta_1, \cdots, \theta_m)$,
+	where the parameters $ \theta_1, \cdots, \theta_m $ have unknown values. When $ x_i $ are the observed sample values and the equation is regarded as a function of $ \theta_i $, it is called the likelihood function. 
+	
+	The maximum likelihood estimates $ \hat{\theta}_1,\cdots,\hat{\theta}_m  $
+	are those values of the $ \theta_i $s that maximize the likelihood function:
+	
+	\noindent
+	$f(x_1, \cdots, x_n; \hat{\theta_1}, \cdots, \hat{\theta_m}) \geq f(x_1, \cdots, x_n; \theta_1, \cdots, \theta_m)$ for any $\theta_i$
+	
+	When the $X_i$ are substituted in place of the $x_i$, the maximum likelihood estimators (mle's) result.
+	
+	A common method is to take "$\ln$" against the original likelihood function and let its derivatives against the estimator be 0.
+	
+	\smalltitle{Some properties of MLEs}
+	
+	\noindent
+	- The Invariance Principle
+	
+	Let $ \hat{\theta}_1,\cdots,\hat{\theta}_m $ be the mle's of the parameters $ \theta_1, \cdots, \theta_m $. Then the mle
+	of any function $ h( \theta_1, \cdots, \theta_m ) $ of these parameters is the function $ h(\hat{\theta_1}, \cdots, \hat{\theta_m}) $.
+	
+	\noindent
+	- Large Sample Behavior of the MLE
+	
+	$\hat{\theta}$ is approximately the MVUE of $\theta$.
+	
+	\noindent
+	- Large Sample Properties of the MLE:
+	
+	Given a random sample $X_1,\cdots,X_n$ from $f(x;\theta)$, assume that the set of possible x values does not depend on $\theta$. Then for large n the MLE $\hat{\theta}$ has approximately a normal distribution with mean $\theta$ and variance $1/[nI(\theta)]$. The limiting distribution of $\sqrt{n}(\hat{\theta}-\theta)$ is normal with mean 0 and variance $1/I(\theta)$.
+	
+	\bigtitle{Information and Efficiency}
+	
+	Fisher information in a single observation from $f(x;\theta)$:
+	
+	$I(\theta) = V\left[\frac{\partial}{\partial\theta}ln(f(X;\theta))\right] = -E\left[\frac{\partial^2}{\partial\theta^2}ln(f(X;\theta))\right]$
+	
+	Fisher information in a random sample $X_1,\cdots, X_n$ with $f(x;\theta)$:
+	
+	
+	$
+	\begin{aligned}
+	I_n(\theta) & = V\left[\frac{\partial}{\partial\theta}lnf(X_1;\theta)+\cdots+\frac{\partial}{\partial\theta}lnf(X_n;\theta)\right] \\
+	& = nV\left[\frac{\partial}{\partial\theta}lnf(X_1;\theta)\right] = nI(\theta)
+	\end{aligned}$
+	
+	Cram\'{e}r-Rao Inequality:
+	
+	Assume a random sample $X_1,\cdots,X_n$ from $f(x;\theta)$ such that the set of possible values does not depend on $\theta$. If the statistic $T = t(X_1,\cdots,X_n)$ is an unbiased estimator for the parameter $\theta$, then:
+	
+	$V(T)\geq \frac{1}{V \lbrace \frac{\partial}{\partial\theta}\left[lnf(X_1,\cdots,X_n;\theta)\right] \rbrace } = \frac{1}{nI(\theta)} = \frac{1}{I_n(\theta)}$
+	
+	Let T be an unbiased estimator of $\theta$.
+	
+	Efficiency: the ratio of the lower bound of Cram\'{e}r-Rao Inequality to the variance of T.
+	
+	T is an efficient estimator if T achieves the Cram\'{e}r-Rao lower bound (the efficiency is 1). And it is a MVUE. 
+	
+	\sectionline
+	
+	\bigtitle{Statistical Intervals Based on a Single Sample}
+	
+	The following CI means confident interval.
+	
+	\smalltitle{CI (Confidence Interval) for normal distribution}
+	
+	A 100(1-$\alpha$)\% CI for the mean $\mu$ of a normal population where $\sigma$ is known is:
+	$\left(\overline{x}-z_{\alpha/2} \cdot \frac{\sigma}{\sqrt{n}}, \: \overline{x}+z_{\alpha/2}\cdot \frac{\sigma}{\sqrt{n}} \right)$
+	
+	Sample size $n$ necessary to ensure an interval width $w$ is $n=(2z_{\alpha/2}\cdot \frac{\sigma}{w})^2$. 
+	
+	\properframed{
+		The above $z_{\alpha/2} = - \Phi^{-1}(\alpha/2) = \Phi^{-1}(1-\alpha / 2)$, meaning the area under the curve to the right of $z_{\alpha/2}$ is $\alpha/2$
+	}
+	
+	\smalltitle{A large-sample asymptotic interval for $\mu$}
+	
+	A large sample CI for $\mu$ with confidence level approximately $100(1-\alpha)\%$ is $\overline { x } \pm z _ { \alpha / 2 } \cdot \frac { s } { \sqrt { n } }$, regardless of the shape of the population distribution. Can be applied when $n>40$.
+	
+	\smalltitle{A general large-sample CI}
+	
+	Suppose that $\hat{\theta}$ is an estimator who has approximately a normal distribution, an available expression for $\sigma_{\hat{\theta}}$ and is unbiased. 
+	
+	Then $P \left( - z _ { \alpha / 2 } < \frac { \hat { \theta } - \theta } { \sigma _ { \hat { \theta } } } < z _ { \alpha / 2 } \right) \approx 1 - \alpha$.
+	
+	\smalltitle{Large-sample Score CI for Proportion [Recommended]}
+	
+	Let p denote the proportion of "successes" in a population. X is the number of successes in the sample. X can be regarded as a binomial rv with E(X) = np and $\sigma_x = \sqrt{np(1-p)}$.
+	
+	Let $\tilde { p } = \frac { \hat { p } + z _ { \alpha / 2 } ^ { 2 } / 2 n } { 1 + z _ { \alpha / 2 } ^ { 2 } / n }$. Then a CI for a population proportion p with confidence level approximately $100(1-\alpha)\%$ is \\
+	$\tilde { p } \pm z _ { \alpha / 2 } \frac { \sqrt { \hat { p } \hat { q } / n + z _ { \alpha / 2 } ^ { 2 } / 4 n ^ { 2 } } } { 1 + z _ { \alpha / 2 } ^ { 2 } / n }$ where $\hat{ q } = 1 - \hat{ p }$. This is often referred to as the "score CI" for p.
+	
+	If an upper/lower bound is needed, replace all the $z_{\alpha/2}$ with $z_{\alpha}$ and choose the +/- sign.
+	
+	
+	Sample size n necessary to give interval - width $w$ is \\
+	$n = \frac { 2 z ^ { 2 } \hat { p } \hat { q } - z ^ { 2 } w ^ { 2 } \pm \sqrt { 4 z ^ { 4 } \hat { p } \hat { q } \left( \hat { p } \hat { q } - w ^ { 2 } \right) + w ^ { 2 } z ^ { 4 } } } { w ^ { 2 } }$, approximately $n = \frac { 4 z_{\alpha/2} ^ { 2 } \hat { p } \hat { q } } { w ^ { 2 } }$
+	
+	\smalltitle{Simpler Traditional CI for a proportion}
+	
+	\noindent
+	If $n$ is large, then the score CI is approximately $\hat { p } \pm z _ { \alpha / 2 } \sqrt { \hat { p } \hat { q } / n }$
+	
+	\smalltitle{One-sided Large-sample Confidence Bound}
+	
+	\noindent
+	Confidence level of the following intervals is about $100(1-\alpha)\%$
+	
+	\noindent
+	Large-sample upper/lower confidence bound for $\mu$: $\overline { x } \pm z _ { \alpha } \cdot \frac { s } { \sqrt { n } }$
+	
+	
+	\smalltitle{Intervals Based on a Normal Population Distribution}
+	
+	\properframed{
+		\noindent
+		Let $t_{\alpha,v}$ = the number on the x-axis for which the area under the t curve with v df to the right of $t_{\alpha,v}$ is $\alpha$. 
+		
+		It is called "t critical value".
+	}
+	
+	Let $\overline{ x }$ and s be the sample mean and sd computed from the results of a random sample from a normal population with mean $\mu$. Then a $100(1-\alpha)\%$ CI for $\mu$, the one-sample t CI,is
+	
+	$\left( \overline { x } - t _ { \alpha / 2 , n - 1 } \cdot \frac { s } { \sqrt { n } } ,\: \overline { x } + t _ { \alpha / 2 , n - 1 } \cdot \frac { s } { \sqrt { n } } \right)$.
+	
+	The upper/lower confidence bound for $\mu$ : $\overline { x } \pm t _ { \alpha , n - 1 } \cdot \frac { s } { \sqrt { n } }$ 
+	
+	
+	A $100(1-\alpha)\%$ CI for the variance $\sigma^2$ of a normal population has lower limit $( n - 1 ) s ^ { 2 } / \chi _ { \alpha / 2 , n - 1 } ^ { 2 }$ and upper limit $( n - 1 ) s ^ { 2 } / \chi _ { 1 - \alpha / 2 , n - 1 } ^ { 2 }$. %A CI for $\sigma$ has lower and upper limits that are simply the sqrt.
+	
+	
+	\smalltitle{Prediction Interval for a Single Future Value}
+	
+	A prediction interval for a single observation to be selected from a normal population distribution is $\overline { x } \pm t _ { \alpha / 2 , n - 1 } \cdot s \sqrt { 1 + \frac { 1 } { n } }$. The prediction level is $100(1-\alpha)\%$
+	
+	
+	
+	\smalltitle{Bootstrap Percentile Interval}
+	
+	The bootstrap percentile interval with a confidence level of $100(1-\alpha)\%$ for a specified parameter is obtained by:
+	
+	-Generate B bootstrap samples, for each calculate particular statistics that estimates the parameter and sort them ascending.
+	
+	-Compute $k=\alpha(B+1)/2$ and choose the $k^{th}$  value from each end of the sorted list. The two values are the confidence limits.
+	
+	
+	
+	\sectionline
+	
+	\bigtitle{One-sample Hypothesis tests}
+	
+	$H_0$: null hypothesis, initially assumed to be true.
+	
+	$H_a$: alternative hypothesis, in contradiction to $H_0$.
+	
+	The test procedure is specified by 1) test statistic 2) rejection region. $H_0$ will be rejected iff. 1) falls in 2).
+	
+	Type I error: rejecting $H_0$ when it's true. Probability: $\alpha$, the integration of the rejection region.
+	
+	
+	Type II error: accepting $H_0$ when it's false. Probability: $\beta$
+	
+	Power: $1-\beta$
+	
+	
+	\smalltitle{Normal Population with Known $\sigma$}
+	
+	$H_0$: $\mu = \mu_0$; Test statistic: $ z = \frac { \overline { x } - \mu _ { 0 } } { \sigma / \sqrt { n } }$. Let 
+	$\Delta = \frac { \mu _ { 0 } - \mu ^ { \prime } } { \sigma / \sqrt { n } }$
+	
+	\centerline{
+		$
+		\begin{array}{ccc}
+		H_a            &               \text{Rejection Region}               &                                                    \beta                                                     \\
+		{  \mu > \mu _ { 0 } }   &                   z \geq z_\alpha                   &    \Phi \left( z _ { \alpha } + \frac { \mu _ { 0 } - \mu ^ { \prime } } { \sigma / \sqrt { n } } \right)    \\
+		{  \mu < \mu _ { 0 } }   &                  z \leq -z_\alpha                   & 1 - \Phi \left( - z _ { \alpha } + \frac { \mu _ { 0 } - \mu ^ { \prime } } { \sigma / \sqrt { n } } \right) \\
+		{  \mu \neq \mu _ { 0 } } & z \geq z_{\alpha/2}  \text{ or } z\leq-z_{\alpha/2} &     \Phi \left( z _ { \alpha / 2 } + \Delta \right) - \Phi \left( - z _ { \alpha / 2 } + \Delta \right)
+		\end{array}
+		$
+	}
+	
+	
+	Sample size $n$ for which a level $\alpha$ test has some $\beta$ at alternative value $\mu'$ is $\left[ \frac { \sigma \left( z _ { \alpha } + z _ { \beta } \right) } { \mu _ { 0 } - \mu ^ { \prime } } \right] ^ { 2 }$ for one tail, $\left[ \frac { \sigma \left( z _ { \alpha / 2 } + z _ { \beta } \right) } { \mu _ { 0 } - \mu ^ { \prime } } \right] ^ { 2 }$ for two tails.
+	
+	
+	
+	
+	\smalltitle{Large-Sample Tests}
+	
+	\noindent
+	Replacing $\sigma$ with $s$ in normal population test when making $z$.
+	
+	\smalltitle{Normal Population with UNKNOWN $\sigma$}
+	
+	$H_0$: $\mu = \mu_{ 0 }$; Test statistic: $t = \frac { \overline { x } - \mu _ { 0 } } { s / \sqrt { n } }$; $H_a$ and rej. region:
+	
+	$
+	{  \mu > \mu _ { 0 } } : { t \geq t _ { \alpha , n - 1 }  }   ;         \quad                  
+	{  \mu < \mu _ { 0 } }  : { t \leq - t _ { \alpha , n - 1 }  }            
+	$
+	
+	$
+	{  \mu \neq \mu _ { 0 } }  : {  t \geq t _ { \alpha / 2 , n - 1 } \text{ or } t \leq - t _ { \alpha / 2 , n - 1 }  }
+	$
+	
+	
+	\smalltitle{Large-Sample tests concerning population proportion}
+	
+	"Large" when $np_0 \geq 10$ and $n(1-p_0)\geq 10$.
+	
+	$H_0$: $p=p_0$; Test statistic: $z = \frac { \hat { p } - p _ { 0 } } { \sqrt { p _ { 0 } \left( 1 - p _ { 0 } \right) / n } }$, rejection region:
+	
+	$
+	{ p > p _ { 0 } } : z \geq z_\alpha ;\quad
+	{ p < p _ { 0 } } : z \leq -z_\alpha 
+	$
+	
+	$
+	{ p \neq p _ { 0 } } : z \geq z_{\alpha/2} \text{ or } z\leq-z_{\alpha/2}
+	$
+	
+	The $\beta$ value for two-tailed test:
+	
+	$\Phi \left[ \frac { p _ { 0 } - p ^ { \prime } + z _ { \alpha / 2 } \sqrt { p _ { 0 } \left( 1 - p _ { 0 } \right) / n } } { \sqrt { p ^ { \prime } \left( 1 - p ^ { \prime } \right) / n } } \right] - \Phi \left[ \frac { p _ { 0 } - p ^ { \prime } - z _ { \alpha / 2 } \sqrt { p _ { 0 } \left( 1 - p _ { 0 } \right) / n } } { \sqrt { p ^ { \prime } \left( 1 - p ^ { \prime } \right) / n } } \right]$
+	
+	for $H_a: p>p_0$ and $H_a: p < p_0$, accordingly:
+	
+	$\Phi \left[ \frac { p _ { 0 } - p ^ { \prime } + z _ { \alpha } \sqrt { p _ { 0 } \left( 1 - p _ { 0 } \right) / n } } { \sqrt { p ^ { \prime } \left( 1 - p ^ { \prime } \right) / n } } \right]$, and $1 - \Phi \left[ \frac { p _ { 0 } - p ^ { \prime } - z _ { \alpha } \sqrt { p _ { 0 } \left( 1 - p _ { 0 } \right) / n } } { \sqrt { p ^ { \prime } \left( 1 - p ^ { \prime } \right) / n } } \right]$
+	
+	Sample size $n$ for which the level $\alpha$ test satisfies some $\beta$ is:
+	\\
+	one tail: $\left[ \frac { z _ { \alpha } \sqrt { p _ { 0 } \left( 1 - p _ { 0 } \right) } + z _ { \beta } \sqrt { p ^ { \prime } \left( 1 - p ^ { \prime } \right) } } { p ^ { \prime } - p _ { 0 } } \right] ^ { 2 }$, two tails: replace $\alpha$ with $\alpha/2$
+	
+	\smalltitle{Small-Sample tests concerning population proportion}
+	
+	When the samples are based directly on the binomial distribution.
+	
+	$H_0$: $p=p_0$; $H_a: p>p_0$.
+	
+	Test statistic: $X$, number of successes in the sample.
+	
+	The upper-tailed rejection region is $x\geq c$, where $c$ is the largest number satisfying $B(c;n,p_0)\neq \alpha$.
+	
+	$
+	P(\text{type I error}) = 1-B(c-1; n , p_0)
+	$
+	
+	$\beta(p') = P(\text{type II error when } p = p') = B(c-1;n,p')$
+	
+	\bigtitle{P-values}
+	
+	P-value is a probability calculated assuming that the null hypothesis is true.
+	
+	To determine it, first decide which values of the test statistic are at least contradicting $H_0$.
+	
+	\noindent
+	P-value is the smallest significance level $\alpha$ where $H_0$ can be rejected. Also referred to as the observed significance level (OSL).
+	
+	\properframed{
+		
+		Reject $H_0$ if $p\leq \alpha$, accept if $p > \alpha$.
+		
+		\noindent
+		{\Large
+			\color{red}
+			Test something, something is $H_a$
+			\color{black}
+		}
+		
+	}
+	
+	\smalltitle{For z tests}
+	
+	$p = \left\{ \begin{array}
+	{ cc } { 1 - \Phi ( z ) }   & { \text { for an upper-tailed test } } \\
+	{ \Phi ( z ) }               & { \text { for a lower-tailed test } }  \\
+	{ 2 [ 1 - \Phi ( | z | ) ] } & { \text { for a two-tailed test } }
+	\end{array} \right.$
+	
+	\smalltitle{For t tests}
+	
+	Respectively, $t_{p,n-1} = \text{ calculated } t$ ; 
+	$t_{1-p,n-1} = \text{ calculated } t$ ; 
+	$t_{p/2,n-1} = \text{ calculated } t$ and solve for p.
+	
+	\bigtitle{Two sample hypothesis tests}
+	
+	$X_1, \cdots, X_m$ is a random sample from a population with mean $\mu_1$ and variance $\sigma_1^2$. $Y_i$ is similar, with $\mu_2$ and $\sigma_2^2$. $X$ and $Y$ are independent.
+	$E(\overline{ X }-\overline{Y}) = \mu_1-\mu_2$,
+	$\sigma _ { \overline { X } - \overline { Y } } = \sqrt { \frac { \sigma _ { 1 } ^ { 2 } } { m } + \frac { \sigma _ { 2 } ^ { 2 } } { n } }$
+	
+	\smalltitle{Normal populations with known variances}
+	
+	$H_0: \mu_1-\mu_2 = \Delta_0$. Test statistic: $z = \frac { \overline { x } - \overline { y } - \Delta _ { 0 } } { \sqrt { \frac { \sigma _ { 1 } ^ { 2 } } { m } + \frac { \sigma _ { 2 } ^ { 2 } } { n } } }$
+	
+	$
+	{\mu_1 - \mu_2 > \Delta_0} : {z\geq z_\alpha} ;\quad
+	{\mu_1 - \mu_2 < \Delta_0} : {z\leq -z_\alpha} 
+	$
+	
+	$
+	{\mu_1 - \mu_2 \neq \Delta_0} : { z\geq z_{\alpha/2} \text{ or } z\leq -z_{\alpha/2} }
+	$
+	
+	p value is the same as the last part.
+	
+	The $\beta$ for two-tailed test:
+	
+	$\Phi \left( z _ { \alpha / 2 } - \frac { \Delta ^ { \prime } - \Delta _ { 0 } } { \sigma } \right) - \Phi \left( - z _ { \alpha / 2 } - \frac { \Delta ^ { \prime } - \Delta _ { 0 } } { \sigma } \right)$
+	
+	for $H_a: \mu_1 - \mu_2 > \Delta_0$ and $H_a: \mu_1 - \mu_2 < \Delta_0$, correspondingly:
+	
+	$\Phi \left( z _ { \alpha } - \frac { \Delta ^ { \prime } - \Delta _ { 0 } } { \sigma } \right)$ and $1 - \Phi \left( - z _ { \alpha } - \frac { \Delta ^ { \prime } - \Delta _ { 0 } } { \sigma } \right)$
+	
+	where real $\mu_1 - \mu_2 = \Delta'$, $\sigma = \sigma _ { \overline { X } - \overline { Y } } = \sqrt { \left( \sigma _ { 1 } ^ { 2 } / m \right) + \left( \sigma _ { 2 } ^ { 2 } / n \right) }$
+	
+	Sample size $m$ and $n$ needed is the value satisfying:
+	
+	$\frac { \sigma _ { 1 } ^ { 2 } } { m } + \frac { \sigma _ { 2 } ^ { 2 } } { n } = \frac { \left( \Delta ^ { \prime } - \Delta _ { 0 } \right) ^ { 2 } } { \left( z _ { \alpha } + z _ { \beta } \right) ^ { 2 } }$,
+	when $m=n$, $m = n = \frac { \left( \sigma _ { 1 } ^ { 2 } + \sigma _ { 2 } ^ { 2 } \right) \left( z _ { \alpha } + z _ { \beta } \right) ^ { 2 } } { \left( \Delta ^ { \prime } - \Delta _ { 0 } \right) ^ { 2 } }$.
+	
+	\noindent
+	That's for one-tailed test, replacing $\alpha$ with $\alpha/2$ for two-tailed test.
+	
+	\smalltitle{Large sample tests with UNKNOWN variances}
+	
+	Replace $\sigma_{ 1 }, \sigma_{ 2 }$ with $s_1,s_2$ in the formula above when $m,n > 40$.
+	
+	CI for $\mu_1 - \mu_2$ with a confidence level of about $100(1-\alpha)\%$:
+	
+	$\overline { x } - \overline { y } \pm z _ { \alpha / 2 } \sqrt { \frac { s _ { 1 } ^ { 2 } } { m } + \frac { s _ { 2 } ^ { 2 } } { n } }$
+	
+	This is for two-tailed. For one-tailed CI, replacing $z_{\alpha/2}$ with $z_\alpha$ and choose the appropriate sign.
+	Sample size needed for a $100(1-\alpha)\%$ CI of width $w$ is $n = \frac { 4 z _ { \alpha / 2 } ^ { 2 } \left( \sigma _ { 1 } ^ { 2 } + \sigma _ { 2 } ^ { 2 } \right) } { w ^ { 2 } }$
+	
+	\smalltitle{Small sample tests}
+	
+	t CI for $\mu_1-\mu_2$ with confidence level $100(1-\alpha)\%$ is:
+	
+	$\overline { x } - \overline { y } \pm t _ { \alpha / 2 , v } \sqrt { \frac { s _ { 1 } ^ { 2 } } { m } + \frac { s _ { 2 } ^ { 2 } } { n } }$, where 
+	$v = \left\lfloor \frac { \left( \frac { s _ { 1 } ^ { 2 } } { m } + \frac { s _ { 2 } ^ { 2 } } { n } \right) ^ { 2 } } { \frac { \left( s _ { 1 } ^ { 2 } / m \right) ^ { 2 } } { m - 1 } + \frac { \left( s _ { 2 } ^ { 2 } / n \right) ^ { 2 } } { n - 1 } } \right\rfloor$
+	
+	two-sample t test:
+	
+	$H_0$: $\mu_1-\mu_2 = \Delta_0$, Test statistic: $t = \frac { \overline { x } - \overline { y } - \Delta _ { 0 } } { \sqrt { \frac { s _ { 1 } ^ { 2 } } { m } + \frac { s _ { 2 } ^ { 2 } } { n } } }$
+	
+	
+	$
+	{\mu_1 - \mu_2 > \Delta_0} : {t\geq t_{\alpha,v}} ;\quad
+	{\mu_1 - \mu_2 < \Delta_0} : {t\leq -t_{\alpha,v}}$
+	
+	$
+	{\mu_1 - \mu_2 \neq \Delta_0} : { t\geq t_{\alpha/2,v} \text{ or } t\leq -t_{\alpha/2,v} }
+	$
+	
+	\smalltitle{Paired t-Tests}
+	
+	Data: n independently selected pairs $(X_1,Y_1),\cdots,(X_n,Y_n)$ with $E(X_i)=\mu_1$ and $E(Y_i)=\mu_2$. Let $D_i = X_i-Y_i$. The $D_i$ are normally distributed with mean $\mu_D$ and variance $\sigma_D^2$.
+	
+	$H_0:\mu_D = \Delta_0$, Test statistic: $t = \frac { \overline { d } - \Delta _ { 0 } } { s _ { D } / \sqrt { n } }$
+	
+	
+	$
+	\mu_D > \Delta_0 : t \geq t_{\alpha,n-1} ;\quad
+	\mu_D < \Delta_0 : t \leq -t_{\alpha,n-1} $
+	
+	$
+	\mu_D \neq \Delta_0 :  t\geq t_{\alpha/2,n-1} \text{ or } t \leq -t_{\alpha/2,n-1}
+	$
+	
+	
+	p-value can be calculated as was done for earlier t tests.
+	
+	Two-side paired t CI for $\mu_D$: $\overline { d } \pm t _ { \alpha / 2 , n - 1 } \cdot s _ { D } / \sqrt { n }$, for one-side, replace $t_{\alpha/2}$ with $t_\alpha$
+	
+	\bigtitle{Difference of two sample proportions}
+	
+	Let $X \sim Bin(m,p_1) $ and $Y \sim Bin(n,p_2)$, independent.\\
+	$E(\hat{p}_1 - \hat{ p }_2) = p_1 - p_2$, $V \left( \hat { p } _ { 1 } - \hat { p } _ { 2 } \right) = \frac { p _ { 1 } q _ { 1 } } { m } + \frac { p _ { 2 } q _ { 2 } } { n }$, where $q _ { i } = 1 - p _ { i }$.
+	
+	Let $\hat { p } = \frac { X + Y } { m + n } = \frac { m } { m + n } \hat { p } _ { 1 } + \frac { n } { m + n } \hat { p } _ { 2 }$, $\hat{q} = 1-\hat{p}$
+	
+	$H_0$: $p_1-p_2 = 0$. Test statistic: $z = \frac { \hat { p } _ { 1 } - \hat { p } _ { 2 } } { \sqrt { \hat { p } \hat { q } \left( \frac { 1 } { m } + \frac { 1 } { n } \right) } }$
+	
+	
+	$
+	{ p_1 - p_2 > p _ { 0 } } : z \geq z_\alpha ;\quad
+	{ p_1 - p_2 < p _ { 0 } } : z \leq -z_\alpha 
+	$
+	
+	$
+	{ p_1 - p_2 \neq p _ { 0 } } : z \geq z_{\alpha/2} \text{ or } z\leq-z_{\alpha/2}
+	$
+	
+	
+	p-value is the same as previous z tests.
+
+	
+	Calculating beta:
+	
+	\centerline{
+		$
+		\begin{array}{cc}
+		H_0&\beta(p_1,p_2)\\
+		p_1-p_2>0 & \Phi\left[\Delta(z_\alpha)\right] \\
+		p_1-p_2<0 & 1- \Phi \left[ \Delta(-z_\alpha) \right]\\
+		p_1-p_2\neq 0 & \Phi \left[ \Delta(z_{\alpha/2}) \right] - \Phi \left[ \Delta(-z_{\alpha/2}) \right]
+		\end{array}
+		$
+	}
+	
+	where $\Delta(z) = \frac{z \sqrt{\bar{ p }\bar{ q }\left(\frac{1}{m}+\frac{1}{n}\right)} - (p_1-p_2) }{\sigma}$
+	
+	$\sigma _ { \hat { p } _ { 1 } - \hat { p } _ { 2 } } = \sqrt { \frac { p _ { 1 } q _ { 1 } } { m } + \frac { p _ { 2 } q _ { 2 } } { n } }$, $\overline { p } = \frac{ m p _ { 1 } + n p _ { 2 } } { m + n }, \overline { q } = \frac{ m q _ { 1 } + n q _ { 2 }}  { m + n }$
+	
+	
+	
+	sample size needed: 
+	
+	$n = \frac { \left[ z _ { \alpha } \sqrt { \left( p _ { 1 } + p _ { 2 } \right) \left( q _ { 1 } + q _ { 2 } \right) / 2 } + z _ { \beta } \sqrt { p _ { 1 } q _ { 1 } + p _ { 2 } q _ { 2 } } \right] ^ { 2 } } { d ^ { 2 } }$, where $p_1-p_2 = d$.
+	
+	That's for one tail, replace $\alpha$ with $\alpha/2$ for two tail.
+	
+	The $100(1-\alpha)\%$ CI is $\hat { p } _ { 1 } - \hat { p } _ { 2 } \pm z _ { \alpha / 2 } \sqrt { \frac { \hat { p } _ { 1 } \hat { q } _ { 1 } } { m } + \frac { \hat { p } _ { 2 } \hat { q } _ { 2 } } { n } }$.
+	
+	
+	\smalltitle{Inference - Two Population Variances, F-distribution}
+	
+	Let $X_1,\dots,X_m$ be a random sample from a normal distribution with variance $\sigma_1^2$, and $Y_i$ with $\sigma_2^2$, independently. Let $S_1^2$ and $S_2^2$ denote the two sample variances. Then $F = \frac { S _ { 1 } ^ { 2 } / \sigma _ { 1 } ^ { 2 } } { S _ { 2 } ^ { 2 } / \sigma _ { 2 } ^ { 2 } }$ has an $F$ distribution with $v_1 = m-1$ and $v_2 = n-1$. 
+	
+	$H_0$: $\sigma_1^2 = \sigma_2^2$, Test statistic: $f = s_1^2 / s_2^2$
+	
+	
+	$
+	{ \sigma _ { 1 } ^ { 2 } > \sigma _ { 2 } ^ { 2 } }    :                                { f \geq F _ { \alpha , m - 1 , n - 1 } }                                 ;\quad
+	{ \sigma _ { 1 } ^ { 2 } < \sigma _ { 2 } ^ { 2 } }    :                                { f \leq F _ { 1 - \alpha , m - 1 , n - 1 } }                                 
+	$
+	
+	$
+	{ \sigma _ { 1 } ^ { 2 } \neq \sigma _ { 2 } ^ { 2 } }  { f \geq F _ { \alpha / 2 , m - 1 , n - 1 } \text { or } f \leq F _ { 1 - \alpha / 2 , m - 1 , n - 1 } }
+	$
+	
+	
+	p = area under the F curve to the right of the calculated f.
+	
+	\sectionline
+	
+	\bigtitle{ANOVA}
+	
+	\textit{$X_{ij}$: the rv denoting the $j^{th}$ measurement from the $i^{th}$ population; $x_{ij}$: the observed value of $X_{ij}$.}
+	
+	$H_0$: $\mu_1 = \cdots = \mu_I$, the mean of all populations are equal.
+	
+	\noindent
+	Assume $X_{ij}$ is normally distributed: $E(X_{ij})=\mu_{i}$, $V ( X _ { i j } ) = \sigma ^ { 2 }$.
+	
+	$\overline { X } _ { i . } = \frac { \sum _ { j = 1 } ^ { J } X _ { i j } } { J }$, $i = 1,\cdots, I$ ; $\overline { X } . . = \frac { \sum _ { i = 1 } ^ { I } \sum _ { j = 1 } ^ { J } X _ { i j } } { I J }$
+	
+	$S _ { i } ^ { 2 } = \frac { \sum _ { j = 1 } ^ { J } \left( X _ { i j } - \overline { X } _ { i } \right) ^ { 2 } } { J - 1 }$, $i = 1,\cdots, I$
+	
+	Treatment sum of squares: 
+	
+	SSTr $ =  J \left[ \left( \overline { X } _ { 1 . } - \overline { X } _ { . . } \right) ^ { 2 } + \cdots + \left( \overline { X } _ { I . } - \overline { X } _ { . . } \right) ^ { 2 } \right]$
+	
+	Error sum of squares: 
+	
+	SSE $= \sum _ { i } \sum _ { j } \left( X _ { i j } - \overline { X } _ { i . } \right) ^ { 2 } = ( J - 1 ) \left[ S _ { 1 } ^ { 2 } + S _ { 2 } ^ { 2 } + \cdots + S _ { I } ^ { 2 } \right]$
+	
+	Total sum of squares: 
+	SST = $\sum _ { i } \sum _ { j } \left( x _ { i j } - \overline { x } _ { . . } \right) ^ { 2 }$
+	
+	Mean square for treatments: MSTR = SSTr$/(I - 1)$
+	
+	Mean square for error: MSE = SSE$/[I(J-1)]$
+	
+	SSE$/\sigma^2$ has a $\chi^2$ distribution with $I(J-1)$ df. 
+	
+	
+	When $H_0$ is true, SSTr$/\sigma^2$ has a $\chi^2$ distribution with $I-1$ df.
+	
+	
+	\smalltitle{F test}
+	
+	Computing Formula: \textit{$x_{i.}$: \textbf{sum} of all $x_{ij}$ for fixed i; $x_{..}$: \textbf{sum} of all $x_{ij}$}
+	
+	SST = $\sum _ { i } \sum _ { j } x _ { i j } ^ { 2 } - x _ { . . } ^ { 2 } / I J$, df = $IJ-1$.
+	
+	SSTr = $\frac { \sum _ { i } x _ { i . } ^ { 2 } } { J } - \frac { x ^ { 2 } _ {..} } { I J }$, df = $I-1$
+	
+	SSE = SST - SSTr, df = $I(J-1)$, 
+	
+	Test statistic: $F = \frac {   { \mathrm { SSTr } } {  } / ( I - 1 ) } {  \mathrm { SSE }  / I ( J - 1 ) } = \frac{\mathrm{ MSTr }}{\mathrm{ MSE }}$
+	
+	
+	Rejection region: $f\geq F_{\alpha,I-1,I(J-1)}$ for an upper-tailed test with the significance level $\alpha$.
+	
+	P-value for it is the area under the relevant F curve to the right of the calculated f.
+	
+	
+	ANOVA Table, the following "$^2$" means "Square"
+	
+	
+	\begin{table}[htb]
+		\vspace{-2ex}
+		\centering
+		\begin{tabular}{ccccc}
+			\hline
+			Source & df     & Sum of $^2$s & Mean $^2$ & f        \\\hline
+			Treatments         & I-1    & SSTr           & MSTr        & MSTr/MSE \\
+			Error              & I(J-1) & SSE            & MSE         &          \\
+			Total              & IJ-1   & SST            &             &         \\
+			\hline
+		\end{tabular}
+	\vspace{-1em}
+	\end{table}
+	
+	
+	
+	
+	
+	\smalltitle{Tukey's Procedure}
+	
+	Let $Z_1, \cdots, Z_m$ be $m$ independent standard normal rv's and W be a $\chi^2$ rv with $v$ df.
+	
+	$Q = \frac { \max \left| Z _ { i } - Z _ { j } \right| } { \sqrt { W / v } } = \frac { \max \left( Z _ { 1 } , \ldots , Z _ { m } \right) - \min \left( Z _ { 1 } , \ldots , Z _ { m } \right) } { \sqrt { W / v } }$
+	
+	is called the studentized range distribution with parameters: $m$: the number of $Z_i$, $v$: denominator df. Critical value $Q_{\alpha,m,v}$ captures upper-tail area $\alpha$ under the density curve of $Q$.
+	
+	For each $i<j$, form the interval:
+	
+	
+	$\overline { x } _ { i . } - \overline { x } _ { j . } \pm Q _ { \alpha , I , I ( J - 1 ) } \sqrt { MSE / J }$. 
+	
+	
+	There are $I(I-1)/2$ such intervals, each for $\mu_1-\mu_2, \cdots, \mu_{I-1} - \mu_I$. The simultaneous confidence level that every interval includes the corresponding $\mu_i-\mu_j$ is $100(1-\alpha)\%$.
+	
+	The procedure: Select $\alpha$, extract $Q_{\alpha,I,I(J-1)}$ and calculate $w=Q_{\alpha,I,I(J-1)}\cdot\sqrt{\mathrm{ MSE }/J}$. List the sample means in increasing order and underline those pairs that differ by less than $w$. Any pair of sample means not underscored by the same line corresponds to a pair of population or treatment means that are judged significantly different. $w$ is called Tukey's honestly significantly difference (HSD).
+	
+	\smalltitle{CI for other parametric functions}
+	
+	$100(1-\alpha)\%$ CI for $\sum c _ { i } \mu _ { i }$:
+	
+	$\sum c _ { i } \overline { x } _ { i . } \pm t _ { \alpha / 2 , I ( J - 1 ) } \sqrt { \left( \operatorname { MSE } \sum c _ { i } ^ { 2 } \right) / J }$
+	
+	
+	\smalltitle{Alternative description for ANOVA}
+	
+	% ATTENTION:
+	% PPT 10-40 has a typo! It also occurred on the textbook! $X _ { i j } = \mu _ { i } + \alpha _ { i } + \varepsilon _ { i j }$ should be $X _ { i j } = \mu + \alpha _ { i } + \varepsilon _ { i j }$, $\mu$ has not subscript i !!
+	% ATTENTION
+	%Model: $X _ { i j } = \mu + \alpha _ { i } + \varepsilon _ { i j } \quad ( i = 1 , \dots , I ; j = 1 , \ldots , J )$
+	% In all, the above-written formula is RIGHT! Do NOT change it referring to the slides or textbook!
+	
+	$H_0: \alpha_1 = \cdots = \alpha_I = 0$, $E ( \mathrm { MSTr } ) = \sigma ^ { 2 } + \frac { J } { I - 1 } \sum \alpha _ { i } ^ { 2 }$
+	
+	\smalltitle{Single-Factor ANOVA with unequal sample sizes}
+	
+	\textit{n: total number of observations}
+	
+	$\mathrm { SST } = \sum \limits_ { i = 1 } ^ { I } \sum\limits _ { j = 1 } ^ { J _ { i } } \left( X _ { i j } - \overline { X }_ {..} \right) ^ { 2 } = \sum \limits_ { i = 1 } ^ { I } \sum \limits_ { j = 1 } ^ { J _ { i } } X _ { i j } ^ { 2 } - \frac { 1 } { n } X ^ { 2 }_{. .}$ 
+	
+	$\mathrm { SSTr } = \sum \limits_ { i = 1 } ^ { I } \sum \limits_ { j = 1 } ^ { J _ { i } } \left( X _ { i . } - \overline { X }_{. .} \right) ^ { 2 } = \sum \limits_ { i = 1 } ^ { I } \frac { 1 } { J _ { i } } X _ { i. } ^ { 2 } - \frac { 1 } { n } X ^ { 2 } _{..}$
+	
+	$\mathrm { SSE } = \sum \limits_ { i = 1 } ^ { I } \sum \limits_ { j = 1 } ^ { J _ { i } } \left( X _ { i j } - \overline { X } _ { i } \right) ^ { 2 } = \mathrm { SST } - \mathrm { SSTr }$
+	
+	Test statistic value: $f = \frac { \mathrm { MSTr } } { \mathrm { MSE } } = \frac{\mathrm{ SSTr }/(I-1)}{\mathrm{ SSE }/(n-I)}$
+	
+	Rejection region: $f \geq F _ { \alpha , I - 1 , n - I }$
+	
+	\smalltitle{Multiple comparisons with unequal sample sizes}
+	
+	Let $w _ { i j } = Q _ { \alpha , I , n - I } \cdot \sqrt { \frac { \mathrm { MSE } } { 2 } \left( \frac { 1 } { J _ { i } } + \frac { 1 } { J _ { j } } \right) }$, the probability is about $1-\alpha$ that $\overline { X } _ { i } . - \overline { X } _ { j } . - w _ { i j } \leq \mu _ { i } - \mu _ { j } \leq \overline { X } _ { i } . - \overline { X } _ { j } . + w _ { i j }$ for every $i$ and $j$ with $i\neq j$
+	
+	\smalltitle{A Random Effects Model}
+	
+	%\noindent
+	%$X _ { i j } = \mu + A _ { i } + \varepsilon _ { i j }$, with $E \left( A _ { i } \right) = E \left( \varepsilon _ { i j } \right) = 0$, $V \left( \varepsilon _ { i j } \right) = \sigma ^ { 2 }$, $V \left( A _ { i } \right) = \sigma _ { A } ^ { 2 }$
+	
+	$H_0$: $\sigma _ { A } ^ { 2 } = 0$, Test statistic: $F = \frac{\mathrm{ MSTr }}{\mathrm{ MSE }}$, reject $H_0$ if $f \geq F _ { \alpha , I - 1 , n - I }$
+	
+	\smalltitle{Two-Factor ANOVA with $\mathbf{\mathit{K_{ij}=1}}$}
+	
+	%\noindent
+	%Model: $X _ { i j } = \alpha _ { i } + \beta _ { j } + \varepsilon _ { i j } \quad ( i = 1 , \cdots , I; \: j = 1 , \cdots , J )$, $\mu _ { i j } = \alpha _ { i } + \beta _ { j }$
+	
+	The estimators: $\hat { \mu } = \overline { X } . $ ; $ \hat { \alpha } _ { i } = \overline { X } _ { i . } - \overline { X } . $ ; $ \hat { \beta } _ { j } = \overline { X } _ { . j } - \overline { X }$
+	
+	{\small
+		
+		\noindent
+		$\mathrm { SST } = \sum _ { i = 1 } ^ { I } \sum _ { j = 1 } ^ { J } \left( X _ { i j } - \overline { X } . . \right) ^ { 2 } = \sum _ { i = 1 } ^ { I } \sum _ { j = 1 } ^ { J } X _ { i j } ^ { 2 } - \frac { 1 } { I J } X ^ { 2 } _{ . .}$, df = $IJ-1$
+		
+		\noindent
+		$\mathrm { SSA } = \sum _ { i = 1 } ^ { I } \sum _ { j = 1 } ^ { J } \left( \overline { X } _ { i } . - \overline { X } . . \right) ^ { 2 } = \frac { 1 } { J } \sum _ { i = 1 } ^ { I } X _ { i. } ^ { 2 } - \frac { 1 } { I J } X ^ { 2 }_{..}$, df = $I-1$
+		
+		\noindent
+		$\mathrm { SSB } = \sum _ { i = 1 } ^ { I } \sum _ { j = 1 } ^ { J } \left( \overline { X } _ { . j } - \overline { X } . . \right) ^ { 2 } = \frac { 1 } { I } \sum _ { j = 1 } ^ { J } X _ { . j } ^ { 2 } - \frac { 1 } { I J } X _ { . . } ^ { 2 }$, df = $J-1$
+		
+		\noindent
+		$\mathrm { SSE } = \sum _ { i = 1 } ^ { I } \sum _ { j = 1 } ^ { J } \left( X _ { i j } - \overline { X } _ { i .}  - \overline { X } _ { . j } + \overline { X } . . \right) ^ { 2 }$, df = $(I-1)(J-1)$
+		
+	}
+	
+	SST = SSA + SSB + SSE
+	
+	
+	$H_{0A}$: $\alpha_1 = \cdots = \alpha_I = 0$, $H_{aA}$: at least one $a_i \neq 0$; Test statistic: $f_A = \frac{\mathrm{MSA}}{\mathrm{ MSE }} = \frac{\mathrm{ SSA }/(I-1)}{\mathrm{ SSE }/\left[(I-1)(J-1)\right]}$, rejection region: $f _ { A } \geq F _ { \alpha , I - 1 , ( I - 1 ) ( J - 1 ) }$
+	
+	$H_{0B}$: $\beta_1 = \cdots = \beta_J = 0$, $H_{aB}$: at least one $\beta_j \neq 0$; Test statistic: $f_B = \frac{\mathrm{MSB}}{\mathrm{ MSE }} = \frac{\mathrm{ SSB }/(J-1)}{\mathrm{ SSE }/\left[(I-1)(J-1)\right]}$, rejection region: $f _ { B } \geq F _ { \alpha , J - 1 , ( I - 1 ) ( J - 1 ) }$
+	
+	\smalltitle{Multiple Comparisons}
+	
+	For comparing A, $w = Q _ { \alpha , I , ( I - 1 ) ( J - 1 ) } \cdot \sqrt{\mathrm{ MSE }/J}$; for comparing B, $w = Q _ { \alpha , J , ( I - 1 ) ( J - 1 ) } \cdot \sqrt{\mathrm{ MSE }/I}$.
+	Arrange the sample means in increasing order, underscore those pairs differing by less than $w$, identify pairs not underscored by the same line as corresponding to significantly different levels of the given factor.
+	
+	\smalltitle{Two-Factor ANOVA with Replications($\mathbf{\mathit{K_{ij}>1}}$)}
+	
+	$\mu = \frac { 1 } { I J } \sum _ { i } \sum _ { j } \mu _ { i j }$,
+	$\overline { \mu } _ { i . } = \frac { 1 } { J } \sum _ { j } \mu _ { i j }$,
+	$\overline { \mu } _ { . j } = \frac { 1 } { I } \sum _ { i } \mu _ { i j }$
+	
+	$\alpha_i = \overline{ \mu }_{i.} - \mu$, $\beta_j = \overline{\mu} _{.j} - \mu$, $\gamma_{ij} = \mu_{ij} - (\mu + \alpha _ i + \beta_j) $
+	
+	{\small
+		
+		\noindent
+		$\mathrm{ SST } = \sum \limits_i \sum \limits_j \sum \limits_k (X_{ijk} - \overline{ X }_{...})^2 = \sum \limits_i \sum \limits_j \sum \limits_k X^2_{ijk} - \frac{1}{IJK}X^2_{...} $, df = $IJK - 1$
+		
+		\noindent
+		{\footnotesize
+			$\mathrm{ SSE } = \sum \limits_i \sum \limits_j \sum \limits_k (X_{ijk} - \overline{ X }_{ij.})^2 = \sum \limits_i \sum \limits_j \sum \limits_k X^2_{ijk} - \frac{1}{K} \sum \limits_i \sum \limits_j X^2_{ij.}$, df = $IJ(K-1)$
+		}
+		
+		\noindent
+		$\mathrm{SSA} = \sum_i \sum_j \sum_k (\overline{ X }_{i..} - \overline{ X }_{...})^2 = \frac{1}{JK} \sum_i X^2_{i..} - \frac{1}{IJK}X^2_{...}$, df = $I-1$
+		
+		\noindent
+		$\mathrm{ SSB } = \sum_i \sum_j \sum_k (\overline{ X }_{.j.} - \overline{ X }_{...})^2 = \frac{1}{IK}\sum_j X^2_{.j.} - \frac{1}{IJK}X^2_{...}$, df = $J-1$
+		
+		\noindent
+		$\mathrm{ SSAB } = \sum_i \sum_j \sum_k (X_{ij.} - \overline{ X }_{i..} - \overline{ X }_{.j.} + \overline{ X }_{...})^2 $, df = $(I-1)(J-1)$
+		
+	}
+	
+	\noindent
+	SST = SSA + SSB + SSAB + SSE
+	
+	$H_{0A}$: $\alpha_1 = \cdots = \alpha_I = 0$; $H_{aA}$: at least one $\alpha_i \neq 0$.
+	
+	\noindent
+	Test statistic: $f_A = \frac{\mathrm{MSA}}{\mathrm{ MSE }} $, Rej. region: $f_A \geq F_{\alpha,I-1,IJ(K-1)}$
+	
+	$H_{0B}$: $\beta_1 = \cdots = \beta_J = 0$; $H_{aB}$: at least one $\beta_j \neq 0$.
+	
+	\noindent
+	Test statistic: $f_B = \frac{\mathrm{MSB}}{\mathrm{ MSE }}$, Rej. region: $f_B \geq F_{\alpha,J-1,IJ(K-1)}$
+	
+	$H_{0AB}$: $\gamma_{ij} = 0$ for all $i,j$; $H_{aAB}$: at least one $\gamma_{ij} \neq 0$.
+	
+	\noindent
+	Test statistic: $f_{AB}  = \frac{\mathrm{MSAB}}{\mathrm{MSE}}$, {\small Rej. region: $f _ { AB } \geq F _ { \alpha , (I - 1)(J-1) , I J ( K - 1 ) }$}
+	
+	
+	\sectionline
+	
+	\bigtitle{Regression}
+	
+	Linear Regression Model: $Y = \beta _ { 0 } + \beta _ { 1 } x + \varepsilon$, the rv $\varepsilon$ is assumed to be normally distributed with mean 0 and var $\sigma^2$
+	
+	Logistic Regression Model: $p ( x ) = \frac { e ^ { \beta _ { 0 } + \beta _ { 1 } x } } { 1 + e ^ { \beta _ { 0 } + \beta _ { 1 } x } }$
+	
+	\smalltitle{Estimating Model Parameters}
+	
+	Vertical deviation of the point $(x_i),y_i$ from the line $y = b _ { 0 } + b _ { 1 } x$ is $y _ { i } - \left( b _ { 0 } + b _ { 1 } x _ { i } \right)$
+	
+	The sum of squared vertical deviations from points
+	
+	{\small 
+		\noindent
+		$(x_1,y_1),\cdots,(x_n,y_n)$ to the line is $f \left( b _ { 0 } , b _ { 1 } \right) = \sum _ { i = 1 } ^ { n } \left[ y _ { i } - \left( b _ { 0 } + b _ { 1 } x _ { i } \right) \right] ^ { 2 }$.
+	}
+	
+	The least squares estimates $\hat{ \beta }_0$ and $\hat{ \beta }_1$ satisfies $f \left( \hat { \beta } _ { 0 } , \hat { \beta } _ { 1 } \right) \leq f \left( b _ { 0 } , b _ { 1 } \right)$ for any $b_0$ and $b_1$.
+	
+	The estimated regression line is $y = \hat { \beta } _ { 0 } + \hat { \beta } _ { 1 } x$.
+	
+	$\hat { \beta } _ { 1 } = \frac { \sum \left( x _ { i } - \overline { x } \right) \left( y _ { i } - \overline { y } \right) } { \sum \left( x _ { i } - \overline { x } \right) ^ { 2 } } = \frac { S _ { x y } } { S _ { x x } }$
+	
+	$S _ { x y } = \sum x _ { i } y _ { i } - \frac { \left( \sum x _ { i } \right) \left( \sum y _ { i } \right) } { n }$, $S _ { x x } = \sum x _ { i } ^ { 2 } - \frac { \left( \sum x _ { i } \right) ^ { 2 } } { n }$
+	
+	$\hat { \beta } _ { 0 } = \frac { \sum y _ { i } - \hat { \beta } _ { 1 } \sum x _ { i } } { n } = \overline { y } - \hat { \beta } _ { 1 } \overline { x }$
+	
+	The fitted/predicted values $\hat{y}_i$ are obtained by $\hat { y } _ { i } = \hat { \beta } _ { 0 } + \hat { \beta } _ { 1 } x _ { i }$. The residuals are $y _ { i } - \hat { y } _ { i }$.
+	
+	Error sum of squares: $\mathrm { SSE } = \sum \left( y _ { i } - \hat { y } _ { i } \right) ^ { 2 } \\= \sum \left[ y _ { i } - \left( \hat { \beta } _ { 0 } + \hat { \beta } _ { 1 } x _ { i } \right) \right] ^ { 2 } = \sum y _ { i } ^ { 2 } - \hat { \beta } _ { 0 } \sum y _ { i } - \hat { \beta } _ { 1 } \sum x _ { i } y _ { i }$. 
+	
+	The last formula is sesitive, \textbf{use as many digits from the calculator as possible}.
+	
+	Total sum of squares: 
+	
+	$\mathrm { SST } = S _ { y y } = \sum \left( y _ { i } - \overline { y } \right) ^ { 2 } = \sum y _ { i } ^ { 2 } - \left( \sum y _ { i } \right) ^ { 2 } / n$
+	
+	SST = SSE + SSR
+	
+	$\hat { \sigma } ^ { 2 } = s ^ { 2 } = \frac { \mathrm { SSE } } { n - 2 } = \frac { \sum \left( y _ { i } - \hat { y } _ { i } \right) ^ { 2 } } { n - 2 }$, the least square estimate of $\sigma^2$.
+	
+	Coefficient of determination: $r ^ { 2 } = 1 - \frac { \mathrm { SSE } } { \mathrm { SST } }$
+	
+	
+	
+	\smalltitle{Inferences about $\mathbf{\beta_1}$}
+	
+	Mean of $\hat{ \beta }_1$ is $E \left( \hat { \beta } _ { 1 } \right) = \mu _ { \hat{\beta} _ { 1 } } = \beta _ { 1 }$, so $\hat{ \beta }_1$ is unbiased.
+	
+	$\hat{ \beta }_1$ has a normal distribution with 
+	
+	$V \left( \hat { \beta } _ { 1 } \right) = \sigma _ { \hat{\beta} _ { 1 } } ^ { 2 } = \frac { \sigma ^ { 2 } } { S _ { x x } }$
+	,
+	$\sigma _ { \hat { \beta } _ { 1 } } = \frac { \sigma } { \sqrt { S _ { x x } } }$
+	
+	where $S _ { x x } = \sum \left( x _ { i } - \overline { x } \right) ^ { 2 } = \sum x _ { i } ^ { 2 } - \left( \sum x _ { i } \right) ^ { 2 } / n$, replacing $\sigma$ by $s$ gives an estimate: $s _ { \hat { \beta } _ { 1 } } = \frac { s } { \sqrt { S _ { x x } } }$
+	
+	
+	Variable $T = \frac { \hat { \beta } _ { 1 } - \beta _ { 1 } } { S / \sqrt { S _ { x x } } } = \frac { \hat { \beta } _ { 1 } - \beta _ { 1 } } { S _ { \hat { \beta } _ { 1 } } }$ has a $t$ distribution with n-2 df, called T ratio.
+	
+	A $100(1-\alpha)\%$ CI for $\hat{ \beta }_1$ is $\hat { \beta } _ { 1 } \pm t _ { \alpha / 2 , n - 2 } \cdot s _ { \hat { \beta } _ { 1 } }$
+	
+	Hypothesis test: $H_0$: $\beta_1 = \beta_{10}$, test statistic: $t = \frac { \hat { \beta } _ { 1 } - \beta _ { 10 } } { s _ { \hat { \beta } _ { 1 } } }$
+	
+	$\beta _ { 1 } > \beta _ { 10 }$: $t \geq t _ { \alpha , n - 2 }$; $\beta _ { 1 } < \beta _ { 10 }$, $t \leq - t _ { \alpha , n - 2 }$
+	
+	$\beta _ { 1 } \neq \beta _ { 10 }$, $t \geq t _ { \alpha / 2 , n - 2 }$ or $t \leq - t _ { \alpha / 2 , n - 2 }$.
+	
+	The \textbf{model utility test} is the test of $H_0$: $\beta_1 = 0$, $H_a$: $\beta_1 \neq 0$, test statistic: $t= \hat{\beta}_1/s_{\hat{\beta}_1}$.
+	
+	Simple linear regression ANOVA:
+	
+	
+	\begin{table}[htb]
+		\vspace{-2ex}
+		\begin{tabular}{ccccc}
+			\hline
+			Source & df     & Sum of Squares & Mean Square & f        \\\hline
+			Regression         & 1    & SSR           & SSR       & $\frac{\mathrm{SSR}}{\mathrm{SSE}/(n-2)}$ \\
+			Error              & n-2 & SSE            & $s^{2}=\frac{\mathrm{SSE}}{n-2}$ &         \\
+			Total              & n-1   & SST            &             &         \\
+			\hline
+		\end{tabular}
+	\vspace{-1em}
+	\end{table}
+	
+	
+	\smalltitle{Inferences concerning $\mathbf{\mu_{Y\cdot x^*}}$ and predicting future Y}
+	
+	Let $\hat { Y } = \hat { \beta } _ { 0 } + \hat { \beta } _ { 1 } x ^ { * }$, where $x^*$ is fixed:
+	
+	$E ( \hat { Y } ) = E \left( \hat { \beta } _ { 0 } + \hat { \beta } _ { 1 } x ^ { * } \right) = \mu _ { \hat { \beta } _ { 0 } + \hat { \beta } _ { 1 } x ^ { * } } = \beta _ { 0 } + \beta _ { 1 } x ^ { * }$, so $\hat { \beta } _ { 0 } + \hat { \beta } _ { 1 } x ^ { * }$ is an unbiased estimator for $\beta _ { 0 } + \beta _ { 1 } x ^ { * }$ (i.e. $\mu _ { Y \cdot x ^ { * } }$)
+	
+	$V ( \hat { Y } ) = \sigma _ { Y } ^ { 2 } = \sigma ^ { 2 } \left[ \frac { 1 } { n } + \frac { \left( x ^ { * } - \overline { x } \right) ^ { 2 } } { \sum x _ { i } ^ { 2 } - \left( \sum x _ { i } \right) ^ { 2 } / n } \right] = \sigma ^ { 2 } \left[ \frac { 1 } { n } + \frac { \left( x ^ { * } - \overline { x } \right) ^ { 2 } } { S _ { x x } } \right]$\\
+	and the sd $\sigma_{\hat{ Y }}$ is its root, the estimated sd of $\hat { \beta } _ { 0 } + \hat { \beta } _ { 1 } x ^ { * }$ is:
+	
+	$s _ { \hat { Y } } = s _ { \hat { \beta } _ { 0 } + \hat { \beta } _ { 1 } x ^ { * } } = s \sqrt { \frac { 1 } { n } + \frac { \left( x ^ { * } - \overline { x } \right) ^ { 2 } } { S _ { x x } } }$. And $\hat{ Y }$ has a normal distribution.
+	
+	The variable $T = \frac { \hat { \beta } _ { 0 } + \hat { \beta } _ { 1 } x ^ { * } - \left( \beta _ { 0 }
+		+ \beta _ { 1 } x ^ { * } \right) } { S _ { \hat { \beta } _ { 0 } + \hat { \beta } _ { 1 } x ^ { * } }  }
+	= \frac { \hat { Y } - \left( \beta _ { 0 } + \beta _ { 1 } x ^ { * } \right) } { S _ { \hat{Y} } }$ has a $t$ distribution with n-2 df. Conduct t-test using it as the test statistic, rejection region is $t_{\alpha,n-2}$ or $t_{\alpha/2,n-2
+	}$
+	
+	A $100(1-\alpha)\%$ CI for $\mu_{Y\cdot x^*}$ is:
+	
+	$\hat { \beta } _ { 0 } + \hat { \beta } _ { 1 } x ^ { * } \pm t _ { \alpha / 2 , n - 2 } \cdot s_{\hat { \beta } _ {  0  } + \hat { \beta } _ { 1 } x ^ { * }} = \hat { y } \pm t _ { \alpha / 2 , n - 2 } \cdot s _ { \hat { Y } }$
+	
+	\noindent
+	A $100(1-\alpha)\%$ PI for a future Y to be made when $x=x^*$ is:
+	
+	$\hat { \beta } _ { 0 } + \hat { \beta } _ { 1 } x ^ { * } \pm t _ { \alpha / 2 , n - 2 } \cdot s \sqrt { 1 + \frac { 1 } { n } + \frac { \left( x ^ { * } - \overline { x } \right) ^ { 2 } } { S _ { x x } } }$
+	
+	$= \hat { \beta } _ { 0 } + \hat { \beta } _ { 1 } x ^ { * } \pm t _ { \alpha / 2 , n - 2 } \cdot \sqrt { s ^ { 2 } + s ^ 2 _ { \hat { \beta } _ { 0 } + \hat { \beta } _ { 1 } x ^ { * } } }$
+	
+	$ = \hat { y } \pm t _ { \alpha / 2 , n - 2 } \cdot \sqrt { s ^ { 2 } + s _ { \hat { Y } } ^ { 2 } }$
+	
+	
+	Sample correlation coefficient is: 
+	
+	$r = \frac { S _ { x y } } { \sqrt { \sum \left( x _ { i } - \overline { x } \right) ^ { 2 } } \sqrt { \sum \left( y _ { i } - \overline { y } \right) ^ { 2 } } } = \frac { S _ { x y } } { \sqrt { S _ { x x } } \sqrt { S _ { y y } } }$
+	
+	Properties of $r$: 
+	
+	\begin{itemize}
+	\item Independent of which of the two rv is labeled x and which is labeled y.
+	
+	\item Independent of the units.
+	
+	\item $- 1 \leq r \leq 1$. $r=1$ iff all $(x_i,y_i)$ lies on a straight line with positive slope, and $r=-1$ when negative slope. 
+	
+	\item $(r)^2 = r^2$
+	\end{itemize}
+	
+	Population correlation coefficient $\rho$:
+	
+	$\hat { \rho } = R = \frac { \sum \left( X _ { i } - \overline { X } \right) \left( Y _ { i } - \overline { Y } \right) } { \sqrt { \sum \left( X _ { i } - \overline { X } \right) ^ { 2 } } \sqrt { \sum \left( Y _ { i } - \overline { Y } \right) ^ { 2 } } }$
+	
+	Testing for the absence of correlation: 
+	
+	$H_0$: $\rho =0$; Test statistic: $T = \frac { R \sqrt { n - 2 } } { \sqrt { 1 - R ^ { 2 } } }$
+	
+	$\rho > 0$: $t \geq t _ { \alpha , n - 2 }$; $\rho<0$: $t \leq - t _ { \alpha , n - 2 }$;
+	
+	$\rho \neq 0$: $t \geq t _ { \alpha / 2 , n - 2 }$ or $t \leq - t _ { \alpha / 2 , n - 2 }$
+	
+	\smalltitle{Assessing Model Adequacy}
+	
+	Standardized residuals: $e _ { i } ^ { * } = \frac { y _ { i } - \hat { y } _ { i } } { s \sqrt { 1 - \frac { 1 } { n } - \frac { \left( x _ { i } - \overline { x } \right) ^ { 2 } } { S _ { x x } } } }$, $i = 1,\cdots, n$
+	
+	\sectionline
+	
+	\bigtitle{Multiple Regression Analysis}
+	
+	Model: $Y = \beta _ { 0 } + \beta _ { 1 } x _ { 1 } + \beta _ { 2 } x _ { 2 } + \cdots + \beta _ { k } x _ { k } + \varepsilon$, $E ( \varepsilon ) = 0$ and $V ( \varepsilon ) = \sigma ^ { 2 }$
+	
+	Let $x_{ij}$ denote the value of the $j$th predictor $x_j$ in the $i$th observation. $i\in [1,n]; j \in [1,k]$
+	
+	Estimating $\hat{ \beta }_i$: solving
+	
+	{\small 
+		\noindent
+		$n b _ { 0 } + \left( \sum x _ { i 1 } \right) b _ { 1 } + \left( \sum x _ { i 2 } \right) b _ { 2 } + \cdots + \left( \sum x _ { i k } \right) b _ { k } = \sum y _ { i }$
+		
+		\noindent
+		$\left( \sum x _ { i 1 } \right) b _ { 0 } + \left( \sum x _ { i 1 } ^ { 2 } \right) b _ { 1 } + \left( \sum x _ { i 1 } x _ { i 2 } \right) b _ { 2 } + \cdots + \left( \sum x _ { i 1 } x _ { i k } \right) b _ { k } = \sum x _ { i 1 } y _ { i }$
+		
+		... ... ... ... ... ...
+		
+		{\footnotesize \noindent
+			$\left( \sum x _ { i k } \right) b _ { 0 } + \left( \sum x _ { i 1 } x _ { i k } \right) b _ { 1 } + \cdots + \left( \sum x _ { i , k - 1 } x _ { i k } \right) b _ { k - 1 } + \left( \sum x _ { i k } ^ { 2 } \right) b _ { k } = \sum x _ { i k } y _ { i }$}
+		
+	}
+	
+	$\hat { \sigma } ^ { 2 } = s ^ { 2 } = \frac { \mathrm { SSE } } { n - ( k + 1 ) } = \mathrm { MSE }$, $\hat { \sigma } = s = \sqrt { s ^ { 2 } }$
+	
+	Coefficient of multiple determination $R ^ { 2 } = 1 - \frac { \mathrm { SSE } } { \mathrm { SST } }$
+	
+	Adjusted coefficient of multiple determination:
+	
+	$R _ { \mathrm { a } } ^ { 2 } = 1 - \frac { \mathrm { MSE } } { \mathrm { MST } } = 1 - \frac { \operatorname { SSE } / [ n - ( k + 1 ) ] } { \operatorname { SST } / ( n - 1 ) } = 1 - \frac { n - 1 } { n - ( k + 1 ) } \frac { \mathrm { SSE } } { \mathrm { SST } }$
+	
+	\smalltitle{A Model Utility Test}
+	
+	$H_0$: All $\beta_i = 0$,
+	$H_a$: at least one $\beta_i \neq 0$
+	
+	Test statistic: $f = \frac { R ^ { 2 } / k } { \left( 1 - R ^ { 2 } \right) / [ n - ( k + 1 ) ] } = \frac { \operatorname { SSR } / k } { \operatorname { SSE } / [ n - ( k + 1 ) ] } = \frac { \mathrm { MSR } } { \mathrm { MSE } }$
+	
+	SSR = regression sum of squares = SST - SSE
+	
+	Rejection region for a level $\alpha$ test: $f \geq F _ { \alpha , k , n - ( k + 1 ) }$
+	
+	\smalltitle{Inferences in Multiple Regression}
+	
+	All for level $100(1-\alpha)\%$ test:
+	
+	CI for $\beta_i$, the coefficient of $x_i$ is $\hat { \beta } _ { i } \pm t _ { \alpha / 2 , n - ( k + 1 ) } \cdot S _ { \hat { \beta } _ { i } }$
+	
+	A test for $H_0$: $\beta_i = \beta_{i0}$
+	
+	
+	Test statistic: $t = \left( \hat { \beta } _ { i } - \beta _ { i 0 } \right) / s _ { \hat { \beta }_i }$, df: $n-(k+1)$
+	
+	
+	CI for $\mu _ { Y \cdot x _ { 1 } ^ { * } , \ldots , x _ { k } ^ { * } }$: $\hat { y } \pm t _ { \alpha / 2 , n - ( k + 1 ) } \cdot S _ { \hat { Y } }$, $\hat{ y }$: estimate y by $x^*$
+	
+	PI for future y: $\hat { y } \pm t _ { \alpha / 2 , n - ( k + 1 ) } \cdot \sqrt { s ^ { 2 } + s _ { \hat { Y } } ^ { 2 } }$
+	
+	\sectionline
+	
+	\bigtitle{Goodness-of-fit Tests}
+	
+	Situation:
+	
+	
+	\begin{table}[htb]
+		\vspace{-0.8em}
+		\centering
+		\begin{tabular}{cccccc}
+			Category & $i=1$     & $i=2$     & ... & $i=k$     & Row Total \\\hline
+			Observed & $n_1$     & $n_2$     & ... & $n_k$     & $n$       \\
+			Expected & $np_{10}$ & $np_{20}$ & ... & $np_{k0}$ & $n$      
+		\end{tabular}
+	\vspace{-1em}
+	\end{table}
+	
+	
+	
+	$H_0$: All $p_i = p_{i0}$, $i\in [1,k]$. $H_a$: at least one $p_i \neq p_{i0}$
+	
+	
+	Test statistic: $\chi^2 = \sum \limits_ { i = 1 } ^ { k } \frac { \left( n _ { i } - n p _ { i 0 } \right) ^ { 2 } } { n p _ { i 0 } } = \sum \limits_{\text{all cells}} \frac{(\text{observed-expected})^2}{\text{expected}}$,
+	
+	
+	Rejection region: $\chi ^ { 2 } \geq \chi _ { \alpha , k - 1 } ^ { 2 }$
+	
+	\smalltitle{When parameters are estimated}
+	
+	$k$ denotes the number of categories or cells and $p_i$ denotes the probability of an observation falling in the $i$th cell. Each $\pi_{ i }$ is a function.
+	
+	\noindent
+	$H_0$: All $p_i = \pi_i(\boldsymbol{\theta})$, where $\boldsymbol{\theta} = (\theta_1,\cdots,\theta_m)$,
+	$H_a$: $H_0$ is not true.
+	
+	Test statistic: $\chi^2 = \sum _ { i = 1 } ^ { k } \frac { \left[ N _ { i } - n \pi _ { i } ( \hat { \boldsymbol { \theta } } ) \right] ^ { 2 } } { n \pi _ { i } ( \hat { \boldsymbol { \theta } } ) }$,
+	
+	Rejection region: $\chi ^ { 2 } \geq \chi _ { \alpha , k - 1 - m} ^ { 2 }$
+	
+	This test can be used if $n \pi _ { i } ( \hat { \boldsymbol { \theta } } ) \geq 5$ for any $i$
+	
+	\bigtitle{$\mathbf{\chi^2}$ Test for Independence}
+	
+	$p_{ij}$ = the proportion of individuals in the population who belong in category $i$ of factor 1 and category $j$ of factor 2
+	
+	then, $p_{i.} = \sum_j p_{ij}$, $p_{.j} = \sum_{ i } p_{ij}$
+	
+	The mle are $\hat { p } _ { i } . = \frac { n _ { i } .} { n }$, $\hat { p }. _ {  j } = \frac { n . _ {  j } } { n }$
+	
+	
+	\noindent
+	$\hat { e } _ { i j } = n \cdot \hat { p } _ { i . } \cdot \hat { p } _ { . j } = n \cdot \frac { n _ { i . } } { n } \cdot \frac { n _ { . j } } { n } = \frac { n _ { i . } \cdot n _ { . j } } { n } = \frac{(\text{ith row total})(\text{jth column total})}{n}$
+	
+	$H_0$: $p_{ij} = p_{i.} \cdot p_{.j}$ for every pair $(i,j)$,
+	$H_a$: null hypothesis is wrong.
+	
+	Test statistic:\\ $\chi^2 = \sum \limits _ { i = 1 } ^ { I } \sum \limits_ { j = 1 } ^ { J } \frac { \left( n _ { i j } - \hat { e } _ { i j } \right) ^ { 2 } } { \hat { e } _ { i j } } = \sum \limits_{\text{all cells}} \frac{(\text{observed - estimated expected})^2}{\text{estimated expected}}$
+	
+	
+	Rejection region: $\chi ^ { 2 } \geq \chi _ { \alpha , ( I - 1 ) ( J - 1 ) } ^ { 2 }$, applicable: all $\hat{e}_{ij} \geq 5$.
+	
+	\sectionline
+	
+	\bigtitle{Example of problems}
+	
+	\smalltitle{Two-Factor ANOVA with $K_{ij}>1$}
+	
+	Three different varieties of tomato and 4 different plant densities are being considered for planting.
+	
+	
+	\begin{table}[htb]
+		\vspace{-0.7em}
+		\centering
+		\begin{tabular}{lcccccccccccc|cc}
+			& \multicolumn{12}{c|}{Planting Density}                                                                         &           &                 \\ \cline{2-13}
+			Variety         & \multicolumn{3}{c}{10000} & \multicolumn{3}{c}{20000} & \multicolumn{3}{c}{30000} & \multicolumn{3}{c|}{40000} & $x_{i..}$ & $\bar{x}_{i..}$ \\ \hline
+			H               & 10.5    & 9.2    & 7.9    & 12.8    & 11.2   & 13.3   & 12.1    & 12.6   & 14.0   & 10.8    & 9.1     & 12.5   & 136.0     & 11.33           \\
+			Ife             & 8.1     & 8.6    & 10.1   & 12.7    & 13.7   & 11.5   & 14.4    & 15.4   & 13.7   & 11.3    & 12.5    & 14.5   & 146.5     & 12.21           \\
+			P               & 16.1    & 15.3   & 17.5   & 16.6    & 19.2   & 18.5   & 20.8    & 18.0   & 21.0   & 18.4    & 18.9    & 17.2   & 217.5     & 18.13           \\ \hline
+			$x_{.j.}$       & \multicolumn{3}{c}{103.3} & \multicolumn{3}{c}{129.5} & \multicolumn{3}{c}{142.0} & \multicolumn{3}{c|}{125.2} & 500.00    &                 \\
+			$\bar{x}_{.j.}$ & \multicolumn{3}{c}{11.48} & \multicolumn{3}{c}{14.39} & \multicolumn{3}{c}{15.78} & \multicolumn{3}{c|}{13.91} &           & 13.89          
+		\end{tabular}
+	\vspace{-0.7em}
+	\end{table}
+	
+	
+	Here, $I=3$, $J=4$ and $K=3$, for a total of $IJK = 36$ observations.
+	
+	For the given data, $x_{...}^2 = 500^2 = 250000$
+	
+	$\sum _ { i } \sum _ { j } \sum _ { k } x _ { i j k } ^ { 2 } = 10.5 ^ { 2 } + 9.2 ^ { 2 } + \cdots + 18.9 ^ { 2 } + 17.2 ^ { 2 } = 7404.80$
+	
+	$\sum _ { i } x _ { i . . } ^ { 2 } = 136.0 ^ { 2 } + 146.5 ^ { 2 } + 217.5 ^ { 2 } = 87,264.50$
+	
+	$\sum_j x^2_{.j.} = 63280.18$
+	
+	The cell totals ($x_{ij.}$) are
+	
+	
+	\begin{table}[htb]
+		\vspace{-0.8em}
+		\centering
+		\begin{tabular}{lllll}
+			& 10000 & 20000 & 30000 & 4000 \\\hline
+			H   & 27.6  & 37.3  & 38.7  & 32.4 \\
+			Ife & 26.8  & 37.9  & 43.5  & 38.3 \\
+			P   & 48.9  & 54.3  & 59.8  & 54.5
+		\end{tabular}
+	\vspace{-0.8em}
+	\end{table}
+	
+	
+	From that we get $\sum _ { i } \sum _ { j } x _ { i j . } ^ { 2 } = 27.6 ^ { 2 } + \cdots + 54.5 ^ { 2 } = 22,100.28$
+	
+	Then:
+	
+	\begin{spacing}{1.1}
+	
+	$\mathrm { SST } = 7404.80 - \frac { 1 } { 36 } ( 250000 ) = 7404.80 - 6944.44 = 460.36$
+	
+	$\mathrm { SSA } = \frac { 1 } { 12 } ( 87264.50 ) - 6944.44 = 327.60$
+	
+	$\mathrm { SSB } = \frac { 1 } { 9 } ( 63280.18 ) - 6944.44 = 86.69$
+	
+	$\mathrm { SSE } = 7404.80 - \frac { 1 } { 3 } ( 22100.28 ) = 38.04$
+	
+	$\mathrm { SSAB } = 460.36 - 327.60 - 86.69 - 38.04 = 8.03$
+	
+	\end{spacing}
+
+	The resulting ANOVA Table:
+	
+	
+	\begin{table}[htb]
+		\centering
+		\vspace{-0.8em}
+		\begin{tabular}{lcccc}
+			Source      & df & Sum of $^2$ & Mean $^2$ & f               \\\hline
+			Varieties   & 2  & 327.6       & 163.8     & $f_A = 103.02$  \\
+			Density     & 3  & 86.69       & 28.9      & $f_B = 18.18$   \\
+			Interaction & 6  & 8.03        & 1.34      & $f_{AB} = 0.84$ \\
+			Error       & 24 & 38.04       & 1.59      &                 \\
+			Total       & 35 & 460.36      &           &                
+		\end{tabular}
+		\vspace{-0.8em}
+	\end{table}
+	
+
+	\smalltitle{Fitting the Logistic Regression Model}
+	
+	The dependent variable $Y$ is 1 if the observation is a success and 0 otherwise. The probability of success is related to $x$ by the logit function: $p ( x ) = \frac { e ^ { \beta _ { 0 } + \beta _ { 1 } x } } { 1 + e ^ { \beta _ { 0 } + \beta _ { 1 } x } }$, 
+	(It can be shown that $\ln \left( \frac { p ( x ) } { 1 - p ( x ) } \right) = \beta _ { 0 } + \beta _ { 1 } x$.)
+	Fitting the model requires $\beta_0$ and $\beta_1$ be estimated.
+	
+	Suppose $n=5$ and the observations made at $x_2$, $x_4$ and $x_5$ are success whereas the other two are failures. The likelihood function is thus:\\
+	$\left[ 1 - p \left( x _ { 1 } \right) \right] \left[ p \left( x _ { 2 } \right) \right] \left[ 1 - p \left( x _ { 3 } \right) \right] \left[ p \left( x _ { 4 } \right) \right] \left[ p \left( x _ { 5 } \right) \right] \\= \left[ \frac { 1 } { 1 + e ^ { \beta _ { 0 } + \beta _ { 1 } x _ { 1 } } } \right] \left[ \frac { e ^ { \beta _ { 0 } + \beta _ { 1 } x _ { 2 } } } { 1 + e ^ { \beta _ { 0 } + \beta _ { 1 } x _ { 2 } } } \right] \left[ \frac { 1 } { 1 + e ^ { \beta _ { 0 } + \beta _ { 1 } x _ { 3 } } } \right] \left[ \frac { e ^ { \beta _ { 0 } + \beta _ { 1 } x _ { 4 } } } { 1 + e ^ { \beta _ { 0 } + \beta _ { 1 } x _ { 4 } } } \right] \left[ \frac { e ^ { \beta _ { 0 } + \beta _ { 1 } x _ { 5 } } } { 1 + e ^ { \beta _ { 0 } + \beta _ { 1 } x _ { 5 } } } \right]$
+	
+	No straightforward formula can be derived. Use iterative numerical methods to maximize it.
+	
+	
+	\sectionline
+	
+	\bigtitle{Explanation of MiniTab Output}
+	
+	In the following table, "\#\#" marks irrelevant items. All the items' relative position in the table are identical to that on the example of textbook.
+	
+	The "$p$" is the p-value for model utility test.
+	
+	
+	\begin{table}[htb]
+		\vspace{-0.8em}
+		{\minitabOut \small
+		\begin{tabular}{lllll}
+			\multicolumn{3}{l}{The regression equation is}         &                                     &      \\
+			\multicolumn{3}{l}{(The Equation)}                     &                                     &      \\
+			&                 &                     &                                     &      \\
+			Predictor      & Coef            & SE Coef             & T                                   & P    \\
+			Constant       & $\hat{\beta}_0$ & \#\#                & \#\#                                & \#\# \\
+			(Variable)     & $\hat{\beta}_1$ & $s_{\hat{\beta}_1}$ & $t=\hat{\beta}_1/s_{\hat{\beta}_1}$ & $p$    \\
+			S = \#\#       & R-Sq = $r^2$    & \multicolumn{2}{l}{R-Sq(adj) = \#\#}                      &      \\
+			&                 &                     &                                     &      \\
+			\multicolumn{3}{l}{Analysis of Variance}               &                                     &      \\
+			Source         & DF              & SS                  &                                     &      \\
+			Regression     & \#\#            & \#\#                &                                     &      \\
+			Residual Error & \#\#            & SSE                 &                                     &      \\
+			Total          & \#\#            & SST                 &                                     &     
+		\end{tabular}
+	}
+	\vspace{-0.8em}
+	\end{table}
+	
+	
+	{\centering
+	\color{red}\rule[2pt]{0.5\textwidth}{0.2em}\color{black}
+	}
+	
+	
+\end{document}
