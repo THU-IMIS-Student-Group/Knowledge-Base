@@ -12,3 +12,8 @@
 
 - [期末大作业-选项一](https://github.com/Vopaaz/V-Shell)，C 语言实现一个基础的 Linux Shell. 2018 学年第二学期。毛波老师。Github Repo. By Vopaaz.
 - [期末大作业-额外选项](https://github.com/Vopaaz/File-Allocation-Simulator)，实现一个 File Allocation Simulator, 技术栈 electron+ VanillaJS. 2018 学年第二学期。毛波老师。Github Repo. By Vopaaz.
+
+## 动态系统分析与控制
+
+- [课程整理 PDF 和 LaTeX 源代码](Dynamic-Systems-Analysis-and-Control/2018-summary-Vopaaz/). 2018 学年第二学期。陈剑老师。本 Repo 内目录。By Vopaaz.
+
