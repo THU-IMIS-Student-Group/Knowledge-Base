@@ -3,7 +3,7 @@
 ## Index
 
 - 材料与面试准备
-- 交换经历与选课建议
+- [交换经历与选课建议](Experience-and-Suggestion/index.md)
 - 交换期间的课程资料
 
 ## Contribution Guide
