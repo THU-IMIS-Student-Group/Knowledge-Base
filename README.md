@@ -14,17 +14,17 @@ A knowledge share repository for Tsinghua University Information Management and 
 
 本仓库包含以下内容，具体信息见各级目录下的 Readme：
 
-- Study: 课程相关
+- [Study](Study/): 课程相关
     - 课程笔记、cheatsheet
     - 开放性、无标答的大作业项目
     - 其他老师允许公开的课程资料
     - 课程评价/选课建议
-- Exchange: 交换相关
+- [Exchange](Exchange/): 交换相关
     - 交换材料与面试准备
     - 交换经历、选课建议
     - 交换期间的课程相关内容
-- Graduate: 出国、保研与直博相关
-- Job Hunting: 实习与毕业校招相关
+- [Graduate](Graduate/): 出国、保研与直博相关
+- [Job Hunting](Job-Hunting/): 实习与毕业校招相关
     - 面经
     - 内推信息
 
