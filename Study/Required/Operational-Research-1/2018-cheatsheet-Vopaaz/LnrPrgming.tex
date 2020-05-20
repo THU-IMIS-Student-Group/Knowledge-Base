@@ -1,0 +1,697 @@
+% Chinses Article template created by Vopaaz
+\documentclass[UTF8, 6pt]{ctexart}
+\usepackage{geometry}
+\geometry{a4paper, scale=0.99, nohead, nofoot}
+\usepackage{enumerate}
+\usepackage{enumitem}
+
+\setenumerate[1]{itemsep=0pt,partopsep=0pt,parsep=0pt ,topsep=0pt}
+\setitemize[1]{itemsep=0pt,partopsep=0pt,parsep=0pt ,topsep=0pt}
+\setenumerate[2]{itemsep=0pt,partopsep=0pt,parsep=0pt ,topsep=0pt}
+\setitemize[2]{itemsep=0pt,partopsep=0pt,parsep=0pt ,topsep=0pt}
+\setdescription{itemsep=0pt,partopsep=0pt,parsep=0pt ,topsep=0pt}
+
+\usepackage{setspace}
+\usepackage{hyperref}
+\hypersetup{colorlinks, allcolors = black}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\usepackage{multicol}
+\usepackage{multirow}
+
+\usepackage{color}
+\usepackage{graphicx}
+
+\newcommand{\st}{\text{s.t.}}
+
+\pagestyle{empty}
+
+% Specifically necessary to be changed
+
+\usepackage{titlesec}
+
+\titleformat{\section}
+{\normalfont\fontsize{10}{12}\bfseries}{\thesection}{1em}{\mcompress}
+
+\newcommand{\mcompress}{\vspace{-10 px}}
+
+
+\newcommand{\sectionline}{\rule[2pt]{0.45\textwidth}{0.05em}}
+
+\input{tb.tex}
+
+\usepackage{multicol}
+
+\begin{document}
+
+\scriptsize
+
+\twocolumn
+
+\section{单纯形法}
+
+线性规划问题的标准形式：
+
+\mcompress
+\[
+\begin{aligned}
+\max z &= CX \\
+\st\ AX&=b\\
+X& \geq 0
+\end{aligned}
+\]
+\mcompress
+
+
+要点：
+
+\mcompress
+
+\begin{multicols}{2}
+
+\begin{itemize}
+	\item 目标函数求最大
+	\item 所有约束写成等号（通过松弛变量等）
+	\item 所有决策变量大于等于0
+	\item $a_{ij}$ 的符号无限制，\textbf{$b_j$ 必须为正}
+\end{itemize}
+\end{multicols}
+
+\mcompress
+\sectionline
+
+单纯形表
+
+例题：
+
+\mcompress
+\[
+\begin{array}{lrrrrrl}
+	\max z & =  3x_1 & -3x_2 &       &   +5x_4 & -x_5 &       \\
+	\st    &     x_1 &       & -2x_3 &   +2x_4 &      & =12   \\
+	       &         &   x_2 & -2x_3 &         &      & =1    \\
+	       &         &       & -4x_3 &   +3x_4 & +x_5 & =27   \\
+	       &         &       &  x_1, & \ldots, &  x_5 & \geq0
+\end{array} 
+\]
+\mcompress
+
+初始单纯形表
+
+\mcompress
+\[
+\begin{array}{ccc|ccccc}
+	    & c_j \rightarrow &    &  3   & -3  &  0  &  5  & -1  \\\hline
+	C_B &       X_B       & b  & x_1  & x_2 & x_3 & x_4 & x_5 \\ \hline
+	 3  &       x_1       & 12 &  1   &  0  & -2  & [2] &  0  \\
+	-3  &       x_2       & 1  &  0   &  1  & -2  &  0  &  0  \\
+	-1  &       x_5       & 27 &  0   &  0  & -4  &  3  &  1  \\ \hline
+	    &    c_j - z_j    &    &  0   &  0  & -4  &  2  &  0  \\ \hline
+	 5  &       x_4       & 6  & 1/2  &  0  & -1  &  1  &  0  \\
+	-3  &       x_2       & 1  &  0   &  1  & -2  &  0  &  0  \\
+	-1  &       x_5       & 9  & -3/2 &  0  & -1  &  0  &  1  \\ \hline
+	    &                 & 18 &  -1  &  0  & -2  &  0  &  0
+\end{array}
+\]
+\mcompress
+
+上表中有关的说明：
+
+\begin{itemize}
+	\item 全表第一行为目标函数的系数
+	\item ``b" 对应的一列为约束的系数，在后续进行线性变换时，\textbf{要}跟着变换。另注意标准型要求了 $b>0$.
+	\item $C_B$ 一列为基变量 $X_B$ 对应的系数，\textbf{不}跟随主矩阵进行线性变换，而是在换基迭代完成后更新基变量对应的系数
+	\item $c_j - z_j$ 一行的具体计算方法为 $c_j - \sum \limits_{i=1}^{m}c_i a_{ij}$, 例如：$-4 = 0 - 3 \times (-2) - (-3)\times (-2) - (-1)\times (-4)$. 一个技巧为：基变量的此数值必然为 0.
+	\item 当 $c_j - z_j$ 一行全部为负数时，即为最终解。若存在正数，则将其中\textbf{最大的正数}对应的作为入基变量
+	\item 确定入基变量后，可确定出基变量。指标为入基变量列对应的\textbf{正 b/a 中的最小者}，即：
+	\begin{enumerate}
+		\item 确定了入基变量为 $x_4$
+		\item 对 $x_1$: $12\div 2 = 6$
+		\item 对 $x_2$: 除数为 0，跳过
+		\item 对 $x_3$: $27 \div 3 = 9$
+		\item 选取其中最小的正数为 6，对应 $x_1$, 因此 $x_1$ 为出基变量
+		\item 最终目标为通过线性变换令 [2] 变为 1, 且其同一列的其他值为 0
+	\end{enumerate}
+\item 最终的目标函数值为 18，计算方法为在最终的单纯形表中，计算 $C_B^T \cdot b$, 即 $5\times 6 +(-3) \times 1 + (-1)\times 9 = 18$
+\end{itemize}
+
+\sectionline
+
+以符号形式表示的通式：
+
+\mcompress
+\[
+\begin{array}{ccc|cc}
+	    &     &            &      C       &     0      \\\hline
+	    & X_b &            &      X       &    X_s     \\ \hline
+	 0  & X_s &     b      &      A       &     I      \\ \hline
+	C_B & X_B &  B^{-1}b   &   B^{-1}A    &   B^{-1}   \\ \hline
+	    &     & C_BB^{-1}b & C-C_BB^{-1}A & -C_BB^{-1}
+\end{array}
+\]
+\mcompress
+
+有关的说明：
+
+\begin{itemize}
+	\item 这里假设了所有原始问题中的约束都是不等号，松弛变量直接生成了单位矩阵
+\end{itemize}
+
+\sectionline
+
+初始问题无法找到一个单位阵的解决方案
+
+（一）人工变量法（大 M 法）
+
+在等式中引入适当的人工变量使初始单位矩阵存在，并在目标函数中添加 $-M x_i$ （$x_i$ 是添加的人工变量） 项，将 $M$ 认为是一个无穷大的数。用这种方法进行换基迭代，如果最终添加的人工变量留在了基内，那就认为这个问题没有可行解。
+
+
+（二）两阶段法
+
+第一阶段，不处理原问题，而是处理去除人工变量的新问题：
+
+目标函数：最小化所有人工变量之和（转化为最大化所有人工变量的相反数的和），与原目标函数无任何关联
+
+约束：与大 M 法相同，在原约束的基础上增加人工变量，使得存在初始单位矩阵。
+
+若第一阶段使得所有人工变量全部成为非基变量，则进入第二阶段，否则无可行解。
+
+第二阶段，在上一阶段结果的基础上去除所有的人工变量，并且恢复原始的目标函数，继续计算。
+
+例题：转化为标准形式的原始问题为：
+
+\mcompress
+\[
+\begin{array}{lrrrrrl}
+	\max z & =-3x_1 &      & +x_3 &         &      &        \\
+	\st    &    x_1 & +x_2 & +x_3 &    +x_4 &      & =4     \\
+	       &  -2x_1 & +x_2 & -x_3 &         & -x_5 & =1     \\
+	       &        & 3x_2 & +x_3 &         &      & =9     \\
+	       &        &      & x_1, & \ldots, &  x_5 & \geq 0
+\end{array}
+\]
+\mcompress
+
+大 M 法（在此基础上完全按照单纯形法逻辑进行计算即可）：
+
+\mcompress
+\[
+\begin{array}{ccc|ccccccc}
+	    & c_j \rightarrow &   & -3  &  0  &  1  &  0  &  0  & -M  & -M  \\\hline
+	C_B &       X_B       & b & x_1 & x_2 & x_3 & x_4 & x_5 & x_6 & x_7 \\ \hline
+	 0  &       x_4       & 4 &  1  &  1  &  1  &  1  &  0  &  0  &  0  \\
+	-M  &       x_6       & 1 & -2  &  1  & -1  &  0  & -1  &  1  &  0  \\
+	-M  &       x_7       & 9 &  0  &  3  &  1  &  0  &  0  &  0  &  1 
+\end{array}
+\]
+\mcompress
+
+两阶段法，第一阶段：
+
+\mcompress
+\[
+\begin{array}{ccc|ccccccc}
+	    & c_j \rightarrow &   &  0  &  0  &  0  &  0  &  0  & -1  & -1  \\\hline
+	C_B &       X_B       & b & x_1 & x_2 & x_3 & x_4 & x_5 & x_6 & x_7 \\ \hline
+	 0  &       x_4       & 4 &  1  &  1  &  1  &  1  &  0  &  0  &  0  \\
+	-1  &       x_6       & 1 & -2  &  1  & -1  &  0  & -1  &  1  &  0  \\
+	-1  &       x_7       & 9 &  0  &  3  &  1  &  0  &  0  &  0  &  1
+\end{array}
+\]
+\mcompress
+
+据此计算最终将会得到
+
+\mcompress
+\[
+\begin{array}{ccc|ccccccc}
+	C_B &   X_B   & b & x_1 & x_2 & x_3 & x_4 & x_5  & x_6  & x_7  \\ \hline
+	 0  &   x_4   & 0 &  0  &  0  &  0  &  1  & -1/2 & 1/2  & -1/2 \\
+	 0  &   x_2   & 3 &  0  &  1  & 1/3 &  0  &  0   &  0   & 1/3  \\
+	 0  &   x_1   & 1 &  1  &  0  & 2/3 &  0  & 1/2  & -1/2 & 1/6  \\ \hline
+	    & c_j-z_j &   &  0  &  0  &  0  &  0  &  0   &  -1  &  -1
+\end{array}
+\]
+\mcompress
+
+第二阶段的开始：
+
+\mcompress
+\[
+\begin{array}{ccc|ccccc}
+	    & c_j \rightarrow &   & -3  &  0  &  1  &  0  &  0   \\ \hline
+	C_B &       X_B       & b & x_1 & x_2 & x_3 & x_4 & x_5  \\ \hline
+	 0  &       x_4       & 0 &  0  &  0  &  0  &  1  & -1/2 \\
+	 0  &       x_2       & 3 &  0  &  1  & 1/3 &  0  &  0   \\
+	-3  &       x_1       & 1 &  1  &  0  & 2/3 &  0  & 1/2  \\
+\end{array}
+\]
+\mcompress
+	
+此后完全按照正常逻辑即可。
+
+\sectionline
+
+无可行解：在所有检验数 $\leq 0$ 的情况下，基变量中含有非零的人工变量
+
+无穷多最优解：在所有检验数 $\leq 0$ 的情况下，存在非基变量的检验数为 0
+
+\noindent
+无界解：对某一检验数 $>0$, 其对应的 $P_j$ （主体矩阵对应列） 中的所有系数均 $\leq 0$
+
+\sectionline
+
+\mcompress
+\mcompress
+
+\section{对偶理论}
+
+原问题与对偶问题的标准形式：
+\mcompress
+\mcompress
+\begin{multicols}{2}
+\[
+\begin{aligned}
+\max z &= CX \\
+\st\ AX&\leq b\\
+X& \geq 0
+\end{aligned}
+\]
+
+\[
+\begin{aligned}
+\min w &= Y^Tb \\
+\st\ A^TY&\geq C^T\\
+Y& \geq 0
+\end{aligned}
+\]
+\end{multicols}
+\mcompress
+
+对非标准情况，具体的变化见下表。
+
+\mcompress
+\reflecttable
+\mcompress
+
+例如，一个具体的原问题和对偶问题分别为：
+
+
+\centerline{
+\begin{tabular}{l|l}
+\noindent
+$
+\begin{array}{rrrl}
+	\max z & = 2x_1 &    +x_2 &  \\
+	       &   5x_2 & \leq 15 &  \\
+	6x_1   & + 2x_2 & \leq 24 &  \\
+	x_1    &   +x_2 &  \leq 5 &  \\
+	x_1,   &    x_2 &  \geq 0 &
+\end{array}
+$
+&
+\noindent
+$
+\begin{array}{rrrrl}
+	\min w & = 15y_1 & +24y_2 & + 5y_3 &  \\
+	       &    6y_2 &   +y_3 & \geq 2 &  \\
+	5y_1   &  + 2y_2 &   + y3 & \geq 1 &  \\
+	y_1,   &     y_2 ,&    y_3 & \geq 0 &
+\end{array}
+$
+\end{tabular}
+}
+
+对其按照标准方法进行单纯形法计算可分别得到：
+
+\mcompress
+\begin{table}[htb]
+	\centering
+	\footnotesize
+	\begin{tabular}{|cc|cc|ccc|}
+		\hline
+		      &                         &  \multicolumn{2}{c}{原变量}   & \multicolumn{3}{|c|}{原松弛变量} \\ \hline
+		      &                         & $x_1$ &       $x_2$        & $x_3$ & $x_4$ &    $x_5$    \\ \hline
+		$x_3$ &          15/2           &   0   &         0          &   1   &  5/4  &    -15/2    \\
+		$x_1$ &           7/2           &   1   &         0          &   0   &  1/4  &    -1/2     \\
+		$x_2$ &           3/2           &   0   &         1          &   0   & -1/4  &     3/2     \\ \hline
+		\multicolumn{2}{|c|}{$c_j-z_j$} &   0   &         0          &   0   &  1/4  &     1/2     \\ \hline
+		      &                         & \multicolumn{2}{c}{对偶剩余变量} & \multicolumn{3}{|c|}{对偶变量}  \\ \hline
+		      &                         & $y_4$ &       $y_5$        & $y_1$ & $y_2$ &    $y_3$ \\ \hline
+	\end{tabular}
+\end{table}
+\mcompress\mcompress
+\begin{table}[htb]
+	\footnotesize
+	\centering
+	\begin{tabular}{|cc|ccc|cc|}
+		\hline
+		      &                       & \multicolumn{3}{c}{对偶变量}  & \multicolumn{2}{|c|}{对偶剩余变量} \\\hline
+		      &                       & $y_1$ & $y_2$ &   $y_3$   & $y_4$ &       $y_5$        \\\hline
+		$y_2$ &          1/4          & -5/4  &   1   &     0     & -1/4  &        1/4         \\
+		$y_3$ &          1/2          & 15/2  &   0   &     1     &  1/2  &        -3/2        \\\hline
+		\multicolumn{2}{|c|}{$c_j-z_j$} & 15/2  &   0   &     0     &  7/2  &        3/2         \\\hline
+		      &                       & \multicolumn{3}{c}{原松弛变量} &  \multicolumn{2}{|c|}{原变量}   \\ \hline
+		      &                       & $x_3$ & $x_4$ &   $x_5$   & $x_1$ &       $x_2$\\ \hline
+	\end{tabular}
+\end{table}
+
+\mcompress
+
+注意原变量/松弛变量，约束右边项/最终检验系数，以及A矩阵之间负转置的关系。
+
+对偶性质：
+\begin{itemize}
+	\item 原问题最优解的目标函数值是其对偶问题目标函数值的下界；反之是上界
+	\item 原问题有最优解，则对偶问题有最优解且最终目标函数相等，因此在上例子中，可以只通过一个表读出两个问题的目标函数最优解
+	\item 原问题无界，则对偶问题无可行解
+	\item 原问题无可行解，则对偶问题无界
+	\item \textbf{互补松弛性质}：在原问题最优解中，如果某一约束条件对应的对偶变量值 $\neq 0$, 则这约束取严格等式；反之如果约束条件取严格不等式，则对应的对偶变量必为0.
+\end{itemize}
+
+一种约束的影子价格：其在对偶问题中对应的变量在最优解时候的值。
+
+\textbf{单位为：目标函数单位/资源单位}
+
+\textbf{意义为}：
+
+\begin{itemize}
+	\item 保持其他条件不变
+	\item 资源在【算出来的一定区间之内】变化
+	\item 增加一单位资源（约束右边项 b）能够增加的目标函数值
+\end{itemize}
+
+\sectionline
+
+对偶单纯形法：
+
+标准形式：其余要求与原标准形式相同，但是不要求 $b$ 的正负性，但要求初始单纯形表中的所有检验系数 $c_j-z_j$ 必须全部为负数。
+
+\begin{itemize}
+	\item 如果所有 $b\geq 0$，则表明问题已经达到最优解，否则取负的 $b$ 中\textbf{最小的}（绝对值最大的）作为出基变量
+	\item 在出基变量对应行中，如果所有的 $a_{ij} \geq 0$, 则原问题无可行解。否则，对于所有\textbf{为负数}的 $a_{ij}$, 选其中 $\dfrac{c_j-z_j}{a_{ij}}$ 的\textbf{最小者}对应的变量为入基变量
+\end{itemize}
+
+\sectionline
+
+\noindent
+灵敏度分析（以下 $B^{-1}$ 是最终单纯形表中，位于初始单纯形表中单位矩阵位置的数字）：
+
+$c_j$ 变化：更换最终单纯形表中 $c_j$, 并正常继续计算，\textbf{注意开头行和基列都要更换}
+
+$b_j$ 变化：运用公式 $\Delta b' = B^{-1} \Delta b$，将 b 的变化反映到最终的单纯形表中
+
+增加一个变量 $x_j$：计算 $P'_j = B^{-1}P_j$, 并入原表最右侧后计算 $\sigma'_j = c_j-z_j$
+
+参数 $a_{ij}$ 变化：将发生变化的那一列看作是一种新的产品，按上一条的方法并在原列的右侧并删去原列。若原列为基变量， $P'_j$ 可能不再符合基变量的要求。此时通过线性变换将其变换至符合要求（$b$ 以及 $A$ 矩阵的其他部分也跟着变化）。此后再计算时，有可能 $b \geq 0 $ 与 $c_j-z_j \leq 0$ 均不满足。此时，将 $b$ 为负的行两端乘以 $-1$, 并加上一个人工变量（原单位矩阵的 1 变为了 -1, 因此需要人工变量再生成一个 1），在目标函数中其权重为 $-M$, 随后继续通过单纯形法继续计算。 
+
+增加一个约束条件：首先，将原问题最优解代入新的约束，如果满足则最优解不变。否则，将新的约束直接作为新的一行添加入。之后，原为单位矩阵的列很可能不再符合要求（新的一行不为 0），要进行线性变换（将新加入一行变为 0）使其符合要求。
+
+参数线性规划：令 $\lambda = 0$ 算出最终单纯形表，之后再将 $\lambda$ 反映到最终的单纯形表中，再进行上述灵敏度分析类似的计算。
+
+\sectionline
+
+当多个目标函数系数 $c_j$ 同时发生变化时，\textbf{使用 100\% 法则。}
+
+每个系数 $c_j$ 单独变化时可以算出其最优解保持不变时允许的变化范围 $L_j \leq c_j \leq U_j$.
+定义比率系数$r_{j}=\left\{\begin{array}{ll}{\Delta c_{j} /\left(U_{j}-c_{j}\right)} & {\Delta c_{j} \geq 0} \\ {\Delta c_{j} /\left(L_{j}-c_{j}\right)} & {\Delta c_{j} \leq 0}\end{array}\right.$, 
+其中 $\Delta c_j$ 为问题中发生的实际增减量。
+
+对于所有发生变化的 $c_j$, 如果 $\sum r_j \leq 1$, 则最优解必然保持不变。反之有可能变化（但是也非必然变化）。
+
+
+当多个约束右边项系数 $b_i$ 同时变化时，\textbf{使用 100\% 法则。}
+
+每个系数 $b_i$ 单独变化时可以算出其最优解保持不变时允许的变化范围 $L_{i} \leq b_{i} \leq U_{i}$.
+
+定义比例系数 $r_{i}=\left\{\begin{array}{ll}{\Delta b_{i} /\left(U_{i}-b_{i}\right)} & {\Delta b_{i} \geq 0} \\ {\Delta b_{i} /\left(L_{i}-b_{i}\right)} & {\Delta b_{i} \leq 0}\end{array}\right.$, 其中 $\Delta c_j$ 为题中实际发生的增减量。
+
+对于所有发生变化的 $r_i$, 如果 $\sum r_i \leq 1$, 则所有的影子价格均保持不变。反之有可能变化（但是也非必然变化）。
+
+
+
+
+\sectionline
+
+\mcompress
+\mcompress
+
+\section{运输问题}
+
+基本问题标准形式的要求：产销平衡。基变量的个数应当始终保持 $m+n-1$ 个。产地竖向排列，销地横向排列。表中是费用，优化目标是总费用最小化。
+
+给出运输问题的初始基可行解（Vogel 法过于复杂，略去）：
+
+\begin{itemize}
+	\item 最小元素法，首先尽可能地填充运输费用最小的 cell
+	\item 西北角法，首先尽可能地填充左上角的 cell
+\end{itemize}
+
+所有被填充有数字的就作为基可行解。注意基变量的个数始终保持 $m+n-1$ 个，如果不足则在适当位置填充 0.
+
+定义：一个空格（非基变量）的闭回路，是除了它以外均为填有数字的格（基变量），由水平和竖直线段连接起来的封闭回路。（标记为 1-2-3...-1）
+
+解的最优性检验：
+
+\begin{itemize}
+	\item 闭回路法：对于一个闭回路, 奇数位置的 $c_{ij}$ （运输费用）之和（包括 1 点出发点本身，但是只计算一次）减去偶数位置的 $c_{ij}$ 之和，如果均 $\geq 0$, 则已经达到最优解。
+	\item \textbf{对偶变量法（位势法）}：一个产地（行）对应一个 $u_i$, 一个销地（列）对应一个 $v_j$, 假设任意 $u_i$ 为 0, 对每一个基变量所在的 $c_{ij}$, 有 $u_i + v_j = c_{ij}$.
+	此后，对所有的非基变量，通过 $c_{ij} - u_i - v_j$ 算出检验数。
+	如果均 $\geq 0$, 则已为最优解。
+\end{itemize}
+
+解的改进：
+
+\begin{enumerate}
+	\item 选定检验系数为负数且最小（绝对值最大）的 $x_{ij}$ 为入基变量
+	\item 对于入基变量的闭回路，找出偶数顶点上 $x_{ij}$ 最小的那一个
+	\item 将整条回路上所有奇数顶点增加这个数字，所有偶数顶点减去这个数字
+\end{enumerate}
+
+注意如果有两个点同时减为了 0, 只能将一个作为空点（打$\times$），其他的必须写 0 仍然作为基变量，保证基变量个数始终为 $m+n-1$.
+
+产销不平衡的情况下，假想存在一个产地/销地，其数量可以使得问题变为产销平衡。同时设其单位运价为 \textbf{0}. 
+
+销地存在最高最低需求的情况：
+\begin{enumerate}
+\item 假设存在一个产地 Dummy, 其产能可以使得总产能满足所有销地的最高需求
+\item 将每个销地拆分为 min \& \textbf{extra} 两个销地
+\item Dummy 对 min 的运输费用为 M, 对 extra 的运输费用为 0.
+\end{enumerate}
+
+\sectionline
+
+\mcompress
+\mcompress
+
+\section{目标规划}
+
+对每个决策目标，引入正、负偏差变量 $-d^+$ 和 $+d^-$, 分别表示决策值超过或者不足目标值的部分。$d^+ \geq 0, d^- \geq 0, d^+ \cdot d^- = 0$.
+
+所有约束都写成目标约束的形式。
+
+目标：使某些偏差变量\textbf{之和}最小。要求恰好达到目标值，$\min P_i(d^+ + d^-) $；要求不超过目标值 $\min P_i(d^+) $；要求不低于目标值 $\min P_i(d^-) $.通过优先因子 $P_l$ 来反映约束满足需求的优先级 $P_l \gg P_{l+1}$. 
+
+检验数分列的单纯形法：
+由于目标函数系数只有 $P_l$, 因此检验数必然是 $P_l$ 的线性组合。因此可将其写成类似下表的形式。注意这只是对目标函数种各偏差变量之和的间接写法。
+
+\mcompress
+\[
+\begin{array}{ccc|cccc}
+	       & c_j \rightarrow &        &      0       &  P_1   &  P_2   &  P_3   \\ \hline
+	 C_B   &       X_B       &   b    &     x_i      & d_1^+  & d_2^-  & d_3^+  \\ \hline
+	\vdots &     \vdots      & \vdots &    \vdots    & \vdots & \vdots & \vdots \\ \hline
+	       &    c_j - z_j    &  P_1   & \hdotsfor{4}  \\
+	       &                 &  P_2   & \hdotsfor{4}  \\
+	       &                 &  P_3   & \hdotsfor{4} 
+\end{array}
+\]
+\mcompress
+
+首先注意这种形式下，目标函数为求 $\min$, 因此要求检验数\textbf{大于} 0 时才达到最优，若有小于 0 的则，则选择其中最小的（绝对值最大）要换基迭代。
+之后，只要首先看 $P_1$ 一行，如果全部满足大于 0，再确认 $P_2$ 一行，以此类推。如果 $P_1$ 一行已经无法满足，那么就不需要再确认 $P_2$ 行。
+
+变种：要求约束为获利最大。写成 $\text{revenue} - d^+ + d^-  = M$, 目标函数项为 $\min d^-$.
+
+
+\sectionline
+\mcompress\mcompress
+\section{整数规划}
+
+割平面法：
+对松弛问题（不限制整数，其他不变）最优表中分数部分最大的 $b_i$，选取此行构造约束
+
+$\sum_j \left[-(a_{ij} - \lfloor a_{ij} \rfloor)x_j \right] + x_{n+1} = - (b_i - \lfloor b_i \rfloor) $，其中 $x_{n+1}$ 为新松弛变量，将此约束加入单纯形表中继续计算并迭代，直到 $b$ 全部为整数为止。
+（$\lfloor \rfloor$ 代表向下取整。无论 $t$ 的正负， $- (t - \lfloor t \rfloor)$ 必然要是负数。）
+
+\mcompress
+\[
+\begin{array}{ccc|ccccc}
+	    & c_j \rightarrow &      &  3  & -1  &  0   &  0  &  0   \\ \hline
+	C_B &       X_B       &  b   & x_1 & x_2 & x_3  & x_4 & x_5  \\ \hline
+	 3  &       x_1       & 13/7 &  1  &  0  & 1/7  &  0  & 2/7  \\
+	-1  &       x_2       & 9/7  &  0  &  1  & -2/7 &  0  & 3/7  \\
+	 0  &       x_4       & 31/7 &  0  &  0  & -3/7 &  1  & 22/7 \\ \hline
+	    &     c_j-z_j     &      &  0  &  0  & -5/7 &  0  & -3/7
+\end{array}
+\]
+\mcompress
+
+
+各 $b$ 中最小为第一行 $13/7$, 分数部分 $6/7$, 新的割平面约束为 $-1/7 x_3 - 2/7 x_5 + x_6 = -6/7$，将其加入单纯形表新的一行后继续计算。
+
+分支定界法：
+
+\begin{enumerate}
+	\item 解松弛问题，如果无可行解或已经是整数解则结束
+	\item 随便挑一个整数解作为剪枝的下界
+	\item 对于松弛问题解中非整数的 $x_j = b_j$，分支两个后续问题，分别添加约束 $x_j \leq \lfloor b_j \rfloor$, $x_j \geq \lfloor b_j \rfloor +1$
+	\item 一旦分支问题不可行或者最优解的目标值小于剪枝下界，则剪枝；否则继续迭代。
+\end{enumerate}
+
+隐枚举法（针对 01 变量）：
+
+列一张三大列的表，列分别为【$x_i$ 为01枚举| $z$ 值|各约束条件是否满足】
+
+首先算出所有的 $z$ 值，然后从第一个开始，检查约束条件是否满足，跳过 $z$ 值比当前 valid 的最大 $z$ 值小的 $x_i$ 组合
+
+指派问题：
+
+\noindent
+标准形式：n个人，n件事，一一对应，1代表指派，0反之；系数矩阵代表\textbf{费用，目标是最小化费用和}
+
+匈牙利解法（以下$\textcircled{0}$代表独立零元素, $\emptyset$ 代表其他零元素）：
+
+\begin{enumerate}
+	\item 对每一行减去此行最小元素，对每一列减去此列最小元素
+	\item 变换后的矩阵中确定独立零元素，若有 $n$ 个则为最优解，独立零元素的位置为 1，其他为 0
+	\item 若独立零元素小于 $n$ 个：对没有 \textcircled{0} 的行打勾；在打勾行中对 $\emptyset$ 所在列打勾；在打勾的列中对 \textcircled{0} 打勾；重复以上两步直到没有任何可以打勾的行或列；对\textbf{没有}勾的行划横线，对有勾的列划竖线
+	\item 在没有被直线覆盖的元素中选出一个最小的。将没有被直线覆盖的行减去这个最小元素。此时直线覆盖的元素中将出现负元素，对其所在列加上这一最负元素相反数（使其为零），返回步骤2.
+\end{enumerate}
+
+确定独立零元素：在只有一个零元素的行（或列）中将此 0 变为 \textcircled{0}, 将位于其同一列或行的所有其他零元素标记为 $\emptyset$
+
+\sectionline
+\mcompress\mcompress
+\section{博弈论}
+
+
+行决策人：一行对应其一个选项，总选项数为行数。列决策人反之。赢得矩阵是行决策人的收益。
+
+纯策略：
+
+如果每行最小里的最大值 = 每列最大里的最小值：$V_{G}=\max _{i} \min _{j} a_{i j}=\min _{j} \max _{i} a_{i j}$，则 $V_{G}$ 为纯策略解。
+
+混合策略图解法，要求其中一方的可选决策数为2，设其为 M：
+
+\begin{enumerate}
+	\item 设M取两种策略的概率分别为 $x$ 和 $1-x$
+	\item 对于对手的每一种策略，算出M的收益（数学期望，用 $x$ 的式子表示）
+	\item 若M是行决策者，对以上几个收益的数学期望，画图求其最小中的最大；若M是列决策者，求其最大值中的最小。
+\end{enumerate}
+
+
+\mcompress
+
+\begin{figure}[h]
+\centering
+\begin{minipage}{0.3\linewidth}
+	\includegraphics[width=\linewidth]{row}
+	{\scriptsize M行决策者，B点为最优解}
+\end{minipage}
+\hspace{0.1\linewidth}
+\begin{minipage}{0.3\linewidth}
+	\includegraphics[width=\linewidth]{column}
+	{\scriptsize M列决策者，BC线段最优}
+\end{minipage}
+\end{figure}
+
+\mcompress
+最终最优解，M的决策和$V_G$的值由代回$x$解出。M的对手N的决策判断如下：
+
+\begin{itemize}
+	\item 若如左图，最优解为顶点，则不过此顶点的直线对应的N的决策的概率为0，过此顶点的决策概率用$V_G$设未知数列方程解出
+	\item 若如右图，最优解为线段，则这条线段的策略是N的最优纯策略
+\end{itemize}
+
+例如矩阵为 $
+\left(
+\begin{array}{ccc}
+2&3&11\\
+7&5&2
+\end{array}
+\right)
+$，解的过程对应上左图，最终$V_G$为$49/11$。则解列决策人最优解的方程组为$
+\left\lbrace 
+\begin{array}{rll}
+	3y_2 & +11y_3 & =49/11  \\
+	5y_2 & + 2y_3 & = 49/11 \\
+	y_2  &  +y_3  &   = 1
+\end{array}
+\right.
+$
+
+优超策略：如果有一行R的每个元素都\textbf{小于任意}另一行的对应元素，则R可以直接删去。如果有一列C的每个元素都大于任意\textbf{大于任意}另一列的对应元素，则C可以直接删去。
+
+方程组法（不常用）：解$
+\left\lbrace
+\begin{array}{rc}
+\sum_i a_{ij}x_i &= v\\
+\sum_i x_i &= 1
+\end{array}
+\right.
+$, $\left\lbrace
+\begin{array}{rc}
+\sum_j a_{ij}y_j &= v\\
+\sum_j y_j &= 1
+\end{array}
+\right.$两个方程组
+
+线性规划法，直接看例子：
+
+赢得矩阵为 $\left(
+\begin{array}{ccc}
+7&2&9\\
+2&9&0\\
+9&0&11
+\end{array}
+\right)
+$，则两个线性规划问题为$
+\left\lbrace
+\begin{array}{rlll}
+	\multicolumn{4}{c}{\min(x_1+x_2+x_3)} \\
+	7x_1 & +2x_2  & +9x_3  & \geq 1      \\
+	2x_1 & + 9x_2 &        & \geq 1      \\
+	9x_1 &        & +11x_3 & \geq1
+\end{array}
+\right.
+$ 和 $
+\left\lbrace
+\begin{array}{rlll}
+\multicolumn{4}{c}{\max(y_1+y_2+y_3)} \\
+7y_1 & +2y_2  & +9y_3  & \leq 1      \\
+2y_1 & + 9y_2 &        & \leq 1      \\
+9y_1 &        & +11y_3 & \leq1
+\end{array}
+\right.
+$，注意两者互为对偶问题，只是例子中A矩阵对称因而无法体现。Max 问题照抄原矩阵，Min问题的系数为 $A^T$.
+
+线性规划的解为 $x = (\frac{1}{20}, \frac{1}{10}, \frac{1}{20})^T, y = (\frac{1}{20}, \frac{1}{10}, \frac{1}{20})^T$ 目标函数值均为 $\frac{1}{5}$.
+
+则决策问题的解为 $V_G = \frac{1}{\omega} = 5$, $x^* = V_Gx = (\frac{1}{4}, \frac{1}{2}, \frac{1}{4})^T, y^* = V_Gy = (\frac{1}{4}, \frac{1}{2}, \frac{1}{4})^T$
+
+
+
+
+
+
+\end{document}
+
+
+
+
+
+
+

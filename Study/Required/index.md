@@ -17,3 +17,6 @@
 
 - [课程整理 PDF 和 LaTeX 源代码](Dynamic-Systems-Analysis-and-Control/2018-summary-Vopaaz/). 2018 学年第二学期。陈剑老师。本 Repo 内目录。By Vopaaz.
 
+## 运筹学(1)
+
+- [Cheatsheet PDF 和 LaTeX 源代码](Operational-Research-1/2018-cheatsheet-Vopaaz/). 2018 学年第二学期。肖勇波老师。本 Repo 内目录。By Vopaaz.

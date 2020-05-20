@@ -1,0 +1,21 @@
+\newcommand{\reflecttable}{
+\begin{table}[htb]
+	\centering
+	\footnotesize
+	\begin{tabular}{|l|l|l|}
+		\hline
+		对应项目                          & 原问题         & 对偶问题        \\ \hline
+		目标函数类型                        & max         & min         \\ \hline
+		\multirow{2}{*}{目标函数系数与约束右边项} & 目标函数系数      & 右边项系数       \\
+		                              & 右边项系数       & 目标函数系数      \\\hline
+		\multirow{2}{*}{变量与约束}        & 变量数 n       & 约束数 n       \\
+		                              & 约束数 m       & 变量数 m       \\\hline
+		\multirow{6}{*}{变量类型与约束类型}    & 变量 $\geq 0$ & 约束 $\geq$   \\
+		                              & 变量 $\leq 0$ & 约束 $\leq$   \\
+		                              & 变量无限制       & 约束 $=$      \\
+		                              & 约束 $\geq$   & 变量 $\leq 0$ \\
+		                              & 约束 $\leq$   & 变量 $\geq 0$ \\
+		                              & 约束 $=$      & 变量无限制 \\\hline
+	\end{tabular}
+\end{table}
+}
