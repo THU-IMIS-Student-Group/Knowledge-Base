@@ -4,9 +4,9 @@
 
 - 国内保研的资料，经历和建议
 - 国内直博的资料，经历和建议
-- 出国申请的资料，经历和建议
+- [出国申请的资料，经历和建议](Overseas/index.md)
 
-有关春招、秋招或其他求职信息，请移步 Job Hunting 板块。
+有关春招、秋招或其他求职信息，请移步 [Job Hunting](../Job-Hunting/) 板块。
 
 ## Contribution Guide
 
