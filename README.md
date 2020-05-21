@@ -42,7 +42,12 @@ A knowledge share repository for Tsinghua University Information Management and 
 
 ## Contribution Guide
 
-fork 本仓库并使用 Pull Request 提交你的资料。除了以下通用规范外，还请注意阅读对应板块下 Readme 中的 Contribution Guide.
+欢迎任何形式的贡献！提交资料或测评、纠错、以及对本项目和贡献者提交的 Repo 不吝 Star,
+都能促进这个项目滚雪球式地发展，更好地服务信管同学。
+
+如果对项目本身有建议，如新增板块等，请 issue.
+
+如果想要提交资料，请 fork 本仓库并使用 Pull Request 提交你的资料。除了以下通用规范外，还请注意阅读对应板块下 Readme 中的 Contribution Guide.
 
 资料的形式可以是一个外链，也可以是一个/一系列文件，具体规范如下：
 
