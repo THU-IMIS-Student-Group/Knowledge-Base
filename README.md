@@ -27,6 +27,7 @@ A knowledge share repository for Tsinghua University Information Management and 
 - [Job Hunting: 实习与校招相关](Job-Hunting/)
     - 面经
     - 内推信息
+- [Planning: 学业和职业规划相关](Planning/)
 
 ## Disclaimer
 
