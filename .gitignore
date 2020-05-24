@@ -1,1 +1,15 @@
 .vscode/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# macOS .DS_Store
+.DS_Store
+
+# JetBrains config file
+.idea
