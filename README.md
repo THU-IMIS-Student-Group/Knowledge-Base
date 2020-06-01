@@ -24,10 +24,15 @@ A knowledge share repository for Tsinghua University Information Management and 
     - 交换经历、选课建议
     - 交换期间的课程相关内容
 - [Graduate: 出国、保研与直博相关](Graduate/)
+    - 前期准备和申请攻略
+    - 项目测评或其他建议
 - [Job Hunting: 实习与校招相关](Job-Hunting/)
     - 面经
     - 内推信息
-- [Planning: 学业和职业规划相关](Planning/)
+- [Tutorial: 生涯规划攻略](Tutorial/)
+    - 企业就职
+    - 教职
+    - 从政
 
 ## Disclaimer
 
