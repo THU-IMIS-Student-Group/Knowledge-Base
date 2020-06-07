@@ -41,12 +41,6 @@ Computer-Science
 Carnegie-Mellon-University-MSCS
 ```
 
-“项目文件夹”请填写项目简称。例如
-
-```
-MSCS
-```
-
 ”资料文件夹”请按以下方式命名：
 
 ```
