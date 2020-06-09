@@ -1,0 +1,62 @@
+As we assume i.i.d. normal errors,
+the distribution of the regression residual $u$ is $N(0, \sigma)$,
+where $\sigma$ represents the standard error of $u$.
+
+Therefore, the conditional pdf of $Y$ for each $x$,
+$p(y|X=x) = \dfrac{1}{\sigma \sqrt{2\pi}} e^{- \frac{
+  ( y - \beta_0 - \beta_1 x )^2
+}{
+  2\sigma^2
+}}$
+
+Given the data $X_i, Y_i$, the overall probability is
+
+\[
+  \prod \limits_{i=1}^{n} p(Y_i | X_i) = \prod \limits_{i=1}^{n}
+  \dfrac{1}{\sigma \sqrt{2\pi}}
+  e^{- \frac{
+  ( Y_i - \beta_0 - \beta_1 X_i )^2
+  }{
+    2\sigma^2
+  }}
+\]
+
+The maximum likelihood estimator is the estimator $\hat{\beta}_0$ and $\hat{\beta_1}$
+that can maximize this function.
+Take logarithmic on this formula,
+\[
+  \begin{aligned}
+  f(\beta_0, \beta_1) &= \log \prod \limits_{i=1}^{n}
+  \dfrac{1}{\sigma \sqrt{2\pi}}
+  e^{- \frac{
+  ( Y_i - \beta_0 - \beta_1 X_i )^2
+  }{
+    2\sigma^2
+  }} \\
+  &= - \dfrac{n}{2} \log 2\pi - n \log \sigma
+  - \dfrac{1}{2\sigma^2} \sumlimits ( Y_i - \beta_0 - \beta_1 X_i )^2
+  \end{aligned}
+\]
+
+Take partial derivative on $f(\beta_0, \beta_1)$,
+\[
+  \begin{aligned}
+    \dfrac{\partial}{\partial \beta_0}(\beta_0, \beta_1) &=
+     \dfrac{1}{2\sigma^2} \sumlimits 2(Y_i - \beta_0 - \beta_1 X_i) \\
+    \dfrac{\partial}{\partial \beta_1}(\beta_0, \beta_1) &=
+     \dfrac{1}{2\sigma^2} \sumlimits 2(Y_i - \beta_0 - \beta_1 X_i) X_i
+  \end{aligned}
+\]
+
+Let the two partial derivative be $0$,
+it can be derived that
+\[
+  \begin{aligned}
+    \hat{\beta_0} &= \bar{Y} - \hat{\beta_1} \bar{X} \\
+    \hat{\beta_1} &= \dfrac{
+      \sumlimits (X_i - \bar{X}) (Y_i - \bar{Y})
+    }{
+      \sumlimits (X_i - \bar{X})^2
+    }
+  \end{aligned}
+\]
