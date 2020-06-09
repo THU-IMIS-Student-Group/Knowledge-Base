@@ -1,0 +1,1842 @@
+% English Article template created by Vopaaz
+\documentclass{article}
+\usepackage{geometry}
+\geometry{a4paper}
+\usepackage{setspace}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\hypersetup{colorlinks,allcolors=black}
+
+\setenumerate[1]{itemsep=2pt,partopsep=2pt,parsep=0pt ,topsep=2pt}
+\setitemize[1]{itemsep=2pt,partopsep=2pt,parsep=0pt ,topsep=2pt}
+\setenumerate[2]{itemsep=2pt,partopsep=2pt,parsep=0pt ,topsep=2pt}
+\setitemize[2]{itemsep=2pt,partopsep=2pt,parsep=0pt ,topsep=2pt}
+\setdescription{itemsep=2pt,partopsep=2pt,parsep=0pt ,topsep=2pt}
+
+\usepackage{graphicx}
+\usepackage{fontspec}
+
+\usepackage{float}
+
+\usepackage{parskip}
+
+\defaultfontfeatures{%
+	RawFeature={%
+		+swsh,
+		+calt
+	}%
+}
+
+\setmainfont{EB Garamond}
+
+\newfontfamily\STATAOut{Courier New}
+
+
+%-----------%
+
+\title{Econometrics Summary}
+\author{YiFan Li}
+\date{\today}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\newcommand{\sumlimits}{\sum \limits _{i=1}^{n}}
+\newcommand{\sumlimitsN}{\sum \limits _{i=1}^{N}}
+\newcommand{\sumlimitsT}{\sum \limits _{t=1}^{T}}
+\newcommand{\sumlimitsjT}{\sum \limits _{t=j+1}^{T}}
+\newcommand{\jth}{$j^{\text{th}}$}
+
+\begin{document}
+
+\addfontfeatures{RawFeature={+smcp}}
+\maketitle
+\addfontfeatures{RawFeature={-smcp}}
+
+\tableofcontents
+\clearpage
+
+%-------%
+
+\section{Linear Regression with One Regressor}
+
+\subsection{The Model}
+
+The linear regression model with a single regressor:
+
+\[
+	Y_i = \beta_0 + \beta_1 X_i + u_i
+\]
+
+\begin{itemize}
+	\item $X$ is the independent variable or regressor
+	\item $Y$ is the dependent variable
+	\item $B_0$ = intercept
+	\item $B_1$ = slope
+	\item $u_i$ = the regression error
+\end{itemize}
+
+\subsection{The Ordinary Least Squares (OLS) estimator}
+
+Solve the minimization problem
+
+\[
+	\min \sumlimits \left[Y_i - (\beta_0 + \beta_1 X_i)\right]^2
+\]
+
+The resulting OLS estimators are
+
+\[
+	\hat{\beta_1} =
+	\dfrac{
+		\sumlimits (X_i - \bar{X}) (Y_i - \bar{Y})
+	}{
+		\sumlimits (X_i - \bar{X})^2
+	}
+	= \dfrac{
+		s_{XY}
+	}{
+		s^{2}_{X}
+	}
+\]
+
+\[
+	\hat{\beta_0} = \bar{Y} - \hat{\beta_1}\bar{X}
+\]
+
+The residuals is
+
+\[
+	\hat{u_i} = Y_i - \hat{Y_i}
+\]
+
+\subsection{Algebraic Facts}
+
+\begin{itemize}
+	\item $\sum \hat{u_i} = 0$
+	\item $\dfrac{1}{n} \sum \hat{y_i} = \bar{Y}$
+	\item $\sum \hat{u_i}X_i = 0$
+	\item $TSS = ESS + SSR$
+\end{itemize}
+
+\subsection{Measures of Fit}
+
+\subsubsection{The regression R-squared}
+
+Explained sum of squares (ESS) = $\sumlimits \left(\hat{Y_i} - \bar{Y}\right)^2$
+
+Total sum of squares (TSS) = $\sumlimits \left(Y_i - \bar{Y}\right)^2$
+
+Sum of squared residuals (SSR)= $\sumlimits \hat{u}_i^2$
+
+$R^2$ measures the fraction of the variance of $Y$ that is explained by $X$.
+
+\[
+	R^2 = \dfrac{ESS}{TSS} = \dfrac{
+		\sumlimits (\hat{Y_i} - \bar{Y})^2
+	}{
+		\sumlimits (Y_i - \bar{Y})^2
+	}
+\]
+
+It is always satisfied that $0 \leq R^2 \leq 1$.
+
+\subsubsection{The Standard Error os the Regression (SER)}
+
+The SER measures the spread of the observations around the regression line.
+
+\[
+	\text{SER} = \sqrt{
+		\dfrac{1}{n-2}
+		\sumlimits \hat{u}_i^2
+	}
+\]
+
+Division by $n-2$ is a ``degrees of freedom'' correction.
+
+\subsection{The Least Squares Assumptions}
+
+\begin{enumerate}
+	\item $E(u_i | X_i = x) = 0$. This implies that $\hat{\beta_1}$ is unbiased.
+	\item	All $(X_i, Y_i)$ are i.i.d.
+	\item Large outliers in X and/or Y are rare.
+\end{enumerate}
+
+Explanation for \#1:
+It means that the conditional distribution of $u_i$ given $X_i$ has mean zero.
+That is, the ``other factors'' contained in $u_i$ should be uncorrelated with $X_i$.
+See the following image.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\linewidth]{img/LSA-1.png}
+\end{figure}
+
+With the three assumptions, it can be derived that
+
+\begin{itemize}
+	\item $E\left(\hat{\beta_1}\right) = \beta_1$
+	\item $\operatorname{var}\left(\hat{\beta_1}\right) = \dfrac{1}{n} \times \dfrac{
+			      \text{var}\left[\left(X_i - \mu_x\right)u_i\right]
+		      }{\sigma^4_X}\propto \dfrac{1}{n}$
+\end{itemize}
+
+Therefore:
+\begin{itemize}
+	\item When $n$ is large, $\dfrac{
+			      \hat{\beta_1} - E(\hat{\beta_1})
+		      }{\sqrt{\text{var}\left(\hat{\beta_1}\right)}
+		      } \text{\textasciitilde} N(0,1)$ because of the CLT
+	\item The larger the variance of X, the smaller the variance of $\hat{\beta_1}$
+	\item $\hat{\beta_1}$ is unbiased
+	\item $\hat{\beta_1}$ is consistent, i.e. $\hat{\beta_1} \xrightarrow{p} \beta_1$
+\end{itemize}
+
+
+\section{Regression Hypothesis Tests and Confidence Intervals}
+
+Standard error of $\hat{\beta_1}$: $SE(\hat{\beta_1})$
+
+The standard error will be reported in such form:
+
+\[
+	\begin{aligned}
+		\widehat{\text{TestScore}} ={} & 698.9 - 2.28 \times \text{STR}, R^2 = 0.051, SER = 18.6 \\
+		                               & (10.4) \quad (0.52)
+	\end{aligned}
+\]
+
+Here, 10.4 is the standard error of $\beta_0$, and 0.52 is the standard error of $\beta_1$.
+
+\subsection{Hypotheses Testing}
+
+t-statistic: $t = \dfrac{\text{estimator} - \text{hypothesized value}}{\text{standard error}}$.
+
+For testing $\beta_1$, $t = \dfrac{\hat{\beta_1} - \beta_{1,0}}{SE(\hat{\beta_1})}$,
+where $\beta_{1,0}$ is the hypothesized value which is provided arbitrarily.
+
+p-value for two-sided tests = $2 \Phi(-|t|)$
+
+Reject at 5\% significance level if $|t| > 1.96$, or if $p\text{-value} < 5\%$.
+
+For 1\% significance level, use 2.576 instead of 1.96.
+
+\subsection{Confidence Intervals}
+
+95\% confidence interval for $\beta_1$ = $\left[ \hat{\beta_1} - 1.96\ SE(\hat{\beta_1}), \hat{\beta_1} + 1.96\ SE(\hat{\beta_1}) \right]$
+
+The 99\% confidence interval replaces 1.96 with 2.576.
+
+The same goes for $\beta_0$.
+
+\subsection{Regression when X is Binary}
+
+When a regressor is binary, having only 0 or 1 as its value,
+it is called ``dummy'' variable.
+
+In such case:
+\begin{itemize}
+	\item $\beta_0$ = mean of Y when X = 0
+	\item $\beta_0 + \beta_1$ = mean of Y when X = 1
+	\item $\beta_1$ is no longer a ``slope'', instead it is the difference in group means.
+	\item t-statistics, confidence Intervals,
+	      $SE(\hat{\beta_1})$ all have the usual interpretation
+\end{itemize}
+
+\subsection{Heteroskedasticity and Homoskedasticity}
+
+If $\text{var}\left(u|X=x\right)$ is constant (the variance of $u$ does not depend on X),
+then $u$ is homoskedastic, otherwise it is heteroskedastic.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.75\linewidth]{img/hetroskedasticity.png}
+	\caption{Example of Heteroskedasticity}
+\end{figure}
+
+If the error is homoskedastic and $u$ is distributed $N(0, \sigma^2)$,
+OLS estimators has the lowest variance among all linear consistent estimators.
+
+$\text{var}(\hat{\beta}_1)$ simplifies to $\dfrac{\sigma_u^2}{n\sigma_X^2}$.
+
+If the error is heteroskedastic and you assume that it is homoskedastic,
+the computed standard error is smaller, therefore is no robust.
+In STATA, always use robust regression, which treats the error as heteroskedastic.
+
+\section{Multiple Regression}
+
+\subsection{Omitted Variable Bias}
+
+If an omitted factor ``$Z$'':
+\begin{itemize}
+	\item is a determinant of $Y$, i.e. $Z$ is part of $u$
+	\item correlated with the regressor $X$, i.e. $\text{Corr}(Z,X) \neq 0$
+\end{itemize}
+then $Z$ will result in omitted variable bias,
+i.e. the OLS estimator does not approach the true value
+
+The omitted variable bias formula:
+
+\[
+	\hat{\beta}_1 \xrightarrow{p} \beta_1 + \left(\dfrac{\sigma_u}{\sigma_X}\right)\rho_{Xu}
+\]
+
+where $\rho_{Xu} = \text{Corr}(X, u)$
+
+\subsection{Multiple Regression Model}
+
+The case of two regressors:
+
+\[
+	Y_i = \beta_0 + \beta_1X_{1i} + \beta_2X_{2i} + u_i,\ i = 1, \ldots, n
+\]
+
+Meaning of the coefficients:
+\begin{itemize}
+	\item $\beta_1 = \dfrac{\Delta Y}{\Delta X_1}$, holding $X_2$ constant
+	\item $\beta_2 = \dfrac{\Delta Y}{\Delta X_2}$, holding $X_1$ constant
+	\item $\beta_0 = $predicted value of $Y$ when $X_1 = X_2 = 0$
+\end{itemize}
+
+The two regressors OLS solves
+\[
+	\min_{\beta_0, \beta_1, \beta_2} \sumlimits \left[
+		Y_i - \left(
+		\beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i}
+		\right)
+		\right]^2
+\]
+
+This can be generalized to $k$ regressors.
+
+\[
+	Y_i = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} +
+	\cdots + \beta_k X_{ki} + u_i,\ i=1,\ldots, n
+\]
+
+The derivations is
+\[
+	\hat{\beta} = \left(X^T X\right)^{-1} X^T Y
+\]
+
+\subsection{Measures of Fit for Multiple Regression}
+
+$Y_i = \hat{Y_i}+ \hat{u_i}$
+
+$\text{SER} = \sqrt{
+		\dfrac{1}{n-k-1} \sumlimits \hat{u}_i ^ 2
+	}$
+
+$\text{RMSE} = \sqrt{
+		\dfrac{1}{n} \sumlimits \hat{u}^2_i
+	}$
+
+$R^2 = \dfrac{\text{ESS}}{\text{TSS}} = 1 - \dfrac{\text{SSR}}{\text{TSS}}
+$, where ESS=$\sumlimits(\hat{Y}_i - \bar{\hat{Y}})^2$,
+SSR=$\sumlimits \hat{u}_i^2$,
+TSS=$\sumlimits (Y_i - \bar{Y})^2$
+
+$R^2$ will always increase when another regressor is added,
+unless its estimated coefficient is exactly zero.
+This can be fixed with:
+
+Adjusted $R^2$: $\bar{R}^2 = 1 - \left(
+	\dfrac{n-1}{n-k-1}
+	\right) \dfrac{\text{SSR}}{\text{TSS}}$
+
+
+\subsection{The Least Squares Assumptions for Multiple Regression}
+
+\[
+	Y_i = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} +
+	\cdots + \beta_k X_{ki} + u_i,\ i=1,\ldots, n
+\]
+
+\begin{itemize}
+	\item The conditional distribution of $u$ given $X$ has mean zero, that is, $E(u|X_1=x_1, \ldots, X_k=x_k) = 0$
+	\item $(X_{1i}, \cdot, X_{ki}, Y_i)$ are i.i.d.
+	\item Large outliers are rare, i.e. $Y$ have limited fourth moments: $E(X^4_{ki})<\infty$, $E(Y^4_i)<\infty$
+	\item There is no perfect multicollinearity
+\end{itemize}
+
+\subsubsection{Assumption \#1}
+
+If an omitted variable:
+\begin{itemize}
+	\item is a part of $u$
+	\item is correlated with an included X
+\end{itemize}
+, then this condition fails and leads to omitted variable bias.
+
+The solution is to include the omitted variable in the regression.
+
+\subsubsection{Assumption \#4}
+
+Perfect multicollinearity is when one of the regressors is an exact linear function of the other regressors.
+
+\subsection{The Sampling Distribution of the OLS Estimator}
+
+\begin{itemize}
+	\item $E(\hat{\beta}_1) = \beta_1$, $\text{var}(\hat{\beta}_1)$ is inversely proportional to $n$
+	\item The exact distribution of $\hat{\beta}_1$ is complicated, but for large $n$,
+	      \begin{itemize}
+		      \item $\hat{\beta}_1$ is consistent: $\hat{\beta}_1 \xrightarrow{p} \beta_1$
+		      \item $\dfrac{\hat{\beta}_1 - E(\hat{\beta}_1)}{\sqrt{\text{var}(\hat{\beta}_1)}}$ is approximately $N(0,1)$ (CLT)
+	      \end{itemize}
+\end{itemize}
+, the same goes for $\hat{\beta}_2, \ldots, \hat{\beta}_k$
+
+\subsection{Multicollinearity}
+
+Perfect multicollinearity must be removed otherwise the regression cannot be done.
+
+Imperfect multicollinearity occurs when two or more regressors are highly correlated.
+It will result in large standard errors for one or more of the OLS coefficients.
+
+\section{Hypothesis Tests and Confidence Intervals in Multiple Regression}
+
+\subsection{Single Coefficient}
+
+Hypotheses on $\beta_1$ can be tested using the usual t-statistic
+$t = \dfrac{\hat{\beta}_1 - \beta_{1,0}}{ SE(\hat{\beta}_1) }$,
+and confidence intervals are constructed as $\hat{\beta}_1 \pm 1.96 \times SE(\hat{\beta}_1)$.
+The same goes for $\beta_2, \ldots, \beta_k$
+
+\subsection{Tests for Joint Hypotheses}
+
+A joint hypothesis is: $H_0: \beta_1 = 0$ and $\beta_2 = 0$ v.s.
+$H_1:$ either $\beta_1 \neq 0$ or $\beta_2 \neq 0$ or both.
+
+The above example considered $q=2$ coefficients,
+we call it 2 ``restrictions''.
+It can also be extended to any $q$,
+where $H_0$ is $\beta_1 = 0$ and $\ldots$ and $\beta_q = 0$
+
+In this case, we should use the F-statistic instead of the t-statistic.
+
+\[
+	F = \dfrac{1}{2} \left(
+	\dfrac{
+		t_1^2 + t_2^2 - 2 \hat{\rho}_{t_1, t_2} t_1 t_2
+	}{
+		1 - \hat{\rho}^2 _{t_1, t_2}
+	}
+	\right)
+\]
+where
+$t_1$ and $t_2$ are one-variable t-statistics and
+$\hat{\rho} _{t_1, t_2}$ estimates the correlation between $t_1$ and $t_2$.
+
+In large samples, the F-statistic is distributed as $\chi^2_q / q$ (or $F_{q, \infty}$),
+whose 5\% critical value is:
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{l|l}
+		q & 5\% critical value \\\hline
+		1 & 3.84               \\
+		2 & 3.00               \\
+		3 & 2.60               \\
+		4 & 2.37               \\
+		5 & 2.21
+	\end{tabular}
+\end{table}
+
+The corresponding p-value is the tail probability of the $F_{q, \infty}$ distribution
+beyond the F-statistic actually computed.
+
+Simple formula for the homoskedastic-only F-statistic:
+
+\[
+	F = \dfrac{
+		\left( R^2_{\text{unrestricted}} - R^2 _ {\text{restricted}} \right) / q
+	}{
+		\left( 1- R^2_{\text{unrestricted}} \right) / (n - k_{\text{unrestricted}} - 1)
+	}
+\]
+where:
+\begin{itemize}
+	\item $R^2_{\text{restricted}}$ = the $R^2$ for the restricted regression
+	\item $R^2_{\text{unrestricted}}$ = the $R^2$ for the unrestricted regression
+	\item $q$ = the number of restrictions under the null
+	\item $k_{\text{unrestricted}}$ = the number of regressors in the unrestricted regression
+\end{itemize}
+
+where the restricted regression is
+\[
+	Y_i = \beta_0 + \beta_3X_{3i} + \cdots + \beta_kX_{ki} + u_{i}
+\]
+which is removing the two regressor involved in the null hypothesis.
+The unrestricted regression is just the original regression.
+
+The formula is equivalent to
+\[
+	F = \dfrac{
+		\left( SSR _{\text{restricted}} - SSR _{\text{unrestricted}}\right) / q
+	}{
+		SSR_{\text{unrestricted}} / (n - k_{\text{unrestricted}} - 1)
+	}
+\]
+
+\subsection{Testing Single Restrictions on Multiple Coefficients}
+
+\[
+	Y_i = \beta_0 + \beta_1X_{1i} + \beta_2X_{2i} + u_{i}
+\]
+
+Consider the hypothesis $H_0: \beta_1 = \beta_2$ v.s. $H_1: \beta_1 \neq \beta_2$.
+
+\subsubsection{Method 1: Rearrange the regression}
+
+
+\[
+	\begin{aligned}
+		Y_i & = \beta_0 + \beta_1X_{1i} + \beta_2X_{2i} + u_{i}                       \\
+		    & = \beta_0 + (\beta_1 - \beta_2) X_{1i} + \beta_2(X_{1i} + X_{2i}) + u_i
+	\end{aligned}
+\]
+
+Let
+\[
+	\begin{aligned}
+		\gamma_1 & = \beta_1 - \beta_2 \\
+		W_i      & = X_{1i} + X_{2i}
+	\end{aligned}
+\],
+the original regression is now $Y_i = \beta_0 + \gamma_1 X_{1i} + \beta_2 W_i + u_i$
+
+Now the hypothesis is $H_0: \gamma_1 = 0$ v.s. $H_1: \gamma \neq 0$.
+
+\subsubsection{Method 2: Perform the test directly}
+
+Use STATA.
+
+\subsection{Confidence Sets for Multiple Coefficients}
+
+Let $F(\beta_{1,0}, \beta_{2,0})$ be the F-statistic testing the hypothesis that $\beta_1 = \beta_{1,0}$ and $\beta_2 = \beta_{2,0}$,
+the 95\% confidence set = $\left\{ \beta_{1,0}, \beta_{2,0}: F(\beta_{1,0}, \beta_{2,0}) < 3.00 \right\}$,
+where 3.00 is the 5\% critical value of the $F_{2, \infty}$ distribution.
+
+\subsection{Model specification}
+
+\begin{itemize}
+	\item Specify a ``base'' or ``benchmark'' model
+	\item Specify a range of plausible alternative models, which include additional variables
+	\item Compare the results for $\beta_1$, $\beta_{\text{new-var}}$, etc.,
+	      with judgement (instead of a mechanical recipe).
+\end{itemize}
+
+Do not just try to maximize $R^2$!
+A higher $R^2$ or $\bar{R}^2$ means that the regressors explain the variation in Y,
+but it does not mean that you have an unbiased estimator of a casual effect $\beta_1$,
+which is in fact our final purpose.
+
+A table of regression results should at least include:
+\begin{itemize}
+	\item estimated regression coefficients
+	\item standard errors
+	\item measures of fit
+	\item number of observations (sample size)
+	\item relevant F-statistics
+\end{itemize}
+
+\section{Nonlinear Regression Functions}
+
+\subsection{General Ideas}
+
+Model:
+
+\[
+	Y_i = f \left( X_{1i}, X_{2i}, \ldots, X_{ki} \right) + u_i,\ i=1, \ldots, n
+\]
+
+Assumptions:
+\begin{itemize}
+	\item $E(u_i|X_{1i}, X_{2i}, \ldots, X_{ki}) = 0$, which implies that $f$ is the conditional expectation of Y given the X's.
+	\item $(X_{1i}, \ldots, X_{ki}, Y_i)$ are i.i.d.
+	\item Big outliers are rare
+	\item No perfect multicollinearity
+\end{itemize}
+
+\subsection{Single Independent Variable}
+
+Two complementary approaches: polynomials in X and logarithmic transformations.
+
+\subsubsection{Ploynomials in X}
+
+Model:
+\[
+	Y_i = \beta_0 + \beta_1 X_i + \beta_2 X_i^2 + \ldots + \beta_r X_i^r + u_i
+\]
+
+Estimation, hypothesis testing, etc. proceeds as in the multiple regression model using OLS,
+by simply regarding $X_i^r$ as different variables.
+However, the coefficients have complicated interpretations.
+
+Choice of degree $r$ should be determined by plotting the data,
+looking at t-tests and F-tests, etc.
+
+\subsubsection{Logarithmic functions of Y and/or X}
+
+Three specifications:
+
+\renewcommand{\arraystretch}{1.5}
+\begin{table}[H]
+	\centering
+	\begin{tabular}{ll}
+		Case       & Regression Function                           \\ \hline
+		linear-log & $Y_i = \beta_0 + \beta_1 \ln(X_i) + u_i$      \\
+		log-linear & $\ln(Y_i) = \beta_0 + \beta_1 X_i + u_i$      \\
+		log-log    & $\ln(Y_i) = \beta_0 + \beta_1 \ln(X_i) + u_i$
+	\end{tabular}
+\end{table}
+\renewcommand{\arraystretch}{1}
+
+Because of $\ln(x + \Delta x) - \ln(x) \approx \dfrac{\Delta x}{x}$:
+
+For small $\Delta X$ in linear-log case,
+$\beta_1 \approx \dfrac{\Delta Y}{\Delta X / X}$.
+Therefore a 1\% increase in X (multiply X by 1.01, regardless the current value of X)
+is associated with a $0.01\beta_1$ change in Y.
+
+For small $\Delta X$ in log-linear case,
+$\beta_1 \approx \dfrac{\Delta Y / Y}{X}$.
+Therefore a change in X by one unit ($\Delta X = 1$)
+is associated with a $100\beta_1 \%$ change in Y ($\Delta Y = \beta_1 Y$).
+
+For small $\Delta X$ in log-log case,
+$\beta_1 \approx \dfrac{\Delta Y / Y}{\Delta X / X}$.
+Therefore a 1\% change in X is associated with a $\beta_1\%$ change in Y.
+
+\textbf{Important! Interpret the result of regression with the above-mentioned
+``percentage'' way, instead of computing the logarithmic/exponential number!}
+
+Hypotheses tests, confidence intervals, etc. are implemented as usual.
+
+\subsection{Interactions Between Independent Variables}
+
+Generally, $\dfrac{\Delta Y}{\Delta X_1}$ might depend on $X_2$.
+
+\subsubsection{Two Binary Variables}
+
+\[
+	Y_i = \beta_0 + \beta_1 D_{1i} + \beta_2 D_{2i} + u_i
+\]
+
+where $D_{1i}, D_{2i}$ are binary.
+
+To allow the effect of changing $D_1$ to depend on $D_2$, change it to:
+
+\[
+	Y_i = \beta_0 + \beta_1 D_{1i} + \beta_2 D_{2i} + \beta_3 (D_{1i} \cdot D_{2i}) u_i
+\]
+
+The interpretation of $\beta_3$ is the increment to the effect of $D_1$, when $D_2 = 1$.
+If $D_2=0$, $\beta_3$ will not effect the predictor.
+
+\subsubsection{Continuous and Binary Variables}
+
+\[
+	Y_i = \beta_0 + \beta_1 D_i + \beta_2 X_i + u_i
+\]
+
+where $D_i$ is binary and $X$ is continuous.
+
+To allow the effect of changing $X$ to depend on $D$, change it to:
+
+\[
+	Y_i = \beta_0 + \beta_1 D_i + \beta_2 X_i + \beta_3 (D_i \cdot X_i) + u_i
+\]
+
+It can be derived that $\dfrac{\Delta Y}{\Delta X} = \beta_2 + \beta_3 D$.
+The interpretation of $\beta_3$ is the increment to the effect of $X$, when $D=1$.
+If $D=0$, $\beta_3$ will not effect the predictor.
+
+\subsubsection{Two Continuous Variables}
+
+\[
+	Y_i = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + u_i
+\]
+
+To allow the effect of changing $X_1$ to depend on $X_2$, change it to:
+
+\[
+	Y_i = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + \beta_3 (X_{1i} \cdot X_{2i}) + u_i
+\]
+
+It can be derived that $\dfrac{\Delta Y}{\Delta X} = \beta_1 + \beta_3 X_2$.
+The interpretation of $\beta_3$ is the increment to the effect of $X_1$ from a unit change in $X_2$.
+
+\subsection{Other Nonlinear Functions}
+
+Negative Exponential Growth:
+
+\[
+	Y_i = \beta_0 - \alpha e ^{-\beta_1 X_i} + u_i
+\]
+
+Let $\alpha = \beta_0 e^{\beta_2}$, it becomes
+
+\[
+	Y_i = \beta_0 \left[ 1-e^{-\beta_1 (X_i - \beta_2)} \right] + u_i
+\]
+
+The nonlinear least squares is
+\[
+	\min _{\beta_0, \beta_1, \beta_2} \sumlimits \left\{
+		Y_i - \beta_0 \left[
+			1 - e^{-\beta_1 (X_i - \beta_2)}
+		\right]
+	\right\}^2
+\]
+
+\subsection{Application of Nonlinear Effects in Studies}
+
+Question: Are there nonlinear effects of $X$ on $Y$?
+\begin{enumerate}
+	\item Estimate linear and nonlinear functions of $X$, holding other regressors
+	\item See whether adding the nonlinear terms makes an ``real-word'' importance
+	\item Test whether the nonlinear terms are statistically significant
+\end{enumerate}
+
+Question: Are there nonlinear interactions between $X_1$ and $X_2$?
+\begin{itemize}
+	\item Estimate linear and nonlinear functions of $X_1$, interacted with $X_2$
+	\item Note that in the nonlinear case, add interactions with all the terms ($X_1, X_1^2, X_1^3, \ldots$)
+\end{itemize}
+
+
+
+\section{Assessing Studies Based on Multiple Regression}
+
+The framework:
+\begin{itemize}
+	\item Internal validity: A study's statistical inferences about casual effects
+					are valid for the population being studied
+	\item External validity: A study's statistical inferences can be generalized to other populations and settings
+\end{itemize}
+
+We focus on internal validity, which has two components:
+\begin{itemize}
+	\item The estimator of the causal effect should be unbiased and consistent
+	\item Hypothesis tests should have the desired significance level,
+					and the standard errors are computed correctly
+\end{itemize}
+
+Threats that might cause the OLS estimator biased:
+\begin{itemize}
+	\item Omitted variable bias
+	\item Mis-specification of the functional form
+	\item Measurement error
+	\item Sample selection bias
+	\item Simultaneous causality bias
+\end{itemize}
+
+All of these imply that $E(u_i | X_{1i}, \ldots, X_{ki}) \neq 0$.
+
+\subsection{Omitted Variable Bias}
+
+Omitted variable bias arises if an omitted variable is both:
+\begin{itemize}
+	\item a determinant of Y
+	\item correlated with at least one included regressor
+\end{itemize}
+
+Potential solutions:
+\begin{itemize}
+	\item If the variable can be measured, include it as an additional regressor
+	\item Else use instrumental variables regression (introduced later)
+	\item Run a randomized controlled experiment
+\end{itemize}
+
+\subsection{Mis-specification of the functional form}
+
+This happens when the true population regression function is nonlinear,
+but the estimated regression is linear.
+
+Potential solutions:
+\begin{itemize}
+	\item Continuous dependent variable: use the appropriate nonlinear specification
+	\item Discrete dependent variable: use probit or logit analysis (introduced later)
+\end{itemize}
+
+\subsection{Errors-in-variables Bias}
+
+This happens when the data is measured with error.
+The error term is typically correlated with the regressor, so that $\hat{\beta}_1$ is biased.
+
+Potential solutions:
+\begin{itemize}
+	\item Obtain better data
+	\item Develop a specific model of the measurement error process (not pursued)
+	\item Instrumental variables regression (introduced later)
+\end{itemize}
+
+\subsection{Sample selection bias}
+
+This happens when the sample selection process
+\begin{itemize}
+	\item influences the availability of data
+	\item process is related to the dependent variable
+\end{itemize}
+
+For example, those with lower education level are less likely to present on the job market,
+therefore they do not have income at all, while the sample selection process
+
+Potential solutions:
+\begin{itemize}
+	\item Collect the sample in a way that avoids sample selection
+	\item Randomized controlled experiment
+	\item Estimate that model using Heckman two-step estimation
+\end{itemize}
+
+\subsection{Simultaneous Causality Bias}
+
+This happens when $Y$ causes $X$.
+
+\[
+	\begin{aligned}
+		Y_i = \beta_0 + \beta_1 X_i + u_i\\
+		X_i = \gamma_0 + \gamma_1 Y_i + v_i
+	\end{aligned}
+\]
+
+Large $u_i$ means large $Y_i$, which implies large $X_i$, therefore $\text{corr}(X_i, u_i) \neq 0$
+
+Potential solutions:
+\begin{itemize}
+	\item Randomized controlled experiment
+	\item Develop and estimate a complete model of both directions of causality (extremely difficult)
+	\item Use instrumental variables regression, which can estimate the effect of X on Y, ignoring effect of Y on X
+\end{itemize}
+
+\section{Instrumental Variable Regression}
+
+Instrumental variables regression eliminate bias when $E(u|X) \neq 0$, using an instrumental variable, $Z$.
+
+Terminology:
+\begin{itemize}
+	\item Endogenous: a variable that is correlated with $u$
+	\item Exogenous: a variable that is uncorrelated with $u$
+\end{itemize}
+
+For an instrumental variable $Z$ to be valid, it must satisfy two conditions:
+\begin{itemize}
+	\item Relevance: $\text{corr}(Z_i, X_i) \neq 0$
+	\item Exogeneity: $\text{corr}(Z_i, u_i) = 0$
+\end{itemize}
+
+\subsection{IV Regression with One Regressor and One Instrument}
+
+\[
+	Y_i = \beta_0 + \beta_1 X_i + u_i
+\]
+
+If Z is relevant and exogenous, we can use the two stage least squares estimator (TSLS).
+
+Stage 1: regress $X$ on $Z$ using OLS
+
+\[
+	X_i = \pi_0 + \pi_1 Z_i + v_i
+\]
+
+Compute $\hat{X}_i = \hat{\pi}_0 + \hat{\pi}_1 Z_i, \ i=1, \ldots, n$.
+As $Z$ is uncorrelated with $u$, $\hat{X}$ is uncorrelated with $u$
+and the least square assumptions hold.
+
+Stage 2: regress $Y$ on $\hat{X}_i$ using OLS.
+
+\[
+	Y_i = \beta_0 + \beta_1 \hat{X}_i + u_i
+\]
+
+Then $\beta_0$ and $\beta_1$ can be estimated by OLS, whose result is called the Two Stage Least Squares (TSLS) estimator,
+$\hat{\beta}^{\text{TSLS}}$
+
+It can be shown that $\hat{\beta}_1^{\text{TSLS}} = \dfrac{s_{YZ}}{s_{XZ}}$,
+where $s$ means the sample covariance. It is also a consistent estimator.
+
+\subsection{Inference using TSLS}
+
+It can be derived that $\hat{\beta}_1 ^{\text{TSLS}}$ is approximately distributed $N(\beta_1, \sigma^2_{
+	\hat{\beta}_1^{\text{TSLS}}
+})$, where $\sigma^2_{
+	\hat{\beta}_1^{\text{TSLS}}
+} = \dfrac{1}{n} \dfrac{
+	\text{var}\left[ (Z_i - \mu_Z) u_i \right]
+}{
+	\left[ \text{cov} (Z_i, X_i) \right] ^ 2
+}$
+
+Therefore the statistical inference proceeds in the usual way ($\mu \pm 1.96 \sigma$), based on large samples.
+Note that the standard error here is not the OLS standard error in the second stage.
+Compute the specific TSLS standard error instead.
+
+
+\subsection{The General IV Regression Model}
+
+The model should be extended to:
+\begin{itemize}
+	\item Multiple endogenous regressors, $X_1, \ldots, X_k$
+	\item Multiple exogenous regressors, $W_1, \ldots, W_r$
+	\item Multiple instrumental variables, $Z_1, \ldots, Z_m$.
+					More instrumental variables can produce larger $R^2$ in the first stage,
+					therefore you have more variation in $\hat{X}$
+\end{itemize}
+
+For IV regression to be possible, there must be as many as instruments as endogenous variables.
+The coefficients $\beta$ are said to be:
+\begin{itemize}
+	\item exactly identified, if $m=k$
+	\item over-identified, if $m>k$. You can test whether the instruments are valid.
+	\item under-identified, if $m<k$. It is needed to get more instruments.
+\end{itemize}
+
+The model:
+
+\[
+	Y_i = \beta_0 + \beta_1 X_{1i} + \ldots + \beta_k X_{ki} + \beta_{k+1} W_{1i} + \ldots
+	+ \beta_{k+r} W_{ri} + u_i
+\]
+
+\begin{itemize}
+	\item $Y$ is the dependent variable
+	\item $X$ are the endogenous regressors
+	\item $W$ are the included exogenous regressors
+	\item $\beta$ are the unknown regression coefficients
+	\item $Z$ are the $m$ instrumental variables
+\end{itemize}
+
+\subsubsection{TSLS with a Single Endogenous Regressor}
+
+\[
+	Y_i = \beta_0 + \beta_1 X_{1i} + \beta_2 W_{1i} + \ldots + \beta_{1+r} W_{ri} + u_i
+\]
+
+with $m$ instruments: $Z_1, \ldots, Z_m$.
+
+Stages:
+\begin{enumerate}
+	\item Regress $X_1$ on all exogenous regressors, $W_1, \ldots, W_r, Z_1, \ldots, Z_m$ by OLS.
+					Compute predicted $\hat{X}_1$
+	\item Regress $Y$ on $\hat{X}_1, W_1, \ldots, W_r$ by OLS
+\end{enumerate}
+
+The resulting coefficients from the second stage are the TSLS estimators.
+
+\subsection{IV Regression Assumptions}
+
+\begin{itemize}
+	\item $E(u_i|W_{1i},\ldots,W_{ri}) = 0$, that is, ``the exogenous regressors are exogenous''
+	\item All variables are i.i.d.
+	\item All variables have nonzero, finite fourth moments
+	\item The instruments are valid
+\end{itemize}
+
+Under such assumptions, the TSLS and its t-statistic are normally distributed.
+
+\subsection{Checking Instrument Validity}
+
+\subsubsection{Checking Relevance}
+
+We focus on a single included endogenous regressor:
+\[
+	Y_i = \beta_0 + \beta_1 X_i + \beta_2 W_{1i} + \ldots + \beta_{1+r} W_{ri} + u_{i}
+\]
+
+First stage regression:
+\[
+	X_i = \pi_0 + \pi_1Z_{1i} + \ldots + \pi_m Z_{mi} + \pi_{m+1} W_{1i} + \ldots + \pi_{m+r} W_{ri} + u_i
+\]
+
+The instruments are relevant if at least one of $\pi$ is nonzero.
+They are weak if all $\pi$ are either zero or nearly zero.
+Use first-stage F-statistic to test the hypothesis that $\pi_1, \ldots, \pi_m$ are all zero.
+If the first-stage F-statistic is less than $10$ (NOT the typical critical value for F-statistic), then the set of instruments is weak.
+
+\subsubsection{Checking Exogeneity}
+
+Could be done only when over-identifying.
+
+Suppose that $m>k$ in
+
+\[
+	Y_i = \beta_0 + \beta_1 X_{1i} + \ldots + \beta_k X_{ki} + \beta_{k+1} W_{1i} + \ldots
+	+ \beta_{k+r} W_{ri} + u_i
+\]
+
+Steps:
+\begin{enumerate}
+	\item Estimate the equation using all $m$ instruments to obtain the TSLS's.
+					Compute the predicted $\hat{Y}_i$ using the \textbf{actual} $X$'s.
+	\item Compute the residuals $\hat{u}_i = Y_i - \hat{Y}_i$
+	\item Regress $\hat{u}_i$ against all $Z$ and $W$
+	\item Compute the F-statistic testing the hypotheses that the coefficients on $Z$ are all zero
+	\item The J-statistic is $J=mF$
+\end{enumerate}
+
+Under the null hypotheses that all the instruments are exogenous, $J$ has a $\chi^2$ distribution
+with $m-k$ degrees of freedom and it will be small.
+If at least one of the instrument is endogenous, $J$ will be larger than the $\chi^2$ critical value.
+That is, small J is preferred, which interprets that your IV is valid.
+
+\section{Regression with a Binary Dependent Variable}
+
+Regression when $Y$ is binary.
+
+\subsection{The Linear Probability Model}
+
+\[
+	Y_i = \beta_1 X_i + u_i
+\]
+
+The predicted value $\hat{Y}$ is the predicted probability that $Y_i=1$, given $X$.
+$\beta_1$ is the change in probability that $Y-1$ for a given $\Delta x$.
+
+All interpretations, hypotheses tests, confidence intervals are the same as for multiple regression.
+
+The disadvantage is that the predicted probability can be not in $[0, 1]$
+
+\subsection{Probit and Logit Regression}
+
+Probit and logit regression can ensure that the predicted $\text{Pr}(Y=1|X) \in [0, 1]$.
+
+\subsubsection{Probit Regression}
+
+Model:
+\[
+	\text{Pr}(Y=1 | X) = \Phi(\beta_0 + \beta_1X)
+\]
+
+where $\Phi$ is the cumulative normal distribution function.
+$z=\beta_0 + \beta_1X$ is the z-value of the probit model.
+
+Example: For $\beta_0 = -2, \beta_1=3, X=0.4$, $\text{Pr}(Y=1 | X=0.4) = \Phi(-2 + 3 \times 0.4) = \Phi(-0.8)$,
+which is the area under the PDF of the normal distribution to the left of $-0.8$, i.e. $0.212$.
+
+Model with multiple regressors:
+\[
+	\text{Pr}(Y=1 | X_1, X_2) = \Phi(\beta_0 + \beta_1 X_1 + \beta_2 X_2)
+\]
+
+$\beta_1$ is the effect on the z-score of a unit change in $X_1$, holding $X_2$ constant.
+
+\subsubsection{Logit Regression}
+
+Model:
+\[
+	\text{Pr}(Y=1 | X) = F(\beta_0 + \beta_1 X)
+\]
+
+where $F$ is the cumulative logistic distribution function:
+
+\[
+	F(\beta_0 + \beta_1 X) = \dfrac{1}{1+e^{
+		-(\beta_0 + \beta_1 X)
+	}}
+\]
+
+Practically, logit and probit models are very similar.
+
+\subsection{Estimation and Inference in Probit and Logit Models}
+
+Calculus does not give explicit solution for OLS estimator for probit models,
+instead, we should use a maximum likelihood estimator.
+
+The likelihood function is the conditional density of $Y$ given $X$'s treated as a function of the unknown parameters $\beta$'s.
+The MLE (maximum likelihood estimator) is the value of $\beta$'s that maximize the likelihood function.
+
+In large samples, the MLE is consistent, normally distributed and efficient.
+
+\subsubsection{Introduction to MLE -- Linear Model as an Example}
+
+The MLE for the simple regression model $Y_i = \beta_0 + \beta_1 X_1 + u_i$ can be derived as follows.
+
+\input{linear-MLE.tex}
+
+\subsubsection{The Probit Likelihood with One X}
+
+The density of $Y_1$ given $X_1$ is:
+
+\[
+	\begin{aligned}
+	\text{Pr}(Y_1 = 1|X_1) &= \Phi(\beta_0 + \beta_1 X_1)\\
+	\text{Pr}(Y_1 = 0|X_1) &= 1 - \Phi(\beta_0 + \beta_1 X_1)
+	\end{aligned}
+\]
+
+Therefore,
+\[
+	\text{Pr}(Y_1 = y_1 | X_1) = \Phi(\beta_0 + \beta_1 X_1) ^{y_1}
+	\left[1 - \Phi(\beta_0 + \beta_1 X_1) \right] ^{1-y_1}
+\]
+
+The probit likelihood function\label{plf}, which is the joint density of conditional $Y_1, \cdots, Y_n$, is:
+
+\[
+	f(\beta_0, \beta_1; Y_1, \cdots, Y_n | X_1, \cdots, X_n) =
+	\text{Pr}(Y_1|X_1) \times  \text{Pr}(Y_2|X_2) \times \cdots \times \text{Pr}(Y_n|X_n)
+\]
+
+There is not explicit solution for this.
+
+Testing, confidence intervals proceeds as usual:
+\begin{itemize}
+	\item Hypotheses testing via t-statistic
+	\item Confidence interval as $\pm$ 1.96 SE
+	\item Joint hypotheses with F-statistic
+\end{itemize}
+
+For no X, see slide ``7\_Binary Regression'' Page 29.
+For multiple X's, see textbook Page 419.
+
+
+\subsubsection{The Logit Likelihood with One X}
+
+The only difference is that the functional form $\Phi$ is replaced by the cumulative logistic function.
+
+\subsection{Measures of Fit for Logit and Probit}
+
+The $R^2$ don't make much sense here. Two other specialized measures are used instead.
+
+\begin{enumerate}
+	\item The fraction correctly predicted.
+		\begin{itemize}
+			\item Advantage: easy to understand
+			\item Disadvantage: does not reflect the quality of the prediction (51\% is the same as 99\%)
+		\end{itemize}
+  \item The pseudo-$R^2$, $1-\dfrac{\ln L(f^{\max}_{\text{probit}})}{\ln L(f^{\max}_{\text{Bernoullit}})}$,
+					which measures the improvement in the value of the log likelihood, relative to having no X's.
+
+					$f^{\max}_{\text{probit}}$ is the value of the maximized probit likelihood function (see \ref{plf}).
+					$f^{\max}_{\text{Bernoulli}}$ is the value of the maximized probit likelihood function
+					\textbf{of the model excluding all X's}.
+\end{enumerate}
+
+\section{Regression with Panel Data}
+
+A panel dataset contains observations on multiple entities, where each entity is observed at two or more points in time.
+
+Notation for panel data is a double subscript.
+$i$ is the entity and $n$ is the number of entity.
+$t$ is the time period and $T$ is the number of time periods.
+
+With one regressor, the data is: $(X_{it}, Y_{it}),\ i=1, \ldots, n;\ t=1, \ldots, T$.
+With $k$ regressors, the data is: $(X_{1it}, X_{2it},\ldots, X_{kit}, Y_{it}),\ i=1, \ldots, n;\ t=1, \ldots, T$
+
+Another term for panel data is longitudinal data.
+If the panel contains no missing observations, it's called a balanced panel.
+
+\subsection{Panel Data with Two Time Periods}
+
+Consider the panel data model
+
+\[
+	Y_{it} = \beta_0 + \beta_1 X_{it} + \beta_2 Z_{i} + u_{it}
+\]
+
+where $Z_i$ is a factor that does not change over time, and is not observed.
+Its omission could cause omitted variable bias in the previous setup, but can be eliminated using $T=2$ years.
+
+Subtract the equation of $t=t_2$ from that of $t=t_1$ eliminates the item $\beta_2 Z_{i}$,
+resulting in
+\[
+	Y_{it_1} - Y_{it_2} = \beta_1(X_{it_1} - X_{it_2}) + (u_{it_1} - u_{it_2})
+\]
+Therefore, $\beta_1$ can be correctly estimated without the omitted variable bias.
+
+\subsection{Entity Fixed Effects Regression - the Derivation}
+
+If you have more than 2 time periods, it can be rewritten in the fixed effects form.
+
+Suppose we have $n=3$ and the original model is
+\[
+	Y_{it} = \beta_0 + \beta_1 X_{it} + \beta_2 Z_i + u_i,\ i=1, \ldots, n; t = 1,\ldots, T
+\]
+
+Population regression for $i=1$ is:
+\[
+	\begin{aligned}
+	Y_{1t} &= \beta_0 + \beta_1 X_{1t} + \beta_2 Z_1 + u_{1t}\\
+				&= (\beta_0 + \beta_2 Z_1) + \beta_1 X_{1t} + u_{1t}
+	\end{aligned}
+\]
+
+Let $\alpha_1 = \beta_0 + \beta_2Z_1$, which does not change over time,
+the model is
+\[
+	Y_{1t} = \alpha_1 + \beta_1 X_{1t} + u_{1t}
+\]
+
+The intercept is unique for state 1, but the slope is the same in all the states.
+
+For i=2, The model is $Y_{2t} = \alpha_2 + \beta_1 X_{2t} + u_{2t}$
+For i=3, The model is $Y_{3t} = \alpha_3 + \beta_1 X_{3t} + u_{3t}$
+
+In the generalized form, that is
+\[
+	Y_{it} = \alpha_i + \beta_1X_{it} + u_{it},\ i=1,\ldots, n;\ t= 1, \ldots, T
+\]
+
+For different $i$, the slope is the same but the intercept is different.
+The shifts in the intercept can be represented using binary regressors.
+
+\[
+	Y_{it} = \beta_0 + \gamma_1 D^1_i + \gamma_2 D^2_i + \beta_1 X_{it} + u_{it}
+\]
+
+where $D^1_i = 1$ if $i=1$, 0 otherwise; $D^2_i = 1$ if $i=2$, 0 otherwise.
+Note that there is no $D^3_i$ because its intercept is just $\beta_0$.
+This is the ``n-1 binary regressor form''.
+
+\subsection{Estimate the Entity Fixed Effects Regression - the Summary}
+
+There are three methods:
+\begin{itemize}
+	\item ``Changes'' specification without an intercept (only works for $T=2$), see Section 9.1
+	\item ``n-1 binary regressors'' OLS regression
+	\item ``Entity-demeaned'' OLS regression
+\end{itemize}
+
+\subsubsection{``n-1 Binary Regressors'' OLS Regression}
+
+\[
+	Y_{it} = \beta_0 + \beta_1 X_{it} + \gamma_2 D^2_i + \ldots + \gamma_n D^n_i + u_{it}
+\]
+
+where $D^2_i = 1$ for $i=2$, 0 otherwise, etc.
+
+Estimate with OLS and inference as usual.
+
+\subsubsection{``Entity-demeaned'' OLS Regression}
+
+The fixed effects regression model is
+\[
+	Y_{it} = \beta_1 X_{it} + \alpha_i + u_{it}
+\]
+
+Average this over the T time periods:
+
+\[
+	\bar{Y}_i = \dfrac{1}{T} \sumlimitsT Y_{it}
+			= \alpha_i + \beta_1 \dfrac{1}{T} \sumlimitsT X_{it} + \dfrac{1}{T} \sumlimitsT u_{it}
+\]
+
+It can be converted into such form:
+
+\[
+	\tilde{Y}_{it} = \beta_1 \tilde{X}_{it} + \tilde{u}_{it}
+\]
+
+where $\tilde{Y}_{it} = Y_{it} - \dfrac{1}{T} \sumlimitsT Y_{it}$ and $\tilde{X}_{it} = X_{it} - \dfrac{1}{T} \sumlimitsT X_{it}$
+
+Estimate this formula using OLS, and do inference/testing as usual.
+
+
+\subsection{Regression with Time Fixed Effects}
+
+An omitted variable might vary over time but not across states, which can be denoted by $S_t$, the resulting regression model is:
+
+\[
+	Y_{it} = \beta_0 + \beta_1 X_{it} + \beta_2 Z_i + \beta_3 S_t + u_{it}
+\]
+
+If there is only time-dependent omitted variable ($S$), but not state-dependent omitted variable ($Z$),
+it's called time fixed effects only. The model is:
+\[
+	Y_{it} = \beta_0 + \beta_1 X_{it} + \beta_3 S_t + u_{it}
+\]
+
+It can be also converted into two forms:
+\begin{itemize}
+	\item ``T-1 binary regressor'' formulation
+	\item ``Year-demeaned'' formulation
+\end{itemize}
+
+\subsubsection{``T-1 binary regressor'' OLS estimation}
+
+\[
+	Y_{it} = \beta_0 + \beta_1 X_{it} + \delta_2 B^{2}_{t} + \ldots + \delta_T B^{T}_{t} + u_{it}
+\]
+
+where $B^2_t$ = 1 when $t=2$, 0 otherwise, etc.
+
+Estimate with OLS as usual.
+
+\subsubsection{``Year-demeaned'' OLS estimation}
+
+The original model is
+
+\[
+	Y_{it} = \beta_1 X_{it} + \lambda_t + u_{it}
+\]
+
+It can be converted to
+
+\[
+	\tilde{Y}_{it} = \beta_1 \tilde{X}_{it} + \tilde{u}_{it}
+\]
+
+by letting $\tilde{Y}_{it} = Y_{it} - \dfrac{1}{N}\sumlimitsN Y_{it}$
+and $\tilde{X}_{it} = X_{it} - \dfrac{1}{N}\sumlimitsN X_{it}$.
+
+Estimate with OLS as usual.
+
+\subsection{Regression with Both Entity and Time Fixed Effects}
+
+The original model is:
+
+\[
+	Y_{it} = \beta_1 X_{it} + \alpha_i + \lambda_t + u_{it}
+\]
+
+The techniques for entity fixed effects and time fixed effects are decoupled so they can be combined.
+You can apply the ``demeaned'' technique for both effects.
+
+Or apply the ``X-1 binary regressor'':
+\[
+	Y_{it} = \beta_0 + \beta_1 X_{it} + \gamma_2 D^2_i + \ldots + \gamma_n D^n_i
+		+ \delta_2 B^2_t + \ldots + \delta_T B^T_t + u_{it}
+\]
+where $\beta_0 = \alpha_1 + \lambda_1$, $\gamma_i = \alpha_i - \alpha_1$, $\delta_t = \lambda_t - \lambda_1$.
+
+It is also plausible to use entity demeaning \& T-1 time indicators, or vice versa.
+
+\subsection{Assumptions for Fixed Effects Regression}
+
+For a single X:
+\[
+	Y_{it} = \beta_1 X_{it} + \alpha_i + u_{it},\ i=1, \ldots, n;\ t=1, \ldots, T
+\]
+
+Assumptions:
+\begin{enumerate}
+	\item $E(u_{it} | X_{i1}, \ldots, X_{iT}, \alpha_i)= 0$
+	\item $(X_{i1}, \ldots, X_{iT}, Y_{i1}, \ldots, Y_{iT})$ are i.i.d.
+	\item $(X_{it}, Y_{it})$ have finite fourth moments
+	\item There is no perfect multicollinearity (for multiple $X$'s)
+	\item $\text{corr}(u_{it}, u_{is} | X_{it}, X_{is}, \alpha_i) = 0$ for $t\neq s$
+\end{enumerate}
+
+Assumption 5 is new while others are just extensions of the normal least square assumptions.
+
+\subsubsection{Assumption \#1}
+
+$u_{it}$ has mean zero, given the state fixed effect and the entire history of the X's for that state.
+This means there are no omitted lagged effects imposed by X,
+and there is no feedback from $u$ to future X.
+
+\subsubsection{Assumption \#2}
+
+Entities should be sampled randomly, then data for the entities are collected over time.
+Note that this does not require observations to be i.i.d. over time
+
+\subsubsection{Assumption \#5}
+
+The error terms are uncorrelated over time within a state.
+
+It might not hold sometimes. The analogy is hetroskedasticity.
+In that case, we still use the OLS estimation and the estimator will still be unbiased,
+but the standard error should be computed with
+``Heteroskedasticity and autocorrelation-consistent standard errors''.
+
+\subsection{Standard Errors for Fixed Effects Regression}
+
+\[
+	\tilde{Y}_{it} = \beta_1 \tilde{X}_{it} + \tilde{u}_{it}
+\]
+
+OLS fixed effects estimator:
+
+\[
+	\beta_1 = \dfrac{
+		\sumlimits \sumlimitsT \tilde{X}_{it} \tilde{Y}_{it}
+	}{
+		\sumlimits \sumlimitsT \tilde{X}_{it}^2
+	}
+\]
+
+The standard error is:
+
+\[
+	SE(\hat{\beta}_1) = \sqrt{
+		\dfrac{1}{nT}
+		\dfrac{
+			\hat{\sigma}^2_{\eta}
+		}{
+			\hat{Q}^4_{\tilde{X}}
+		}
+	}
+\]
+
+where $\hat{Q}^2_{\tilde{X}} = \dfrac{1}{nT} \sumlimits \sumlimitsT \tilde{X}_{it}^2$,
+and $\sigma^2_\eta = \text{var} \left(
+	\sqrt{\dfrac{1}{T}}
+	\sumlimitsT \tilde{v}_{it}
+\right)$, where $\tilde{v}_{it} = \tilde{X}_{it} u_{it}$
+
+\begin{itemize}
+	\item If $u_{it}, u_{is}$ are uncorrelated, $\sigma^2_\eta = \text{var}(\tilde{v}_{it})$.
+	\item if $u_{it}, u_{is}$ are correlated, we can only estimate $\sigma^2_\eta$,
+					which is called clustered standard error.\\
+					$\hat{\sigma}^2_{\eta, \text{clustered}} =
+					\dfrac{1}{n} \sumlimits \left(
+						\sumlimitsT \hat{\tilde{v}}_it
+					\right)^2
+					$, where $\hat{\tilde{v}}_{it} = \tilde{X}_{it} \hat{u}_{it}$
+\end{itemize}
+
+\subsection{Summary of Panel Data Regression}
+
+Advantages:
+\begin{itemize}
+	\item You can control for unobserved variables that
+	\begin{itemize}
+		\item vary across states but not over time
+		\item vary over time but not across states
+	\end{itemize}
+	\item After applying the ``X-1 binary regressors'' or ``demeaned'' trick, the estimation is similar to multiple regression
+\end{itemize}
+
+Limitations:
+\begin{itemize}
+	\item Need variation in $X$ over time within states
+	\item Time lag effects can be important
+	\item You should use hetroskedasticity-autocorrelation-considered (clustered) standard errors
+\end{itemize}
+
+\section{Time Series Regression and Forecasting}
+
+\subsection{Time Series Data and Serial Correlation}
+
+\subsubsection{Notations}
+
+\begin{itemize}
+	\item $Y_t$: value of $Y$ in period $t$
+	\item Dataset: $Y_1, \ldots, Y_t$, $T$ observations on the time series of random variable $Y$
+	\item We consider only consecutive, evenly-spaced observations
+	\item The \jth lag is $Y_{t-j}$, the first lag is $Y_{t-1}$
+	\item The first difference is $\Delta Y_t = Y_t - Y_{t-1}$
+	\item The first difference of the logarithm of $Y_t$ is $\Delta \ln (Y_t) = \ln(Y_t) - \ln(Y_{t-1})$
+	\item The percentage change of $Y_t$ between periods t-1 and t is approximately $100\Delta\ln(Y_t)$
+\end{itemize}
+
+\subsubsection{Autocorrlation}
+
+Autocorrelation is the correlation of a series with its own lagged values.
+
+\begin{itemize}
+	\item The first autocorrelation of $Y_t$ is $\text{corr}(Y_t, Y_{t-1})$
+	\item The first autocovariance of $Y_t$ is $\text{cov}(Y_t, Y_{t-1})$
+\end{itemize}
+
+\[
+	\rho_1 = \text{corr}(Y_t, Y_{t-1}) = \dfrac{
+		\text{cov}(Y_t, Y_{t-1})
+	}{
+		\sqrt{
+			\text{var}(Y_t) \text{var}(Y_{t-1})
+		}
+	}
+\]
+
+The \jth autocorrelation is
+\[
+	\rho_j = \text{corr}(Y_t, Y_{t-j}) = \dfrac{
+		\text{cov}(Y_t, Y_{t-j})
+	}{
+		\sqrt{
+			\text{var}(Y_t) \text{var}(Y_{t-j})
+		}
+	}
+\]
+
+The \jth sample autocorrelation is an estimate of the \jth population autocorrelation.
+
+\[
+  \hat{\rho}_j = \dfrac{
+		\text{cov}(Y_t, Y_{t-j})
+	}{
+		\text{var}(Y_t)
+	}
+\]
+
+where
+\[
+	\text{cov}(Y_t,Y_{t-j}) = \dfrac{1}{T} \sumlimitsjT (Y_t - \bar{Y}_{j+1, T})(Y_{t-j} - \bar{Y}_{1, T-j})
+\]
+
+where $\bar{Y}_{j+1, T}$ is the sample average of $Y_t$ computed over observations $t=j+1, \ldots, T$.
+
+Note:
+\begin{itemize}
+	\item The summation is over $t=j+1$ to $T$
+	\item The divisor is $T$, not $T-j$
+\end{itemize}
+
+\subsubsection{Stationarity}
+
+A time series $Y_t$ is stationary if the join probability distribution $Y_{s+1}, \ldots, Y_{s+T}$ does not depend on $s$.
+It means that the distribution does not change over time, so that the history is relevant,
+and the future resembles the past.
+
+\subsection{Autoregressions}
+
+An autoregression is a regression model in which $Y_t$ is regressed against its own lagged values.
+
+The number of lags used as regressors is called the order of the auto regression.
+In a \jth order autoregression, $Y_t$ is regressed against $Y_{t-1}, \ldots, Y_{t-j}$.
+
+\subsubsection{The First Order Autoregressive (AR(1)) Model}
+
+The AR(1) model is
+\[
+	Y_t = \beta_0 + \beta_1 Y_{t-1} + u_t
+\]
+
+Here,
+\begin{itemize}
+	\item $\beta$'s do NOT have casual interpretations.
+	\item $\beta$'s can be estimated by OLS
+	\item If $\beta_1=0$, $Y_{t-1}$ is not useful for forecasting $Y_t$
+	\item Testing $\beta_1 = 0$ against $\beta_1 \neq 0$ provides a test of the hypotheses
+	that $Y_{t-1}$ is not useful for forecasting $Y_t$
+\end{itemize}
+
+\paragraph{Forecast: Terminology and Notation}
+
+\begin{itemize}
+	\item Prediction: ``in sample'' values, the usual definition
+	\item Forecast: ``out-of-sample'' values, in the future
+\end{itemize}
+
+Notation\label{notation}:
+\begin{itemize}
+	\item $Y_{T+1|T}$ = forecast of $Y_{T+1}$ based on $Y_T, Y_{T-1}, \ldots$, using the population (true known) coefficients
+	\item $\hat{Y}_{T+1|T}$ = forecast of $Y_{T+1}$ based on $Y_T, Y_{T-1}, \ldots$, using the estimated coefficients,
+					which are estimated using data through period T
+\end{itemize}
+
+For AR(1):
+\begin{itemize}
+	\item $Y_{T+1|T} = \beta_0 + \beta_1 Y_T$
+	\item $\hat{Y}_{T+1|T} = \hat\beta_0 + \hat\beta_1 Y_T$, where the $\hat\beta$'s are estimated
+\end{itemize}
+
+\paragraph{Forecast Errors}
+
+The one-period ahead forecast error is $Y_{T+1} - \hat{Y}_{T+1 | T}$
+
+Difference between forecast error and residual is ``in-sample'' or ``out-of-sample''.
+The value of $Y_{T+1}$ is not used in the estimation of the regression coefficients.
+
+\subsubsection{AR(p) Model}
+
+\[
+	Y_t = \beta_0 + \beta_1 Y_{t-1} + \beta_2 Y_{t-2} + \ldots + \beta_p Y_{t-p} + u_t
+\]
+
+The coefficients do NOT have a casual interpretation neither.
+To test that $Y_{t-2}, \ldots, Y_{t-p}$ do not further help forecast $Y_t$, beyond $Y_{t-1}$, use an F-test.
+This can be used to determine the proper lag order $p$.
+
+\subsubsection{Additional Predictors and the Autogressive Distributed Lag (ADL) Model}
+
+Besides past values of Y, other variables (X) can be added as well.
+
+\[
+	Y_t = \beta_0 + \beta_1 Y_{t-1} + \ldots + \beta_p Y_{t-p} + \delta_1 X_{t-1} + \ldots + \delta_r X_{t-r} + u_t
+\]
+
+This is an autoregressive distributed lag model with p lags of Y and r lags of X, ADL(p, r).
+
+\paragraph{Granger Causality Test}
+
+The Granger causality statistic is the F-statistic that tests the hypothesis that the coefficients of all X's are zero,
+beyond lagged values of Y in the ADL model.
+
+The degree of freedom is the number of X's,
+i.e. the computed F-statistic should be compared to the critical value of $F_{r, \infty}$.
+
+Reject the null hypotheses (some coefficient is not zero) if the computed F-statistic is larger than the critical value.
+Accept the null hypotheses (all coefficients are zero) if the computed F-statistic is smaller than the critical value.
+
+\subsubsection{Forecast Uncertainty and Forecast Intervals}
+
+For the forecast
+\[
+	\hat{Y}_{T+1}|T = \hat{\beta}_0 + \hat{\beta}_1 Y_T + \hat{\beta}_2 X_T
+\]
+
+The forecast error is
+\[
+	Y_{T+1} - \hat{Y}_{T+1|T} = u_{T+1} - \left[
+		(\hat\beta_0 - \beta_0) + (\hat\beta_1 - \beta_1) Y_T + (\hat\beta_2 -\beta_2) X_T
+	\right]
+\]
+
+The mean squared forecast error (MSFE) is
+\[
+	E(Y_{T+1} - \hat{Y}_{T+1|T})^2 = E(u_{T+1})^2 + E\left[
+		(\hat\beta_0 - \beta_0) + (\hat\beta_1 - \beta_1) Y_T + (\hat\beta_2 -\beta_2) X_T
+	\right]^2
+\]
+
+
+
+The root mean squared forecast error (RMSFE) is the square root of the MSFE.
+\[
+	\text{RMSFE} = \sqrt{
+		E\left[
+			(Y_{T+1} - \hat{Y} _{T+1 | T})^2
+		\right]
+	}
+\]
+
+The RMSFE is a measure of the spread of the forecast error distribution.
+Three ways to estimate the RMSFE:
+\begin{itemize}
+	\item Use the approximation $\text{RMSFE} \approx \text{SER}$, when the sample size is large\footnote{
+		Because when the sample size is large, $\text{MSFE} \approx \text{var}(u_{T+1})$.
+	}
+	\item Use the forecast history for $t=t_1, \ldots, T$, then estimate by
+				\[
+					\text{MSFE} = \dfrac{1}{T-t_1 + 1}
+					\sum \limits_{t=t_1-1}^{T-1} \left(
+						Y_{t+1} - \hat{Y}_{t+1|t}
+					\right)^2
+					\]
+	\item Use a simulated forecast history, then use method 2. It's called pseudo out-of-sample forecasts.
+\end{itemize}
+
+The RMSFE can be used to construct the forecast intervals.
+\[
+	\hat{Y}_{T|T-1} \pm 1.96 \times \text{RMSFE}
+\]
+
+Note that the forecast interval is not a confidence interval.
+
+\subsection{Lag Length Selection Using Information Criteria}
+
+How to choose the number of lags $p$ in an AR($p$)? Use the Information Criteria (IC)
+
+\subsubsection{Bayes Information Criterion (BIC)}
+
+\[
+	\text{BIC}(p) = \ln \left(
+		\dfrac{\text{SSR}(p)}{T}
+	\right) + (p+1) \dfrac{\ln T}{T}
+\]
+
+\begin{itemize}
+	\item First term: always decrease for larger $p$
+	\item Second term: always increase for larger $p$.
+			It is a penalty for using more parameters which will increase the forecast variance.
+\end{itemize}
+
+Minimizing BIC trades off bias and variance. $p$ chosen by BIC is consistent.
+
+\subsubsection{Akaike Information Criterion (AIC)}
+
+\[
+	\text{AIC}(p) = \ln \left(
+		\dfrac{\text{SSR}(p)}{T}
+	\right) + (p+1) \dfrac{2}{T}
+\]
+
+Minimizing AIC gives a choice of $p$ as well,
+the penalty term is smaller so it estimates more lags.
+
+$p$ estimated by AIC is not consistent, however it might be desirable if longer lags might be important.
+
+\subsubsection{BIC for Multivariate (ADL) Models}
+
+Let $K$ = the total numbers of coefficients in the model.
+
+\[
+	\text{BIC}(K) = \ln \left(
+		\dfrac{\text{SSR}(K)}{T}
+	\right) + K \dfrac{\ln T}{T}
+\]
+
+\section{Nonstationarity: Trends}
+
+\subsection{Concept Introduction}
+
+\subsubsection{Definition of Trend}
+
+A trend is a long-term movement or tendency in the data.
+
+A deterministic trend is a nonrandom function of time, e.g. $y_t = t^2$.
+A stochastic trend is random over time, e.g. a random walk.
+
+\subsubsection{The Random Walk}
+
+\[
+	Y_t = Y_{t-1} + u_t
+\]
+
+where $u_t$ is serially uncorrelated.
+
+\begin{itemize}
+	\item $Y_{T+h|T} = Y_T$, the best prediction
+					\footnote{The ``hat'' is not used as the notation of prediction here, see \ref{notation}}
+					of Y in the future is the value of Y today.
+	\item $\text{var}(Y_{T+h} - Y_{T+h|T}) = h \sigma_u^2$, the more distant your forecast is,
+					the greater the forecast uncertainty is.
+\end{itemize}
+
+A variation, the random walk with drift model is:
+
+\[
+	Y_t = \beta_0 + Y_{t-1} + u_t
+\]
+
+where $u_t$ is serially uncorrelated.
+
+If $\beta_0 \neq 0$, $Y_t$ follows a random walk around a linear trend.
+
+\begin{itemize}
+	\item $Y_{T_h|T} = \beta_0 h + Y_T$
+\end{itemize}
+
+\textbf{
+	If $Y_t$ has a random walk trend, then $\Delta Y_t$ is stationary and regression
+	should be taken using $\Delta Y_t$ instead of $Y_t.$
+}
+
+
+\subsubsection{Unit Autoregressive Roots}
+
+\paragraph{AR(1)}
+
+\[
+	Y_t = \beta_0 + \beta_1 Y_{t-1} + u_t
+\]
+
+\begin{itemize}
+	\item The special case of $\beta_1 = 1$ is called a unit root
+	\item In the case of unit root, the AR(1) model is equivalently $\Delta Y_t = \beta_0 + u_t$
+\end{itemize}
+
+\paragraph{AR(2)}
+
+\[
+	Y_t = \beta_0 + \beta_1 Y_{t-1} + \beta_2 Y_{t-2} + u_t
+\]
+
+It can be rearranged as
+\[
+	\Delta Y_t = \beta_0 + \delta Y_{t-1} + \gamma_1 \Delta Y_{t-1} + u_t
+\]
+
+where $\delta = \beta_1 + \beta_2 - 1$ and $\gamma_1 = - \beta_2$
+
+\begin{itemize}
+	\item The special case of $\beta_1 + \beta_2 = 1$ is called a unit root
+	\item In the case of unit root, the AR(2) model is equivalently $\Delta T_t = \beta_0 + \gamma_1 \Delta Y_{t-1} + u_t$
+\end{itemize}
+
+\paragraph{AR(p)}
+
+\[
+	Y_t = \beta_0 + \beta_1 Y_{t-1} + \beta_2 Y_{t-2} + \ldots + \beta_p Y_{t-p} + u_t
+\]
+
+This regression can be rearranged as
+
+\[
+	\Delta Y_t = \beta_0 + \delta Y_{t-1} + \gamma_1 \Delta Y_{t-1} + \gamma_2 \Delta Y_{t-2}
+								+\ldots + \gamma_{p-1} \Delta Y_{t-p+1} + u_t
+\]
+
+where
+\[
+	\begin{aligned}
+		\delta &= \beta_1 + \beta_2 + \ldots + \beta_p - 1 \\
+		\gamma_1 &= -(\beta_2 + \ldots + \beta_p) \\
+		\gamma_2 &= -(\beta_3 + \ldots + \beta_p) \\
+		&\ldots \\
+		\gamma _{p-1} &= -\beta_p
+	\end{aligned}
+\]
+
+\begin{itemize}
+	\item The special case of $\beta_1 + \beta_2 + \ldots + \beta_p = 1$ is called a unit root
+	\item In the case of unit root, the AR(p) model is equivalently
+					$\Delta T_t = \beta_0 + \gamma_1 \Delta Y_{t-1} + \gamma_2 \Delta Y_{t-2} + \ldots + \gamma_{p-1} \Delta Y_{t-p+1} + u_t$
+\end{itemize}
+
+\subsection{Problems Caused by Trends}
+
+When there are stochastic trends:
+
+\begin{itemize}
+	\item AR coefficients can be badly biased towards zero.
+	\item Some $t$-statistics do not have a standard normal distribution.
+	\item If $Y$ and $X$ both have random walk trends, they can look related and get a significant regression coefficient
+					even if they are not.
+\end{itemize}
+
+\subsection{Trend Detection}
+
+You can plot the data, or use the Dickey-Fuller test for a unit root.
+
+\subsubsection{Dickey-Fuller Test}
+
+In the test introduced below, $H_0$ means the unit root. Rejecting $H_0$ means that it is stationary.
+
+\paragraph{AR(1)}
+
+A hypotheses test $H_0: \delta = 0$ v.s. $H_1: \delta < 0$
+in\footnote{The specification is called intercept only, or Y is stationary around a constant.}
+
+\[
+	\Delta Y_t = \beta_0 + \delta Y_{t-1} + u_t
+\]
+
+or\footnote{The specification is called intercept \& time trend, or Y is stationary around a deterministic linear time trend}
+\[
+	\Delta Y_t = \beta_0 + \mu_t + \delta Y_{t-1} + u_t
+\]
+
+Compute the $t$-statistic testing $\delta = 0$ and compare with the Dickey-Fuller critical value table of the specification you choose.
+Reject $H_0$ if the calculated DF $t$-statistic is less than the specified value in the table.
+
+\paragraph{AR(p)}
+
+A hypotheses test $H_0: \delta = 0$ v.s. $H_1: \delta < 0$
+in the intercept only specification.
+
+\[
+	\Delta Y_t = \beta_0 + \delta Y_{t-1} + \gamma_1 \Delta Y_{t-1} + \gamma_2 \Delta Y_{t-2}
+	+ \ldots + \gamma _{p-1} \Delta Y_{t-p+1} + u_t
+\]
+
+Estimate $\delta$ and compare the computed $t$-statistic testing $\delta=0$ with the DF critical value in the table.
+
+The intercept \& time trend specification is:
+\[
+	\Delta Y_t = \beta_0  + \mu_t + \delta Y_{t-1} + \gamma_1 \Delta Y_{t-1} + \gamma_2 \Delta Y_{t-2}
+	+ \ldots + \gamma _{p-1} \Delta Y_{t-p+1} + u_t
+\]
+
+\subsection{Solution for the Trend}
+
+If $Y_t$ has the random walk stochastic trend (has a unit root), the solution is to use $\Delta Y_t$
+instead of $Y_t$ in the AR specification.
+
+
+
+
+%-------%
+
+
+
+
+
+\end{document}
+
+
+

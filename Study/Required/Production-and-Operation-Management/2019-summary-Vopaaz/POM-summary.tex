@@ -1,0 +1,1406 @@
+% English Article template created by Vopaaz
+\documentclass{article}
+\usepackage{geometry}
+\geometry{a4paper}
+\usepackage{setspace}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\hypersetup{colorlinks,allcolors=black}
+
+\setenumerate[1]{itemsep=0pt,partopsep=2pt,parsep=0pt ,topsep=2pt}
+\setitemize[1]{itemsep=0pt,partopsep=2pt,parsep=0pt ,topsep=2pt}
+\setenumerate[2]{itemsep=0pt,partopsep=2pt,parsep=0pt ,topsep=2pt}
+\setitemize[2]{itemsep=0pt,partopsep=2pt,parsep=0pt ,topsep=2pt}
+\setdescription{itemsep=0pt,partopsep=2pt,parsep=0pt ,topsep=2pt}
+
+\usepackage{graphicx}
+\usepackage{fontspec}
+
+\defaultfontfeatures{%
+	RawFeature={%
+		% +swsh,
+		+calt
+	}%
+}
+
+\setmainfont{EB Garamond}
+
+\usepackage{xcolor}
+\usepackage{xspace}
+\usepackage{float}
+
+\usepackage{parskip}
+\usepackage{multirow}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+%-----------%
+
+\title{POM Summary}
+\author{YiFan Li}
+\date{\today}
+
+\newcommand{\red}[1]{\color{red}#1\color{black}\xspace}
+
+\renewcommand{\arraystretch}{1.25}
+
+\begin{document}
+
+\addfontfeatures{RawFeature={+smcp}}
+\maketitle
+\addfontfeatures{RawFeature={-smcp}}
+
+\tableofcontents
+\clearpage
+
+%-------%
+
+\section{Introduction}
+
+What is Operations?
+Any activity that takes one or more \red{inputs}, \red{transforms} them, and provides one or more \red{outputs} for its customers.
+
+What is OM?
+The systematic \red{design}, \red{planning} and \red{control} of processes that transform inputs into services and products.
+
+Processes can be linked to form a supply chain. Supply chain management is the synchronization of a firm's process with its suppliers and customers.
+
+Goal of OM:
+\begin{itemize}
+	\item Quality
+	\item Time
+	\item Cost
+	\item Flexibility: diversity of products' volume, color, model, etc.
+\end{itemize}
+
+Three key elements for business:
+\begin{itemize}
+	\item Strategy: Business goal
+	\item Operations: How to rightly achieve the business goal
+	\item Leadership: Motivate and guide the employees
+\end{itemize}
+
+
+\section{Operations Strategy}
+
+Three aspects:
+
+\begin{itemize}
+	\item How to source? -- Supply Chain design
+	\item How to choose production mode? -- Production and Inventory Strategies
+	\item How to highlight Product's features? -- Competitive Priorities and Trade-offs
+\end{itemize}
+
+\subsection{Supply Chain Design}
+
+A supply chain is the interrelated series of processes,
+within a company and across different companies, that produces a service or product.
+
+The basis of supply chain design is a make-or-buy decision about which of the processes should a company own or outsource.
+
+The answer to above question determines the extent of a company's \textbf{vertical integration}.
+Making more means higher vertical integration.
+
+How to decide? Break-even analysis.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\linewidth]{img/break-event-analysis.png}
+\end{figure}
+
+Other considerations for make-or-buy decision:
+
+\begin{itemize}
+	\item Comparative labor costs
+	\item Logistics and communication costs
+	\item others
+\end{itemize}
+
+How to make change? Backward and Forward Vertical Integration.
+
+\begin{description}
+	\item[Backward Integration] A company acquires its suppliers
+	\item[Forward Integration] A company acquires its distribution channels
+\end{description}
+
+\subsection{Competitive Priorities and Trade-offs}
+
+Four groups of competitive priorities:
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{|c|c|l|c|}
+		\hline
+		Field                        & Aspect             & \multicolumn{1}{c|}{Definition}            & Example    \\ \hline
+		Cost                         & Low-cost           &                                            & Wal-Mart   \\ \hline
+		\multirow{2}{*}{Quality}     & Top quality        &                                            & Apple      \\ \cline{2-4}
+		                             & Consistent quality & Same quality in different time and regions & McDonald's \\ \hline
+		\multirow{3}{*}{Time}        & Delivery speed     & Quick                                      & Dell       \\ \cline{2-4}
+		                             & On-time delivery   & Meet promises                              & Jing Dong  \\ \cline{2-4}
+		                             & Development speed  & Quickly introducing new service or product & Zara       \\ \hline
+		\multirow{3}{*}{Flexibility} & Customization      &                                            & Cute smart \\ \cline{2-4}
+		                             & Variety            &                                            & Lenovo     \\ \cline{2-4}
+		                             & Volume flexibility & \begin{tabular}[c]{@{}l@{}}Accelerating or decelerating the rate\\ of production quickly\\ according to the demand fluctuations\end{tabular}                  &            \\ \hline
+	\end{tabular}
+\end{table}
+
+It's not possible to meet them all simultaneously. Companies need to make trade-offs.
+
+For a company in the short-term, higher variety means higher cost.
+However, in the long run (or when comparing two companies), the variety and cost can be both improved.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\linewidth]{img/cost-flexibility-trade-off.png}
+\end{figure}
+
+Each line represents a company. The company represented by the black line is better.
+
+\subsection{Production/Inventory Strategies for Manufacturers}
+
+Three kind of strategies:
+
+\begin{itemize}
+	\item Make-to-Stock: Standardized products
+	\item Assemble-to-Order: Semi-customized products.
+	      There are fixed models of accessories, but customer can choose how to assemble them.
+	\item Make-to-Order: Customized products.
+	      The difficulty lies at fulfilling speed and cost at the same time.
+\end{itemize}
+
+
+\section{Process and Bottleneck Management}
+
+\subsection{Product-Process Matrix}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\linewidth]{img/ppmatrix.png}
+\end{figure}
+
+X-axis: Volume, Y-axis: Variety.
+
+The most efficient production processes are found around the diagonal of the matrix.
+
+
+\begin{itemize}
+	\item Continuous process: a very Standardized product is needed in a large volume.
+	      Automated, no flexibility. e.g. BP (Petroleum industry)
+	\item Assembly line: consumers demand some degrees of customization, but still in a high volume.
+	      Still referred as mass production. e.g. Honda (vehicle)
+	\item Batch processing: volume is lower and variety is greater.
+	      A disconnected production line is involved.
+	      Worker comes to the machine rather than the product (inventory) come to them.
+	      e.g. Caterpillar (construction machine)
+	\item Job shop: highly specialized product is needed in small volume, based on each customer's order.
+	      e.g. AED vision (eyeglasses)
+\end{itemize}
+
+Strategic fit:
+\begin{itemize}
+	\item Top quality and flexibility: use job processes or small batch process
+	\item Low-cost operations and delivery speed: use large batch, line, or continuous process
+\end{itemize}
+
+\section{Process Analysis}
+
+A set of concepts and tools used to describe, measure,
+and ultimately improve process and operating system.
+
+Concept definition:
+\begin{description}
+	\item[Cycle time] the average time between completion of successive batches (or units)
+	\item[Throughput time] the length of time that unit takes between entering
+	      and leaving the process (including any in-process storage or transport time)
+	\item[Capacity] the maximum output rate from a process
+	\item[Bottleneck] a work station with the longest cycle time
+\end{description}
+
+\subsection{Bottleneck Management}
+
+\subsubsection{Identifying bottleneck of a single-product process}
+
+\begin{itemize}
+	\item a serial of process: cycle time is the maximum sub-process cycle time.
+	      e.g. the purple ``60 min/batch''
+	\item several parallel processes:
+	      cycle time is the sub-process cycle time divided by degree of parallelism e.g. the red ``30 min/batch''
+\end{itemize}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\linewidth]{img/process-analysis-example.png}
+\end{figure}
+
+Finally, the ``Pack'' is the bottleneck.
+
+\subsubsection{Related manangement decisions}
+
+All non-bottleneck processes should have idle time so that their actual
+cycle time is in accordance with the bottleneck.
+
+If there are parallel processes, they should not output at the same time,
+instead, they should interlace.
+
+Steps for bottleneck management:
+\begin{enumerate}
+	\item Identifying bottlenecks
+	\item Relieving bottlenecks
+	\item Maximizing marginal benefits of bottlenecks
+\end{enumerate}
+
+\subsubsection{Identifying bottleneck of a multiple-product process}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\linewidth]{img/multiple-product-process.png}
+\end{figure}
+
+Steps to identify the bottleneck:
+\begin{enumerate}
+	\item Calculate the total required time of each product at each station
+	\item Calculate the total required time of a station
+\end{enumerate}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\linewidth]{img/multiple-product-process-solution.png}
+\end{figure}
+
+If the productivity of the bottleneck is a hard constraint, try to maximize its marginal benefit.
+That is, produce the product which has the maximum (unit price / process time at bottleneck) first.
+
+\section{Capacity Planning and Forecasting}
+
+\subsection{Measures of Capacity}
+
+Use Output Measures when process has high volume and standardized products,
+e.g. automobile, PC, mobile phone
+
+Use Input Measures when product variety and process divergence,
+e.g. hospital, software development
+
+\subsection{Capacity Utilization and Cushions}
+
+\[
+	\text{Utilization} = \dfrac{
+		\text{Average output rate}
+	}{
+		\text{Maximum capacity}
+	} \times 100\%
+\]
+
+\begin{center}
+	Capacity cushion = 100\% - Average Utilization rate(\%)
+\end{center}
+
+Capacity cushions are needed to handle sudden changes.
+
+\subsection{Capacity Planning and Management}
+
+Capacity Planning for the long-term.
+Manager \red{make capacity expansion} to invest in new equipment to meet increasing demand.
+
+Capacity Management for the short-term.
+Manager \red{utilize capacity elasticity} to meet fluctuating demand,
+within the mixed equipments.
+
+Three capacity timing and sizing strategies:
+\begin{itemize}
+	\item Expansionist: Plan extra unused capacity, more than the capacity forecast
+	\item Wait-and-see: Plan insufficient capacity, use short-term options to fill the gap
+	\item Intermediate: Compromise between the above two
+\end{itemize}
+
+Approaches to long-term capacity decisions:
+\begin{enumerate}
+	\item Estimate future capacity requirements
+	\item Identify gaps between requirements and available capacity
+	\item Develop alternative plans for reducing the gaps
+	\item Evaluate each alternative, and make a final choice
+\end{enumerate}
+
+\subsubsection{Estimate Capacity Requirements}
+
+For a process that makes a single product, the number of ``machine'' or ``workstation'' required is
+
+\[
+	M = \dfrac{D \cdot p }{N\left[1 - C\%\right]}
+\]
+
+where:
+\begin{itemize}
+	\item $D$: demand number (unit) forecast for the year
+	\item $p$: processing time per unit
+	\item $N$: total number of hours per year during which the process operates
+	\item $C$: desired capacity cushion
+\end{itemize}
+
+For a process that makes multiple products:
+
+\[
+	M = \dfrac{
+	\sum \limits _{\text{product}} \left[D\cdot p + (D/Q)\cdot s\right]_{\text{product}}
+	}{N\left[1-C\%\right]}
+\]
+
+where:
+\begin{itemize}
+	\item $Q$: number of units in each batch
+	\item $s$: setup time (the length of time it takes to switch from making one type of product to another) per batch.
+\end{itemize}
+
+In brief, the added item $(D/Q)\cdot s$ means the total setup hours spent on this product per year.
+
+\subsubsection{Work Measurement Techniques}
+
+Estimating the $p$ in the previous formula, which is the processing time per unit,
+with the following work measurement techniques.
+
+\begin{description}
+	\item[Time Study Method]
+	      Use a trained analyst to set a time standard in four steps:
+	      \begin{enumerate}
+		      \item select the work elements (steps in a flowchart) within the process to be studied
+		      \item timing the elements (with a stopwatch)
+		      \item determining the sample size
+		      \item setting the final standard (considering break allowance, unavoidable delays, etc.)
+	      \end{enumerate}
+	\item[Elemental Standard Data Approach]
+	      Often applied when products are highly customized. Use a database of standards compiled
+	      by a firm's analysts for basic element that they can draw on later to estimate the time required
+	      for a particular job.
+	\item[Predetermined Data Approach]
+	      Divide each work element into a series of micro-motions that make up the element.
+	      Analysts consults a published database that contains the normal times for the full
+	      array of possible micro-motions. The process's normal time is the sum of them.
+	\item[Work Sampling Method]
+	      Estimate the proportion of time spent on different activities,
+	      based on observations randomized over time.
+	\item[Learning Curve Analysis]
+	      With instruction and repetition, workers learn to perform jobs more efficiently.
+	      A Learning Curve displays the relationship between processing time and the
+	      \textbf{cumulative} quantity of a product or service produced.
+	\item[Process Charts]
+	      Document all the activities performed using a table, and provides information about each step in the process.
+	      The table requires the time estimates.
+\end{description}
+
+
+\subsubsection{Decision Making under Risk}
+
+When the demand is uncertain but the probability of which is known,
+a decision tree can be used to estimate the payoff.
+Note that the final decision should not depend only on the payoff,
+instead, the risk should also be taken into account,
+which depend on the manager's risk preference.
+
+\subsection{Demand Forecasting}
+
+In POM, demand forecasting have two tiers.
+\begin{itemize}
+	\item Tier 1: forecast for product families for longer periods
+	\item Tier 2: forecast for individual product (SKU) for shorter time periods
+\end{itemize}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\linewidth]{img/two-tier-prediction.png}
+\end{figure}
+
+\subsubsection{Qualitative Methods - Judgement Methods}
+
+Judgemental forecasts use contextual knowledge gained through experience.
+
+\begin{itemize}
+	\item Salesforce estimates
+	\item Executive opinion
+	\item Market Research
+	\item Delphi method (Professionalist opinion roll polling)
+\end{itemize}
+
+\subsubsection{Quantitative Methods - Casual Methods}
+
+Linear regression: $Y = a + bX$, where $b = \dfrac{
+		\sum XY - n\bar{X}\bar{Y}
+	}{
+		\sum X^2 - n\bar{X}^2
+	}$, $a= \bar{Y} - b \bar{X}$
+
+Sample correlation coefficient: $r = \dfrac{
+		\sum (X - \bar{X})(Y - \bar{Y})
+	}{
+		\sqrt{
+			\sum (X - \bar{X})^2(Y - \bar{Y})^2
+		}
+	}$
+
+Standard error of the estimate: $s_{yx} =
+	\sqrt{
+		\dfrac{
+			\sum Y^2 - a \sum Y - b \sum XY
+		}{
+			n - 2
+		}
+	}$
+
+\subsubsection{Quantitative Methods - Time Series Methods}
+
+Simple moving average:
+
+\[
+	F_{t+1} = \dfrac{
+		D_t + D_{t+1} + \cdots + D_{t-n+1}
+	}{n}
+\]
+
+where
+\begin{itemize}
+	\item $D_t$: actual demand in period $t$
+	\item $n$: total number of periods in the average
+	\item $F_{t+1}$: forecast for period $t+1$
+\end{itemize}
+
+Weighted Moving Averages:
+
+\[
+	F_{t+1} = W_1D_t + W_2D_{t+1} + \cdots + W_nD_{t-n+1}
+\]
+
+where $w$ is the weights that should be added to 1.
+
+Sophisticated (exponential) weighted moving average.
+
+\[
+	F_{t+1} = \alpha D_t + (1-\alpha)F_t
+\]
+
+where
+\begin{itemize}
+	\item $F_t$: the last period's forecast for this period
+	\item $D_t$: the demand for this period
+	\item $\alpha$: a smoothing parameter between 0 to 1
+\end{itemize}
+
+It emphasizes the recent data and tend to ignore the data before long,
+decreasing exponentially.
+
+\subsubsection{Measures of Forecast Error}
+
+Given $E_t = D_t - F_t$. we have the following measures of forecast error.
+
+\begin{itemize}
+	\item CFE$=\sum E_t$, cumulative sum of forecast errors
+	\item MSE$=\frac{\sum E_t^2}{n}$, mean squared error
+	\item MAD$=\frac{\sum |E_t|}{n}$, mean absolute deviation
+	\item MAPE$=\frac{
+			      (\sum |E_t| / D_t)
+		      }{n}$, mean absolute percent error
+\end{itemize}
+
+
+\section{Location}
+
+\subsection{Issues of Location Decision}
+
+\begin{itemize}
+	\item Two levels
+	      \begin{itemize}
+		      \item Select an area
+		      \item Select a specific site in the area
+	      \end{itemize}
+	\item Two kinds
+	      \begin{itemize}
+		      \item Locating a single facility
+		      \item Locating a facility within a supply chain network
+	      \end{itemize}
+\end{itemize}
+
+
+
+\subsection{Locating a Single Facility}
+
+\subsubsection{Breakeven Analysis}
+
+A site will have its fixed cost caused by land, equipment and buildings.
+It will also have a variable cost per unit, caused by labor, materials, transportation, etc.
+
+Then we can conduct breakeven analysis based on the predicted demand (number of units to be produced).
+
+\subsubsection{Load-Distance Method}
+
+Select a location that minimizes the sum of the loads multiplied by the distance the load travels.
+$ld = \sum_i l_i d_i$, where $i$ is the site, $l$ is the load in this site,
+$d$ is distance from this site to the selected location.
+
+Generally you should use Manhattan distance instead of the Euclidean distance,
+because the roads are usually orthogonal.
+
+\subsubsection{Searching the Optimum Location}
+
+Steps:
+\begin{enumerate}
+	\item Locating the facility at the center of gravity of the target area:
+	      $x^* = \dfrac{\sum_i l_i x_i}{\sum_i l_i}$ and $y^* = \dfrac{\sum_i l_i y_i}{\sum_i l_i}$.
+	      Calculate its $ld$.
+	\item Using the center of gravity as the starting solution, next evaluating locations near
+	      (one mile north, south, east and west). If one of these locations have a $ld$ lower, it
+	      becomes the new starting solution
+	\item Continue until converge
+\end{enumerate}
+
+\subsection{Locating a Facility within a Supply Chain Network}
+
+Two situations:
+\begin{itemize}
+	\item Facilities operate independently
+	\item Facilities interact. Three dimensions must be solved simultaneously:
+	      \begin{itemize}
+		      \item Location
+		      \item Capacity
+		      \item Allocation
+	      \end{itemize}
+\end{itemize}
+
+\subsubsection{Transportation Method}
+
+Deciding the allocation pattern that minimizes the cost of shipping products totally.
+Solve this with linear programming.
+
+This only finds the best shipping pattern between plants and warehouses for a particular plant location arrangement.
+The analyst must try a variety of location-capacity combinations to find the optimal solution.
+
+\subsubsection{Considering Risk Pooling Effect}
+
+Building two warehouses, each of which serve a part of market, is called decentralized location.
+
+Building a single warehouse in between, serving all market, is called centralized location.
+
+The variability can be measured by $\text{CV} = \dfrac{\sigma}{\mu}$,
+where $\sigma$ is the standard deviation and $\mu$ is the mean if the historical demand of the products.
+
+The variability of the central warehouse will be smaller than the sum of variabilities of the
+two decentralized warehouses, because of the risk pooling effect.
+This allows the company to reduce safety stock and therefore reduce average inventory.
+
+If the demand of the two markets are strongly positively correlated,
+the risk pooling effect tend not to work.
+
+\subsection{Merging All Factors - Preference Matrix}
+
+List several criteria, each is assigned a weight representing its importance.
+The total weights should be equal to 100.
+
+Each criteria will have a score for each location option.
+The total score of each option is the sum of the weighted scores.
+
+This serves as a conclusive result of all previous methods.
+
+\section{Inventory Management}
+
+\subsection{Definitions}
+
+\begin{itemize}
+	\item Inventory: A stock of materials used to satisfy customer demand or to support the production of services or good
+	\item Inventory Management: Management of inventories to meet competitive priorities
+	\item Inventory Management System: The set of policies and controls that monitors levels of inventory and determines:
+	      \begin{itemize}
+		      \item What levels should be maintained
+		      \item When stock should be replenished
+		      \item How large orders should be
+	      \end{itemize}
+\end{itemize}
+
+\subsection{Inventory Decisions}
+
+Incentives for small inventories, holding a small number of inventories will improve them:
+\begin{itemize}
+	\item Cost of capital: the opportunity cost of investing in an asset relative to the expected return on assets of similar risk
+	\item Storage and handling costs: incurred when a firm rents space, or when it could use the storage space for other productive purposes
+	\item Taxes, Insurance
+	\item Shrinkage: when inventory's values decreases over time
+\end{itemize}
+
+Incentives for large inventories, holding a large number of inventories will improve them:
+\begin{itemize}
+	\item Customer service: more inventories can prevent stockout (an order that cannot be satisfied) or backorder (a delayed order)
+	\item Ordering cost: Cost incurred each time you place an order to the suppliers, regardless of the size of the order, e.g. paperwork
+	\item Setup cost: The cost involved in changing over a machine or workspace to produce a different item
+	\item Labor and equipment utilization
+	\item Transportation cost
+	\item Payment to suppliers: a large order is likely to have less unit cost
+\end{itemize}
+
+Or more generally, large inventories helps with:
+\begin{itemize}
+	\item taking advantage of economies of scale
+	\item protecting against uncertainty
+	\item supporting a strategic plan
+\end{itemize}
+
+\subsection{Types of Inventory}
+
+\subsubsection{Accounting Purpose}
+\begin{itemize}
+	\item Raw Materials: Vendor-supplied items
+	\item Work-in-Process (WIP): Items that have been partially processes but are still incomplete
+	\item Finished Goods: Completed products that are still in the possession of the firm (not sold)
+\end{itemize}
+
+\subsubsection{Management Purpose}
+\begin{itemize}
+	\item Cycle inventory: the portion of inventory that varies directly with lot size.
+	      Right after a new lot (raw material order) with size $Q$ arrives, the cycle inventory number is $Q$.
+	      Right before it arrives, its number is $0$.
+	\item Safety stock inventory: surplus inventory that protects against uncertainties in demand, lead time, and supply changes.
+	      In the sense of statistical expectation, it should always hold constant.
+	\item Anticipation inventory: inventory used to absorb uneven rates of demand and supply, which are seasonal and predictable.
+	\item Pipeline inventory: inventory that is issued but not yet received.
+	      Let $\bar{d}$ be the average demand within a certain period,
+	      and $L$ be the item's lead time\footnote{The time between starting and completing a production process},
+	      the pipeline inventory is $\bar{D}_L = \bar{d}L$
+\end{itemize}
+
+\subsection{Inventory Reduction Tactics}
+
+\begin{itemize}
+	\item Cycle inventory: reduce the lot sizes (order size)
+	\item Safety stock: place orders close to time needed
+	\item Seasonal inventory: Match demand rate with production rate
+	\item Pipeline inventory: reduce the lead time
+\end{itemize}
+
+\subsection{ABC Inventory Planning}
+
+A method for grouping items by dollar volume to identify those items to be monitored closely.
+\begin{itemize}
+	\item ``A'' items: high dollar volume (20\% item volume, 80\% dollar volume)
+	\item ``B'' items: moderate dollar volume (30\% item volume, 15\% dollar volume)
+	\item ``C'' items: low dollar volume (50\% item volume, 5\% dollar volume)
+\end{itemize}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\linewidth]{img/abc.png}
+\end{figure}
+
+\subsection{Characteristics of Inventory Systems}
+
+\begin{itemize}
+	\item Demand
+	      \begin{itemize}
+		      \item Constant v.s. Variable
+		      \item Known v.s. Random
+		      \item Independent v.s. Dependent
+	      \end{itemize}
+	\item Lead Time
+	\item Review Time
+	\item Excess Demand
+	\item Changing Inventory
+\end{itemize}
+
+\subsection{Inventory Costs}
+
+\begin{itemize}
+	\item Holding or Carrying Costs: $h \cdot \int_{t_1} ^{t_2} l(t) \text{d}t = h\cdot \overline{l(t)}\cdot (t_2 - t_1)$,
+	      where $l(t)$ is the inventory level, and $h$ is the unit cost per period,
+	      comprising the following components:
+	      \begin{itemize}
+		      \item Storage costs (facility, insurance, tax, utilities)
+		      \item Obsolescence/shrinkage costs (deprecated value)
+		      \item Capital costs (opportunity costs)
+	      \end{itemize}
+	      \begin{figure}[H]
+		      \centering
+		      \includegraphics[width=0.4\linewidth]{img/inv-as-func.png}
+	      \end{figure}
+	      As $h$ is hard to define, we often use $H$,
+	      which is the annual (or whole-period) holding cost per unit.
+	      Then the total holding cost is $H\cdot \overline{l(t)}$.
+	      $H$ is often expressed as ``annual interest rate'', $p\%$,
+	      where $H = \text{unit cost} \times p\%$.
+	\item Order Costs: $
+		      \left\{
+		      \begin{array}{ll}
+			      S+c\cdot Q & , Q > 0 \\
+			      0          & , Q = 0
+		      \end{array}
+		      \right.
+	      $
+	      \begin{itemize}
+		      \item Setup cost: $S$
+		      \item Purchase cost per unit: $c$
+	      \end{itemize}
+	\item Shortage or Stockout Costs, as a penalty.
+	      It is higher than the revenue of ``what if the sale is completed'',
+	      but is hard to estimate precisely.
+\end{itemize}
+
+\subsection{Basic Inventory Models}
+
+\subsubsection{Economic Order Quantity Model (EOQ)}
+
+Assumptions:
+\begin{itemize}
+	\item Demand for the product is known, constant, and uniform
+	\item Lead time is constant
+	\item Purchasing cost per unit is constant (no quantity discount)
+	\item Setup cost is constant
+	\item No back orders or stockouts
+\end{itemize}
+
+Use cases:
+\begin{itemize}
+	\item DO NOT use EOQ if you use the Make-To-Order strategy (fully customized)
+	\item If the order size is constrained by some limitation,
+	      or there are quantity discounts,
+	      or if the replenishment is not instantaneous,
+	      you should modify the EOQ.
+\end{itemize}
+
+The model:
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\linewidth]{img/EOQ-model.png}
+\end{figure}
+
+Total annual cost = Annual purchase cost + Annual ordering cost (purchase setup cost)
++ Annual holding cost
+\[ TC = DC + \dfrac{D}{Q}S + \dfrac{Q}{2}H \]
+
+\begin{itemize}
+	\item $TC$ = Total annual cost
+	\item $D$ = Annual demand in units
+	\item $C$ = Cost per unit
+	\item $Q$ = Quantity to be order (the variable to $\arg \min$)
+	\item $S$ = Ordering cost (purchase setup cost)
+	\item $H$ = Annual holding cost per unit
+\end{itemize}
+
+It can be easily identified in the EOQ Model figure that the average inventory level is
+$\dfrac{Q}{2}$, therefore the annual holding cost is $\dfrac{Q}{2}H$.
+
+Key results:
+\begin{itemize}
+	\item The optimization result is $EOQ = \sqrt{\dfrac{2DS}{H}}$
+	\item The corresponding optimal annual variable cost
+					\footnote{The part in TC that can be optimized, which is $\dfrac{D}{Q}S + \dfrac{Q}{2}H$. The $DC$ is determined and cannot be changed.} 
+				is $C^* = \sqrt{2SDH}$
+	\item For any $Q$, $\dfrac{C(Q)}{C^*} = \dfrac{1}{2} (\dfrac{Q}{Q^*} + \dfrac{Q^*}{Q})$
+	\item Reorder point, the point in time by which stock must be ordered, is $R = \bar{d} L$,
+	      where
+	      \begin{itemize}
+		      \item $\bar{d}$ is average demand per time period
+		      \item $L$ is the number of time periods between placing order and delivery
+	      \end{itemize}
+	      Reorder point in inventory level is equivalent to lead time in time.
+	      In the following example, reorder point is $R=1040$, and lead time is 4 months.
+	      \begin{figure}[H]
+		      \centering
+		      \includegraphics[width=0.7\linewidth]{img/reorder-point.png}
+	      \end{figure}
+\end{itemize}
+
+\subsubsection{EOQ Model with Finite Production Rate}
+
+Considers a manufacturer that will produce an order quantity over a period of time
+rather than all at once instantly.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\linewidth]{img/EOQ-model-with-RR.png}
+\end{figure}
+
+The model:
+\[
+	\begin{aligned}
+		TC & = DC + \dfrac{D}{Q} S + \dfrac{I_{\max}}{2}H \\
+		I_{\max} &= (p-d) \dfrac{Q}{p}
+	\end{aligned}
+\]
+
+\begin{itemize}
+	\item $d$ = Material usage rate
+	\item $p$ = Supplier production or delivery rate
+	\item $(p-d)$ = Inventory accumulation rate after an order is placed
+	\item $\dfrac{Q}{p}$ = number of time periods required to fill the order
+\end{itemize}
+
+Optimum EOQ = $\sqrt{
+		\dfrac{2DS}{H} \cdot \dfrac{p}{(p-d)}
+	}$
+
+\subsubsection{Quantity-Discount Model}
+
+Consider the case when there are price discounts associated with order quantities.
+
+With the unit cost determined by the order quantity, there are two types fo discounts:
+\begin{itemize}
+	\item Incremental discount: The discounted unit price is imposed on the incremental unites
+	\item All-units discount: The discounted unit price is imposed on all units
+\end{itemize}
+
+Visualization ($C(Q)$ is the total cost):
+
+\begin{figure}[H]
+	\centering
+	\begin{minipage}[t]{0.49\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{img/discount-cost-incremental.png}
+	\end{minipage}
+	\begin{minipage}[t]{0.49\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{img/discount-cost-all-unit.png}
+	\end{minipage}
+\end{figure}
+
+Therefore, the TC is a piecewise function of $Q$ (order size).
+To determine the minimum TC, calculate minimum TC for each piece of the function, and compare their value.
+
+\subsection{Inventory Control Systems}
+
+\subsubsection{Continuous Review System}
+
+The system tracks the remaining inventory of a SKU.
+Each time a withdrawal is made, the system determines whether it is time to reorder.
+It is a system where the order quantity remains constant but the time between orders varies
+(because in the real world, the demand is varying).
+
+Example: Always purchasing a dozen eggs when there are only two eggs left in the refrigerator.
+
+The choice of average quantity can be determined by the EOQ model, by using average demand expectation.
+However, if the choice of reorder point is also determined by the average demand,
+there are 50\% of cases that you will go stock out, which is generally unacceptable.
+
+Solution: Add safety stock. Change reorder point to average demand during lead time + safety stock.
+Steps:
+\begin{enumerate}
+	\item Choose an appropriate service level
+	\item Determine the statistical distribution of demand during lead time
+	\item Determine the safety stock and reorder point, $z \sigma_{dLT}$
+\end{enumerate}
+
+The idea is that, the demand during a certain time window can be measured by a probability distribution.
+If the actual demand in this window is less than the safety stock, there is no stock out.
+This is described by the cdf of the above distribution.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\linewidth]{img/safety-stock-service-level.png}
+\end{figure}
+
+Total cost of continuous review system can be measured in two ways:
+\begin{itemize}
+	\item annual inventory holding cost + annual ordering cost + annual safety stock holding cost
+	\item annual inventory holding cost + annual ordering cost + possible backorder cost
+\end{itemize}
+
+\subsubsection{Periodic Review System / Fixed-Time Period}
+
+Inventory position is reviewed periodically.
+It is a system where the time period between orders remains constant but the order quantity varies.
+
+Example: Always refilling the gas tank of a delivery truck at the end of each day.
+
+Each order placed is actually the demand in the last period.
+That is, after each order is placed,
+the total inventory on hand and in transit is constant (T in the figure below).
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\linewidth]{img/periodic-review-system.png}
+\end{figure}
+
+\begin{itemize}
+	\item Selecting the time between reviews: based on the EOQ
+	\item Determine the target inventory level
+	      \begin{itemize}
+		      \item The protection interval is P+L, inventory-check interval plus the order lead time
+		      \item T = expected demand during P+L + safety stock
+		      \item This system requires more safety stock
+	      \end{itemize}
+	\item Total cost = annual inventory holding cost + annual ordering cost + annual safety stock holding cost
+\end{itemize}
+
+\subsubsection{Comparison of the Q and P Systems}
+
+The advantage of P systems (periodic review system)
+\begin{itemize}
+	\item The system is convenient
+	\item Orders for multiple items from the same supplier can be combined into a single purchase order
+	\item Inventory level needs to be known only when a review is made
+\end{itemize}
+
+The advantage of Q systems (continuous review system)
+\begin{itemize}
+	\item The review frequency if each SKU may be individualized
+	\item Fixed lot sizes, if large enough, can result in quantity discounts
+	\item Lower safety stocks result in savings
+\end{itemize}
+
+\subsubsection{Hybrid Systems}
+
+\begin{itemize}
+	\item Min-max system / (s, S) system:
+	      Inventory level is reviewed fixed time intervals.
+	      However, an order is not necessarily placed after every review.
+	      An order will be placed only after the inventory is less than a predetermined level, s.
+	      The order will supplement the inventory to level S.
+	      It is suitable when both review and ordering costs are high.
+	\item Base stock system. A one-for-one policy, placing an order right after an inventory is sold out.
+	      It is suitable for extremely expensive items.
+\end{itemize}
+
+\subsection{Perishable Inventory}
+
+Product is only viable for sale during a single time period.
+After that, the scrap value of the product is less than the initial cost of the product.
+
+\subsubsection{Payoff Table Solution}
+
+List the demand level and the corresponding probability, and the order quantity.
+For each demand and quantity, a payoff can be calculated,
+and they can be summarized based on the probability, into an expected payoff.
+
+Choose the order quantity level with the highest expected payoff.
+
+\subsubsection{Marginal Analysis Solution}
+
+Let B = marginal benefit of stocking an additional unit, i.e. retail price - purchase cost.
+Let C = marginal cost of stocking an additional unit, i.e. purchase price - salvage price.
+The expected marginal benefit = B $\times$ P(Demand > Q),
+and the expected marginal cost = C $\times$ P(Demand $\leq$ Q).
+
+Therefore, at the optimal Q level, P(Demand $\leq$ Q) = $\dfrac{B}{B+C}$.
+If Q is not continuous, the optimal Q* is $\lceil Q \rceil$.
+
+For example, when $\dfrac{B}{B+C} = 0.925$, P(Demand $\leq$ 20) = 0.92,
+and P(Demand $\leq$ 21) = 0.95.
+Q is somewhere between 20 and 21, therefore Q* is 21.
+The optimal purchase quantity is 21.
+
+\subsubsection{Continuous Demand}
+
+Begin exactly the same as the discrete demand situation,
+the optimal order is the smallest value Q such that P(Demand $\leq$ Q) $\geq \dfrac{B}{B+C}$.
+
+\subsection{Inventory Management in Services}
+
+Services cannot stock inventory, instead, they use yield management or revenue management.
+The goal is maximizing capacity utilization, selling all service capacity for a price higher than its cost.
+
+Generally, a large proportion of capacity is sold in advance for reduced prices.
+Some capacity is held for last-minute customers willing to pay full prices.
+
+Characteristics: the ability to segment the markets and customers, high fixed costs and low variable costs.
+
+\section{Beer Game}
+
+Beer game is said to be out of the scope of the exam. If it is needed, refer to the slides directly.
+
+\section{Planning for Production}
+
+\subsection{Stages in Planning}
+
+\begin{figure}[]
+	\centering
+	\includegraphics[width=0.7\linewidth]{img/stages-in-planning.png}
+\end{figure}
+
+\subsection{Concept of Independent and Dependent Demand}
+
+\begin{itemize}
+	\item Independent demand: demand for a final product, which is influenced only by market
+	\item Dependent demand: demand for components, which is influenced only by final products
+\end{itemize}
+
+Master Production Schedule (MPS) is for independent demand.
+Material Requirements Planning (MRP) is for dependent demand.
+
+\subsubsection{MPS}
+
+It details how many products will be produced within a specified periods of time.
+
+Data related to MPS:
+\begin{itemize}
+	\item Constant/Initial values:
+	      \begin{itemize}
+		      \item Quantity on Hand
+		      \item Lot Size
+		      \item Lead Time
+	      \end{itemize}
+	\item Variables in each week:
+	      \begin{itemize}
+		      \item Forecast
+		      \item Customer orders booked
+		      \item Projected on-hand inventory
+		      \item MPS quantity
+		      \item MPS start
+	      \end{itemize}
+\end{itemize}
+
+Steps to develop an MPS:
+
+Calculate projected on-hand inventory, which is an estimate of the amount of inventory available each week,
+after demand has been satisfied.
+
+\[
+	I_t = I_{t-1} + \text{MPS}_t - \max (F_t, CO_t)
+\]
+
+where
+\begin{itemize}
+	\item $I_t$ = projected on-hand inventory balance at the end of week $t$
+	\item $\text{MPS}_t$ = MPS quantity \red{due} in week t
+	\item $F_t$ = forecast of orders in week $t$
+	\item $CO_t$ = customer orders booked for shipment in week $t$
+\end{itemize}
+
+When this formula indicates a negative $I_t$, which is a shortage signal,
+a MPS should be scheduled \red{due} in week $t$.
+
+The final MPS table:
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\linewidth]{img/filled-MPS-table.png}
+\end{figure}
+
+Note that the projected on-hand inventory is calculated from the \textbf{actual} customer orders booked
+for week 1 $\rightarrow$ 2,
+but is calculated from the \textbf{forecast} for other weeks.
+
+The goal is to maintain a nonnegative projected on-hand inventory balance.
+That is, as shortages are detected, MPS quantities should be scheduled to cover them.
+Note that it should be planned ahead because of the lead time.
+
+\subsubsection{MRP}
+
+MPR specifies the replenishment schedules of all the components and raw materials of a product.
+
+Overview:
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\linewidth]{img/MRP-overview.png}
+\end{figure}
+
+\paragraph{MRP Input: Bill of Materials (BOM)}
+
+A record of all components of a product,
+the parent-component relationship and the usage quantities and times.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\linewidth]{img/POM-example.png}
+\end{figure}
+
+Time relationships can also be annotated on the edges in BOM to show the lead time between each level.
+
+\paragraph{Inventory Record}
+
+A record that shows an item's lot-size policy, lead time, and various time-phased data.
+
+It's basically the same as MPS, except for the related variables are:
+\begin{itemize}
+	\item Gross requirements
+	\item Scheduled receipts (initial quantity on hand)
+	\item Projected on-hand inventory
+	\item Planned receipts
+	\item Planned order releases
+\end{itemize}
+
+The planned order releases indicates planned receipts after the lead time,
+which should keep the projected on-hand inventory to be non-negative.
+
+\paragraph{MRP Explosion}
+
+Explode the MPS table, according to the BOM, with the Inventory Record,
+to determine when and how much a raw/intermediate material should be produced.
+
+
+\subsubsection{Planning Factor -- Three Kinds of Lot Size Rules}
+
+\begin{itemize}
+	\item Fixed order quantity (FOQ) rule, which maintains the same order quantity each time an order is issued,
+					but the time intervals can be adjusted to ensure the projected on-hand inventory.
+	\item Periodic order quantity (POQ) rule, which issues the order for predetermined time intervals,
+					but the order quantity (lot size) can be adjusted to ensure the projected on-hand inventory.
+  \item Lot-for-Lot (L4L) rule, where the lot size covers the gross requirements of a single week.
+					This is a special case of one-week periodic order quantity.
+\end{itemize}
+
+The average inventory level of FOQ is the largest, and that of POQ is smaller,
+and L4L is a just-in-time production so that the average inventory level is 0.
+
+\subsubsection{Planning Factor -- Lead Time}
+
+Lead time is an estimate of the time between placing an order and receiving the item in inventory.
+It consists time estimations for:
+
+\begin{itemize}
+	\item Setup time
+	\item Processing time
+	\item Materials handling time between operations
+	\item Waiting time
+\end{itemize}
+
+\subsubsection{Planning Factor -- Safety Stock}
+
+Safety stock is to protect against uncertainties, including lead time,
+item quality, etc.
+
+Using rule is that the planned receipt should be scheduled whenever the projected on-hand inventory
+drops below the desired safety stock level.
+
+\subsection{Management Issue}
+
+\subsubsection{MPS Frozen and ATP}
+
+The MPS table may variate because the forecast and customer orders booked are not stable,
+it will cause the projected MPS start to change frequently.
+
+After confirming the MPS, it should be frozen.
+The Available-to-Promise (ATP) inventory,
+can then be calculated on this basis.
+ATP is the quantity produced by an MPS, or the quantity on hand,
+that marketing department can promise to deliver on specific dates.
+
+Calculation of ATP:
+\begin{itemize}
+	\item The first week: current on-hand inventory + MPS quantity this week -
+					the cumulative total of booked orders before the week in which the next MPS quantity arrives
+  \item Subsequent weeks: Whether an MPS is scheduled to be completed?
+	\begin{itemize}
+		\item No: no need to calculate again by definition.
+		\item Yes: that week's MPS quantity - the cumulative total of booked orders from that week
+						to the the week in which the next MPS quantity arrives.
+	\end{itemize}
+\end{itemize}
+
+Example:
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.75\linewidth]{img/atp-calc.png}
+\end{figure}
+
+The first ATP, 17, is quantity on hand - customer orders booked.
+The second ATP, 91, is $150-27-24-8$.
+The third one is just that MPS quantity, because no customer orders have been booked at that time.
+
+The total amount that marketing department can promise to deliver on specific dates
+is the summation of the ATP before that specific date.
+For example, $91+17=108$ items can be promised to deliver in Week 2, or Week3.
+$17+91+150=258$ items can be promised to deliver in Week 7, or Week 8.
+
+\subsubsection{Importance of Data}
+
+The input of MPS, BOM, inventory records, and lead time, must be precise,
+otherwise the plan will not work.
+
+\subsubsection{Evolution from MRP to MRPII}
+
+The CRP (Capacity Requirement Planning) system is added to make sure that
+the plan generated by the MRP system is balanced and available.
+
+MRPII (Manufacturing Resources Planning) is a system that ties the basic MRP system to the company's financial system,
+and other processes.
+It will generate a performance report based on the output of MRP and the cost data.
+
+\subsubsection{Evolution from MRPII to ERP}
+
+The ERP system combines the MRPII and customer service, accounting and finance, HR, data analysis, sales and marketing, supply chain management system.
+It is the most confound information system in today's company.
+
+\subsubsection{Resource Planning for Service Providers}
+
+Focus on the capacity, and use bill of resources instead of bill of materials.
+Other considerations may vary as well.
+
+\section{Planning for Project}
+
+A project is an interrelated set of activities with a \red{definite starting and ending point}
+which results in a \red{unique outcome} for a \red{specific allocation of resources}.
+
+The goal of project management is to:
+\begin{itemize}
+	\item Complete the project on time or earlier
+	\item Do not exceed the budget
+	\item Meet the specifications
+\end{itemize}
+
+Four major phases of project management:
+\begin{enumerate}
+	\item Defining
+		\begin{itemize}
+			\item Define the scope and objectives
+			\item Select the project manager and team
+			\item Recognizing organization structure
+		\end{itemize}
+	\item Planning
+		\begin{itemize}
+			\item Define the Work Breakdown Structure (WBS)
+			\item Diagramming the network
+			\item Developing the schedule
+			\item Analyzing cost-time trade-offs
+			\item Assessing risks
+		\end{itemize}
+	\item Execution
+	\item Close out
+\end{enumerate}
+
+\subsection{Defining and Planning}
+
+\subsubsection{Defining Work Breakdown Structure}
+
+Similar to BOM, break a large task into various small tasks in a table, or a tree.
+Note that the precedence relationship should also be established and the estimated time should be given.
+
+\subsubsection{Diagramming the Network}
+
+Based on the immediate predecessor, a DAG can be depicted to show the predecessor relationship,
+and the time required for each task can be marked as well.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\linewidth]{img/DAG.png}
+\end{figure}
+
+\subsubsection{Developing the Schedule}
+
+The completion time of a project can be found by finding the critical path.
+
+Each node (activity) have five attributes:
+\begin{itemize}
+	\item Earliest start time
+	\item Earliest finish time
+	\item Latest start time
+	\item Latest finish time
+	\item Activity duration
+\end{itemize}
+
+The latest start/finish time means latest time for the task to start which will not cause the whole project to postpone.
+
+The earliest start/finish time can be computed from the start point,
+the latest start/finish time can be computed backwards from the ending point.
+The difference between the earliest and latest time is the slack time.
+The path without slack time is the critical path.
+
+\subsubsection{Analyzing Cost-Time Trade-offs}
+
+Project costs:
+\begin{itemize}
+	\item Direct costs: labor, materials, etc. Costs directly related to project activities.
+	\item Indirect costs: administration, depreciation, financial, etc. Anything that can be avoided by reducing total project time.
+	\item Penalty costs: incurred if the project extends beyond some specific date.
+\end{itemize}
+
+Project crashing (or expediting): Shortening some activities within a project to reduce overall project completion time
+
+Crash time: The shortest possible time to complete an activity.
+Crash cost: The total cost of an activity which is to be finished in its crash time (will be higher than its normal cost).
+
+Maximum time reduction: Normal time - Crash time.
+Cost of crashing per week: (Crash cost - Normal cost) / Maximum time reduction
+
+The procedures:
+\begin{enumerate}
+	\item Find the activity \red{on the critical path} with the lowest cost of crashing per week
+	\item Reduce its time (crash it) until
+	\begin{itemize}
+		\item It cannot be further reduced
+		\item Another path becomes critical
+		\item The increase in the cost exceeds the savings that result from shortening the project
+	\end{itemize}
+	\item Repeat until no possible improvement
+\end{enumerate}
+
+
+\subsubsection{Assessing Risks}
+
+The uncertainty can be estimated with:
+\begin{itemize}
+	\item The optimistic time $a$
+	\item The most likely time $m$
+	\item The pessimistic time $b$
+\end{itemize}
+
+Each activity time in a project is modelled as a random variable derived from a beta probability distribution.
+
+For beta distribution, the average (mean finish time) is $\dfrac{a+4m+b}{6}$,
+and the variance is $\left(\dfrac{b-a}{6}\right)^2$.
+
+In this setup, the time used for creating the DAG (and thus identifying the critical path) is the \textbf{mean time}
+calculated from the formula above, \red{not the most likely time}.
+
+Suppose that the activity duration times are i.i.d.,
+according to the central limit theorem,
+$T_E$ is the sum of mean times of activities on the critical path.
+$\sigma_p^2$ is the sum of the variance of activities on the critical path.
+
+Use the $z = \dfrac{T- T_E}{\sigma_p}$ transformation where $T$ is the due date for the project,
+we can test the probability that the project will not overdue.
+
+\subsection{Execution and Close Out}
+
+The gantt chart can be used for monitoring and controlling schedule status and project resources.
+
+\section{Lean System}
+
+Definition: operation systems that maximize the value added by each of a company's activities through removing waste from them,
+where ``waste'' is the activities that only increase the cost but does not add value.
+
+\subsection{JIT Production}
+
+JIT production is a pull system instead of a push system.
+It utilized the Kanban system, in which:
+\begin{itemize}
+	\item number of units held by each container: size of the production lot
+	\item number of authorized containers: WIP inventory + safety stock
+	\item number of Kanbans: number of containers
+\end{itemize}
+
+\[
+	K = \dfrac{d}{c}(w+p)(1+\alpha)
+\]
+
+\begin{itemize}
+	\item K = number of Kanbans
+	\item d = expected daily demand for the part, in units
+	\item w = average waiting time plus materials handling time per container
+	\item p = average processing time per container
+	\item c = quantity in a standard container of the part
+	\item $\alpha$ = safety stock coefficient
+\end{itemize}
+
+\subsection{Labour Productivity}
+
+One Worker, Multiple Machines (OWMM)
+
+The production assembly uses a ``U'' shape instead of the traditional straight line,
+so that a worker can easily manipulate the machines on both sides.
+
+\subsection{Quality Control}
+
+\begin{itemize}
+	\item Precaution and control is more important and costly effective than examine the flawed products
+	\item All workers should do quality control by themselves, instead of forming a specialized QA department.
+					The workers' self-quality-control team is called QC team.
+\end{itemize}
+
+\subsection{Continuous Improvement}
+
+Philosophy: Any organization has room for improvement under any circumstances.
+
+The most important things are ``continuous'' and ``employee participation''.
+
+
+
+
+%-------%
+
+
+
+\end{document}
+
+
+
