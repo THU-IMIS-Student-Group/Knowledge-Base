@@ -31,8 +31,17 @@
 
 - [知识点梳理式问答](https://github.com/primus2019/Review-on-Artificial-Intelligence). 2019 学年第二学期。黄京华老师。Github Repo. By Primus. ![GitHub stars](https://img.shields.io/github/stars/Primus2019/Review-on-Artificial-Intelligence?style=social)
 
+- [考点梳理 + Slides 清华云盘链接](https://github.com/Xiaochr/Course-Reviews/blob/master/2020-spring/AI.md). 2019 学年第二学期。黄京华老师。Github Repo. By Charles_X. ![GitHub stars](https://img.shields.io/github/stars/Xiaochr/Course-Reviews?style=social)
+
 ## 生产与运作管理
 
 - [课程整理 PDF 和 LaTeX 源代码](Production-and-Operation-Management/2019-summary-Vopaaz/). 2019 学年第二学期。刘丽文老师。本 Repo 内目录。By Vopaaz.
 
+## 商务数据分析
+
+- [知识点梳理 + Slides 清华云盘链接](https://github.com/Xiaochr/Course-Reviews/blob/master/2020-spring/BDA.md). 2019 学年第二学期。毛波老师。Github Repo. By Charles_X. ![GitHub stars](https://img.shields.io/github/stars/Xiaochr/Course-Reviews?style=social)
+
+## 系统分析与设计
+
+- [知识点梳理 + Slides 清华云盘链接](https://github.com/Xiaochr/Course-Reviews/blob/master/2020-spring/SAD.md). 2019 学年第二学期。毛波老师。Github Repo. By Charles_X. ![GitHub stars](https://img.shields.io/github/stars/Xiaochr/Course-Reviews?style=social)
 
