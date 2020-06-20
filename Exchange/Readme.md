@@ -50,7 +50,7 @@ University-of-California-Berkeley
 
 ### Link Information
 
-在“索引”中，请在正确的学校全名+缩写的小标题下附上你的链接，并写明以下信息
+在“索引”中，请在正确的学校全名+缩写/年份的小标题下附上你的链接，并写明以下信息
 
 - 资料的描述
 - 指向的对象，例如 Github Repo, Google Drive 下载链接等
