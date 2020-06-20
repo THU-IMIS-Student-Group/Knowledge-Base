@@ -2,9 +2,11 @@
 
 ## Index
 
-- [企业就职的路径规划与攻略](Profession/index.md)
-- [获取教职的路径规划与攻略](Faculty/index.md)
-- [从政的路径规划与攻略](GOV/index.md)
+- 企业就职的路径规划与攻略
+- 获取教职的路径规划与攻略
+- 从政的路径规划与攻略
+
+本部分暂无内容，欢迎贡献。
 
 ## Contribution Guide
 
