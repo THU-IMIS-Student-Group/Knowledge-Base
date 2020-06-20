@@ -4,7 +4,7 @@
 
 - 国内保研的相关资料
 - 国内直博的相关资料
-- [出国申请 Master 的相关资料](Overseas/index.md)
+- [出国申请 Master 的相关资料](Overseas-Master/index.md)
 - 出国申请 PhD 的相关资料
 
 有关春招、秋招或其他求职信息，请移步 [Job Hunting](../Job-Hunting/) 板块。
