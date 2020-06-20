@@ -1,6 +1,6 @@
 # Knowledge-Base
 
-A knowledge share repository for Tsinghua University Information Management and Information Systems. 
+A knowledge share repository for Tsinghua University Information Management and Information Systems.
 
 我们希望解决现在学术手册/交换手册体系下的一些不足：
 
@@ -50,6 +50,8 @@ A knowledge share repository for Tsinghua University Information Management and 
 
 欢迎任何形式的贡献！提交资料或测评、纠错、以及对本项目和贡献者提交的 Repo 不吝 Star,
 都能促进这个项目滚雪球式地发展，更好地服务信管同学。
+
+如果你不知道如何使用 GitHub 进行多人项目的协作，可以参考 [GitHub 官方文档](https://help.github.com/en/github) 和 [Git 官方文档](https://git-scm.com/doc)。
 
 如果对项目本身有建议，如新增板块等，请 issue.
 
