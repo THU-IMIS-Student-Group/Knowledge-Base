@@ -6,6 +6,8 @@
 - 获取教职的路径规划与攻略
 - 从政的路径规划与攻略
 
+本部分暂无内容，欢迎贡献。
+
 ## Contribution Guide
 
 ### Directory Structure
