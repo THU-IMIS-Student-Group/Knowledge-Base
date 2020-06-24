@@ -4,7 +4,7 @@
 
 - [专业必修课目录及资料索引](Required/index.md)
 - [限选课目录及资料索引](Restricted-Elective/index.md)
-- 任选课目录及资料索引
+- [任选课目录及资料索引](Elective/index.md)
 - 通识教育必修课目录及资料索引
 
 ## Contribution Guide
