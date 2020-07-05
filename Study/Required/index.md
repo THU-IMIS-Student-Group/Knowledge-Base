@@ -41,6 +41,8 @@
 
 - [知识点梳理 + Slides Google Drive 链接](https://github.com/Xiaochr/Course-Reviews/blob/master/2020-spring/BDA.md). 2019 学年第二学期。毛波老师。Github Repo. By Charles_X. ![GitHub stars](https://img.shields.io/github/stars/Xiaochr/Course-Reviews?style=social)
 
+- [商务数据分析的思考题整理和课内project](Business-Data-Analysis/2020-wangtianyu6162/). 2019 学年第二学期。毛波老师。本Repo 内目录。By wangtianyu6162 credited to Koenig Chen.
+
 ## 系统分析与设计
 
 - [知识点梳理 + Slides Google Drive 链接](https://github.com/Xiaochr/Course-Reviews/blob/master/2020-spring/SAD.md). 2019 学年第二学期。毛波老师。Github Repo. By Charles_X. ![GitHub stars](https://img.shields.io/github/stars/Xiaochr/Course-Reviews?style=social)
