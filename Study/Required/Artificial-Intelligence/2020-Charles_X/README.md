@@ -6,6 +6,8 @@
 
 - [期末报告最终 pdf 文件](elegantpaper-cn.pdf)
 
+报告的模板为 [ElegantPaper](https://github.com/ElegantLaTeX/ElegantPaper) ![GitHub stars](https://img.shields.io/github/stars/ElegantLaTeX/ElegantPaper?style=social) 
+
 ## 期末报告题目
 
 - 选题：凡是与人工智能相关的topic都可以，技术和商业应用均可

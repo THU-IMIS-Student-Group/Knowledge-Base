@@ -33,7 +33,7 @@
 
 - [考点梳理 + Slides Google Drive 链接](https://github.com/Xiaochr/Course-Reviews/blob/master/2020-spring/AI.md). 2019 学年第二学期。黄京华老师。Github Repo. By Charles_X. ![GitHub stars](https://img.shields.io/github/stars/Xiaochr/Course-Reviews?style=social)
 
-- [期末报告](Artificial-Intelligence/2020-Charles_X). 2019 学年第二学期。黄京华老师。本 Repo 内目录。By Charles_X.
+- [期末报告](Artificial-Intelligence/2020-Charles_X). 2019 学年第二学期。黄京华老师。本 Repo 内目录。By Charles_X and Jelly_Li.
 
 ## 生产与运作管理
 
