@@ -35,6 +35,8 @@
 
 - [期末报告](Artificial-Intelligence/2020-Charles_X). 2019 学年第二学期。黄京华老师。本 Repo 内目录。By Charles_X and Jelly_Li.
 
+- [期末报告](Artificial-Intelligence/2020-wangtianyu6162). 2019 学年第二学期。黄京华老师。本 Repo 内目录。By wangtianyu6162 and ***.
+
 ## 生产与运作管理
 
 - [课程整理 PDF 和 LaTeX 源代码](Production-and-Operation-Management/2019-summary-Vopaaz/). 2019 学年第二学期。刘丽文老师。本 Repo 内目录。By Vopaaz.
