@@ -1,6 +1,8 @@
-# Table of Resources
+# Domestic Master
 
-## Program Specifics
+## Table of Resources
+
+### Program Specifics
 
 Tsinghua University | THU - TCMiBA
 
