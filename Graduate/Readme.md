@@ -2,7 +2,7 @@
 
 ## Index
 
-- 国内保研的相关资料
+- [国内保研的相关资料](Domestic-Master/index.md)
 - [国内直博的相关资料](Domestic-PhD/index.md)
 - [出国申请 Master 的相关资料](Overseas-Master/index.md)
 - 出国申请 PhD 的相关资料
